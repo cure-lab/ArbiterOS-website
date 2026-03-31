@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { type MouseEvent, useEffect, useState } from 'react';
 
 type Lang = 'en' | 'zh';
 
 const en = {
-  nav: { howItWorks: 'How It Works', features: 'Features', extension: 'Extension' },
+  nav: { home: 'Home', howItWorks: 'How It Works', features: 'Features', extension: 'Observability' },
   hero: {
     eyebrow: 'Open-Source Agent Governance',
     title: 'Secure every AI\u00a0agent action before it\u00a0happens.',
@@ -12,28 +12,51 @@ const en = {
     secondaryBtn: 'Learn More',
     meta: ['OpenAI-compatible API', 'OpenClaw Integration', 'Local / Docker Deploy'],
   },
-  signalTags: [
-    { label: 'Trustworthiness', size: 'lg', tone: 'blue' },
-    { label: 'Deterministic Replay', size: 'xs', tone: 'slate' },
-    { label: 'Policy Engine', size: '2xl', tone: 'blue' },
-    { label: 'Taint Propagation', size: 'md', tone: 'teal' },
-    { label: 'Skill Trust', size: 'sm', tone: 'teal' },
-    { label: 'Full Observability', size: 'xl', tone: 'slate' },
-    { label: 'Policy Protection', size: 'md', tone: 'teal' },
-    { label: 'Confidentiality', size: 'lg', tone: 'teal' },
-    { label: 'Red-Team Validated', size: 'xs', tone: 'muted' },
-    { label: 'Root Cause Analysis', size: 'md', tone: 'slate' },
-    { label: 'Instruction Parsing', size: '2xl', tone: 'teal' },
-    { label: 'Reversibility', size: 'sm', tone: 'muted' },
-    { label: 'Human Confirmation', size: 'xl', tone: 'blue' },
-    { label: 'LiteLLM Proxy', size: 'md', tone: 'blue' },
-    { label: 'Prompt Pack', size: 'xs', tone: 'muted' },
-    { label: 'Governed Traces', size: 'lg', tone: 'slate' },
-    { label: 'Governance Dashboard', size: 'md', tone: 'blue' },
-    { label: 'OpenAI Compatible', size: 'sm', tone: 'blue' },
-    { label: 'Execution Risk', size: 'lg', tone: 'slate' },
-    { label: 'Policy Refinement', size: 'sm', tone: 'teal' },
-  ],
+  advantages: {
+    label: 'Feature Advantages',
+    title: 'Not just forwarding models \u2014 governing the entire Agent execution chain',
+    items: [
+      {
+        title: 'Policy Protection + User Confirmation',
+        short: 'Policy-driven interception with human-in-the-loop approval',
+        detail: 'When a policy triggers interception, the kernel returns a confirmation prompt and waits for the user\u2019s Yes/No decision, preventing high-risk tool calls from executing directly.',
+      },
+      {
+        title: 'Instruction Parsing & Structured Persistence',
+        short: 'Unified instruction streams with replayable trace files',
+        detail: 'Maps structured outputs, tool calls, and tool results into a unified instruction stream, generating replayable files per trace for audit and review.',
+      },
+      {
+        title: 'Full-Chain Observability',
+        short: 'Pre-call / post-call logging with Langfuse tracing',
+        detail: 'Records pre-call and post-call logs simultaneously, integrates Langfuse tracing and node persistence for monitoring performance, behavior, and anomalies.',
+      },
+      {
+        title: 'Skill Trust Scanning',
+        short: 'Trust evaluation and caching for skill packages',
+        detail: 'Optionally integrates a skill scanner to evaluate trustworthiness of skill packages and cache results, reducing execution risk from untrusted skills.',
+      },
+      {
+        title: 'OpenClaw Out-of-Box Integration',
+        short: 'OpenAI-compatible endpoint for seamless workflow integration',
+        detail: 'Exposes an OpenAI-compatible interface that can serve as OpenClaw\u2019s default model provider, enabling seamless integration into existing workflows.',
+      },
+      {
+        title: 'One-Click Install & Elastic Deploy',
+        short: 'Multiple deployment methods for individuals and teams',
+        detail: 'Supports install scripts, user-level systemd, Docker Compose, and local source builds, covering both individual and team environments.',
+      },
+    ],
+  },
+  quickStart: {
+    label: 'Quick Start',
+    title: 'Connect ArbiterOS to your Agent system in three steps',
+    steps: [
+      { step: '1', title: 'Install & Start Kernel', description: 'Run the install script or Docker Compose to start ArbiterOS Kernel (default port:4000).' },
+      { step: '2', title: 'Configure Models & Policies', description: 'Configure models, API keys, optional skill trust scanning, and policy rules in litellm_config.yaml.' },
+      { step: '3', title: 'Connect OpenClaw / Your Agent', description: 'Point your model provider to http://127.0.0.1:4000/v1 for instant governance, audit, and observability.' },
+    ],
+  },
   howItWorks: {
     label: 'How It Works',
     title: 'From agent output to governed action in four steps',
@@ -95,92 +118,115 @@ const en = {
 };
 
 const zh: typeof en = {
-  nav: { howItWorks: '工作原理', features: '核心能力', extension: '可视化扩展' },
+  nav: { home: '首页', howItWorks: '工作原理', features: '核心能力', extension: '可观测性' },
   hero: {
-    eyebrow: '开源 Agent 治理内核',
+    eyebrow: '开源 Agent Governance Kernel',
     title: '让每一次 Agent 调用都可控、可审计、可回放',
-    sub: 'ArbiterOS 在 LiteLLM 代理层之上提供策略防护、指令级解析、Langfuse 可观测与技能信任评估，帮助团队更安全地运行 Agent。',
+    sub: 'ArbiterOS 在 LiteLLM Proxy 层之上提供 Policy Protection、Instruction Parsing、Langfuse Observability 与 Skill Trust 评估，帮助团队更安全地运行 Agent。',
     primaryBtn: '三步部署',
     secondaryBtn: '查看核心能力',
-    meta: ['兼容 OpenAI 风格接口', '支持 OpenClaw 集成', '支持本地 / Docker 部署'],
+    meta: ['OpenAI-compatible API', 'OpenClaw Integration', 'Local / Docker Deployment'],
   },
-  signalTags: [
-    { label: '可信度', size: 'lg', tone: 'blue' },
-    { label: '确定性回放', size: 'xs', tone: 'slate' },
-    { label: '策略引擎', size: '2xl', tone: 'blue' },
-    { label: '污点传播', size: 'md', tone: 'teal' },
-    { label: '技能信任', size: 'sm', tone: 'teal' },
-    { label: '全链路可观测', size: 'xl', tone: 'slate' },
-    { label: '策略防护', size: 'md', tone: 'teal' },
-    { label: '保密性', size: 'lg', tone: 'teal' },
-    { label: '红队验证', size: 'xs', tone: 'muted' },
-    { label: '根因分析', size: 'md', tone: 'slate' },
-    { label: '指令解析', size: '2xl', tone: 'teal' },
-    { label: '可逆性', size: 'sm', tone: 'muted' },
-    { label: '人工确认', size: 'xl', tone: 'blue' },
-    { label: 'LiteLLM 代理', size: 'md', tone: 'blue' },
-    { label: '提示包', size: 'xs', tone: 'muted' },
-    { label: '治理追踪', size: 'lg', tone: 'slate' },
-    { label: '治理仪表板', size: 'md', tone: 'blue' },
-    { label: 'OpenAI 兼容', size: 'sm', tone: 'blue' },
-    { label: '执行风险', size: 'lg', tone: 'slate' },
-    { label: '策略优化', size: 'sm', tone: 'teal' },
-  ],
+  advantages: {
+    label: '功能优势',
+    title: '不是只转发 Model，而是治理整个 Agent Execution Path',
+    items: [
+      {
+        title: 'Policy Protection + 用户确认',
+        short: 'Policy 触发拦截时等待用户决策',
+        detail: '当 Policy 触发拦截时，Kernel 会返回确认信息并等待用户 Yes/No 决策，避免高风险 Tool Call 直接执行。',
+      },
+      {
+        title: 'Instruction Parsing 与结构化落盘',
+        short: '统一映射为 Instruction Flow 并生成可 Replay 文件',
+        detail: '将 Structured Output、Tool Call、Tool Result 统一映射为 Instruction Flow，并按 Trace 生成可 Replay 文件，支持 Audit 与复盘。',
+      },
+      {
+        title: 'Full Observability',
+        short: '记录 Pre-call / Post-call Log 并接入 Langfuse',
+        detail: '同时记录 Pre-call / Post-call Log，接入 Langfuse Trace 与 Node 持久化，便于监控性能、行为和异常。',
+      },
+      {
+        title: 'Skill Trust Scanning',
+        short: '对 Skill Package 进行 Trust 评估并缓存结果',
+        detail: '可选接入 Skill Scanner，对 Skill Package 进行 Trust 评估并缓存结果，降低不可信技能带来的执行风险。',
+      },
+      {
+        title: 'OpenClaw Integration',
+        short: '对外暴露 OpenAI-compatible API',
+        detail: '对外暴露 OpenAI-compatible API，配置后可作为 OpenClaw 默认 Model Provider，平滑接入现有 Workflow。',
+      },
+      {
+        title: 'One-Command Install 与弹性部署',
+        short: '多种 Deployment 方式覆盖个人与团队环境',
+        detail: '支持 Install Script、User-level systemd、Docker Compose 与本地源码编译，覆盖个人与团队环境。',
+      },
+    ],
+  },
+  quickStart: {
+    label: '快速上手',
+    title: '三步将 ArbiterOS 接入你的 Agent Workflow',
+    steps: [
+      { step: '1', title: '安装并启动 Kernel', description: '运行安装脚本或 Docker Compose，启动 ArbiterOS Kernel（默认端口:4000）。' },
+      { step: '2', title: '配置 Model 与 Policy', description: '在 litellm_config.yaml 配置 Model、API Key、可选 Skill Trust Scanning 参数与 Policy Rule。' },
+      { step: '3', title: '连接 OpenClaw / 你的 Agent', description: '将 Model Provider 指向 http://127.0.0.1:4000/v1，即刻获得 Governance、Audit 与 Observability 能力。' },
+    ],
+  },
   howItWorks: {
     label: '工作原理',
-    title: '从 Agent 输出到治理行动的四个步骤',
+    title: '从 Agent Output 到 Governed Action 的四个步骤',
     steps: [
-      { step: '01', title: '拦截', description: '网关在 Agent 提交操作前捕获每个 LLM 响应。' },
-      { step: '02', title: '解析', description: '将工具调用和结构化输出转化为可检查的指令并附带安全元数据。' },
-      { step: '03', title: '治理', description: '可配置策略允许、阻止或保护操作 \u2014 必要时升级为人工审批。' },
-      { step: '04', title: '观测', description: '追踪每个决策、分析故障，并通过证据驱动的仪表板优化策略。' },
+      { step: '01', title: 'Intercept', description: '网关在 Agent 提交 Action 之前捕获每个 LLM Response。' },
+      { step: '02', title: 'Parse', description: '将 Tool Call 与 Structured Output 转化为可检查的 Instruction，并附带 Security Metadata。' },
+      { step: '03', title: 'Govern', description: '可配置的 Policy 允许、阻止或保护 Operation，必要时升级为人工 Approval。' },
+      { step: '04', title: 'Observe', description: '追踪每个 Decision、分析 Failure，并通过 Evidence-driven Dashboard 持续优化 Policy。' },
     ],
   },
   features: {
     label: '核心能力',
-    title: '安全与可靠性为核心',
-    desc: 'ArbiterOS 让 Agent 行为在执行前可检查，让高风险行为在关键时刻可治理。',
+    title: '以 Security 与 Reliability 为核心',
+    desc: 'ArbiterOS 让 Agent Behavior 在执行前可检查，让高风险 Behavior 在关键时刻可治理。',
     items: [
-      { title: '指令感知网关', description: '通过 LiteLLM 代理拦截 LLM 请求路径，将模型输出和工具意图转化为结构化指令后再执行。' },
-      { title: '可配置策略引擎', description: '顺序策略检查审查每个操作的可信度、保密性、可逆性和执行风险。' },
-      { title: '人在回路审批', description: '敏感操作通过明确的确认循环升级。已批准的操作携带完整证据用于审计和回放。' },
-      { title: '可追踪的可靠性', description: '每个请求、策略决策和治理追踪都被持久化，支持确定性回放、事故审查和报告。' },
+      { title: 'Instruction-Aware Gateway', description: '通过 LiteLLM Proxy 拦截 LLM Request Path，将 Model Output 与 Tool Intent 转化为 Structured Instruction 后再执行。' },
+      { title: 'Configurable Policy Engine', description: '顺序 Policy Check 审查每个 Operation 的 Trustworthiness、Confidentiality、Reversibility 与 Execution Risk。' },
+      { title: 'Human-in-the-Loop Approval', description: '敏感 Operation 通过明确的 Confirmation Loop 升级。已批准的 Action 携带完整 Evidence，用于 Audit 与 Replay。' },
+      { title: 'Traceable Reliability', description: '每个 Request、Policy Decision 与 Governed Trace 都会被持久化，支持 Deterministic Replay、Incident Review 与 Reporting。' },
     ],
   },
   extension: {
     label: '可视化扩展',
-    title: '可视化、分析与策略迭代',
-    desc: '基于 Langfuse 构建的治理界面将追踪转化为可操作的洞察\n\u2014 从错误诊断到基于证据的策略优化。',
+    title: 'Visualization、Analysis 与 Policy Iteration',
+    desc: '基于 Langfuse 构建的 Governance 界面将 Trace 转化为可操作 Insight\n\u2014 从 Error Diagnosis 到基于 Evidence 的 Policy Refinement。',
     items: [
-      { title: '治理仪表板', description: '监控治理信号 \u2014 错误、警告和策略违规 \u2014 提供实时严重性计数和治理趋势图表。' },
-      { title: '追踪与执行图', description: '以层级视图探索执行流程，包含治理横幅、节点搜索和高亮的错误及违规节点。' },
-      { title: '错误根因分析', description: '识别运行失败原因，提供结构化根因、即时修复建议和复发预防指导。' },
-      { title: '策略违规追踪', description: '追踪每个策略违规的操作详情、严重级别和从追踪到违规指令的逐层下钻。' },
-      { title: '策略优化与确认', description: '分析确认接受和拒绝率，并从证据中生成 LLM 辅助的策略更新建议。' },
-      { title: '经验与提示资产', description: '将治理经验转化为提示包和经验摘要，为未来的 Agent 迭代提供输入。' },
+      { title: 'Governance Dashboard', description: '监控 Governed Signal \u2014 Error、Warning 与 Policy Violation \u2014 提供实时 Severity Count 与 Governance Trend Chart。' },
+      { title: 'Trace & Execution Graph', description: '以层级视图探索 Execution Flow，包含 Governance Banner、Node Search 与高亮的 Error / Violation Node。' },
+      { title: 'Error Root Cause Analysis', description: '识别 Run Failure 的原因，提供 Structured Root Cause、即时 Fix Suggestion 与 Recurrence Prevention Guidance。' },
+      { title: 'Policy Violation Tracking', description: '追踪每个 Policy Violation 的 Action Detail、Severity Label，以及从 Trace 到违规 Instruction 的 Drill-down。' },
+      { title: 'Policy Refinement & Confirmation', description: '分析 Confirmation 的 Accept / Reject Rate，并从 Evidence 中生成 LLM-assisted 的 Policy Update Suggestion。' },
+      { title: 'Experience & Prompt Assets', description: '将 Governance 经验转化为 Prompt Pack 与 Experience Summary，为后续 Agent Iteration 提供输入。' },
     ],
   },
   architecture: {
     label: '架构能力',
-    title: 'Pre-call 到 Post-call 的全流程治理',
+    title: 'Pre-call 到 Post-call 的全流程 Governance',
     nodes: [
-      { main: '请求预处理', sub: 'trace 管理 / 格式合并 / 分类封装' },
+      { main: 'Request Preprocessing', sub: 'Trace 管理 / 格式合并 / 分类封装' },
       { main: 'LLM 调用', sub: 'LiteLLM Proxy' },
-      { main: '响应解析', sub: '结构化抽取 / 指令构建' },
-      { main: '策略检查', sub: '拦截改写 / Yes-No 确认' },
-      { main: '审计与可观测', sub: 'trace 文件 / Langfuse / 日志' },
+      { main: 'Response Parsing', sub: '结构化抽取 / Instruction 构建' },
+      { main: 'Policy Check', sub: '拦截改写 / Yes-No 确认' },
+      { main: 'Audit & Observability', sub: 'Trace 文件 / Langfuse / 日志' },
     ],
   },
   cta: {
     label: '立即开始',
     title: '把 Agent 的"可用"升级为"可控"',
-    desc: 'ArbiterOS 适合希望将 Agent 稳定落地到真实业务系统的研发与平台团队。克隆仓库、配置模型提供者、使用 Docker Compose 或安装脚本运行。',
+    desc: 'ArbiterOS 适合希望将 Agent 稳定落地到真实业务系统的研发与平台团队。克隆仓库、配置 Model Provider，并通过 Docker Compose 或 Install Script 运行。',
     primaryBtn: '查看 GitHub',
     secondaryBtn: '阅读论文',
     contactBtn: '联系团队',
     resources: [
       { label: 'GitHub 仓库', description: '源码、文档与部署指南。', href: 'https://github.com/cure-lab/ArbiterOS' },
-      { label: '可视化扩展', description: '治理可视化工作空间。', href: 'https://github.com/cure-lab/ArbiterOS/tree/main/langfuse' },
+      { label: 'Visualization Extension', description: 'Governance 可视化工作空间。', href: 'https://github.com/cure-lab/ArbiterOS/tree/main/langfuse' },
       { label: '研究论文', description: 'arXiv 上的技术细节。', href: 'https://arxiv.org/abs/2510.13857' },
     ],
   },
@@ -189,32 +235,172 @@ const zh: typeof en = {
 const i18n = { en, zh };
 
 const featureIcons = [GatewayIcon, PolicyEngineIcon, ApprovalIcon, ReliabilityIcon];
+const advantageIcons = [ShieldConfirmIcon, InstructionParseIcon, ObservabilityIcon, TrustScanIcon, OpenClawIcon, DeployIcon];
 const extensionVisuals = [
   GovernanceDashboardVisual, TraceGraphVisual, ErrorAnalysisVisual,
   ViolationTrackingVisual, PolicyRefinementVisual, ExperienceAssetsVisual,
 ];
 
+type SiteCopy = typeof en;
+type PageKey = 'home' | 'how-it-works' | 'features' | 'extension';
+type NavPageKey = Exclude<PageKey, 'home'>;
+
+const appBasePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const pagePaths: Record<PageKey, string> = {
+  home: withBasePath('/'),
+  'how-it-works': withBasePath('/how-it-works'),
+  features: withBasePath('/features'),
+  extension: withBasePath('/extension'),
+};
+
+const navItems: Array<{ page: NavPageKey; label: (copy: SiteCopy) => string }> = [
+  { page: 'how-it-works', label: (copy) => copy.nav.howItWorks },
+  { page: 'features', label: (copy) => copy.nav.features },
+  { page: 'extension', label: (copy) => copy.nav.extension },
+];
+
+function withBasePath(path: `/${string}`): string {
+  if (!appBasePath) {
+    return path;
+  }
+
+  return path === '/' ? `${appBasePath}/` : `${appBasePath}${path}`;
+}
+
+function toRelativePathname(pathname: string): string {
+  if (!appBasePath || !pathname.startsWith(appBasePath)) {
+    return pathname;
+  }
+
+  const relativePath = pathname.slice(appBasePath.length);
+  if (!relativePath) {
+    return '/';
+  }
+
+  return relativePath.startsWith('/') ? relativePath : `/${relativePath}`;
+}
+
+function normalizePathname(pathname: string): string {
+  const normalized = pathname.replace(/\/+$/, '');
+  return normalized === '' ? '/' : normalized;
+}
+
+function getPageFromPath(pathname: string): PageKey {
+  switch (normalizePathname(toRelativePathname(pathname))) {
+    case '/how-it-works':
+      return 'how-it-works';
+    case '/features':
+      return 'features';
+    case '/extension':
+      return 'extension';
+    default:
+      return 'home';
+  }
+}
+
+function getPageTitle(page: PageKey, copy: SiteCopy): string {
+  switch (page) {
+    case 'how-it-works':
+      return copy.nav.howItWorks;
+    case 'features':
+      return copy.nav.features;
+    case 'extension':
+      return copy.nav.extension;
+    default:
+      return 'ArbiterOS';
+  }
+}
+
+function isPlainLeftClick(event: MouseEvent<HTMLAnchorElement>): boolean {
+  return !(
+    event.defaultPrevented ||
+    event.button !== 0 ||
+    event.metaKey ||
+    event.altKey ||
+    event.ctrlKey ||
+    event.shiftKey
+  );
+}
+
 export default function App() {
   const [lang, setLang] = useState<Lang>('en');
+  const [activeAdvantage, setActiveAdvantage] = useState<number | null>(null);
+  const [page, setPage] = useState<PageKey>(() => getPageFromPath(window.location.pathname));
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const t = i18n[lang];
 
   useEffect(() => {
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-  }, [lang]);
+    document.title = page === 'home' ? 'ArbiterOS' : `${getPageTitle(page, t)} | ArbiterOS`;
+  }, [lang, page, t]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setPage(getPageFromPath(window.location.pathname));
+      setActiveAdvantage(null);
+      setMobileNavOpen(false);
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const handleNavigate = (event: MouseEvent<HTMLAnchorElement>, nextPage: PageKey) => {
+    if (!isPlainLeftClick(event)) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const nextPath = pagePaths[nextPage];
+    if (normalizePathname(window.location.pathname) !== normalizePathname(nextPath)) {
+      window.history.pushState({ page: nextPage }, '', nextPath);
+    }
+
+    setPage(nextPage);
+    setActiveAdvantage(null);
+    setMobileNavOpen(false);
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div className="page">
       <header className="header">
         <div className="container header-inner">
-          <a className="brand" href="#top" aria-label="ArbiterOS home">
+          <a
+            className="brand"
+            href={pagePaths.home}
+            onClick={(event) => handleNavigate(event, 'home')}
+            aria-label="ArbiterOS home"
+          >
             <BrandMark />
             <span>ArbiterOS</span>
           </a>
           <nav className="nav" aria-label="Primary">
-            <a href="#how-it-works">{t.nav.howItWorks}</a>
-            <a href="#features">{t.nav.features}</a>
-            <a href="#extension">{t.nav.extension}</a>
+            {navItems.map((item) => (
+              <a
+                key={item.page}
+                href={pagePaths[item.page]}
+                onClick={(event) => handleNavigate(event, item.page)}
+                className={page === item.page ? 'active' : undefined}
+                aria-current={page === item.page ? 'page' : undefined}
+              >
+                {item.label(t)}
+              </a>
+            ))}
           </nav>
+          <button
+            className="mobile-nav-toggle"
+            type="button"
+            onClick={() => setMobileNavOpen((open) => !open)}
+            aria-expanded={mobileNavOpen}
+            aria-controls="mobile-nav-panel"
+            aria-label="Toggle navigation menu"
+          >
+            <MenuIcon open={mobileNavOpen} />
+          </button>
           <button
             className="lang-toggle"
             onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
@@ -234,181 +420,68 @@ export default function App() {
             GitHub
           </a>
         </div>
-      </header>
-
-      <main id="top">
-        <section className="hero container">
-          <div className="hero-content">
-            <span className={`eyebrow ${lang === 'zh' ? 'eyebrow-cn' : ''}`}>{t.hero.eyebrow}</span>
-            <h1>{t.hero.title}</h1>
-            <p className="hero-sub">{t.hero.sub}</p>
-          </div>
-          <div className="hero-panel">
-            <div className="code-card">
-              <p className="code-title">Quick Start</p>
-              <pre>
-                <code>{`git clone https://github.com/cure-lab/ArbiterOS.git
-cd ArbiterOS
-chmod +x install.sh
-./install.sh
-
-./run-kernel.sh`}</code>
-              </pre>
-            </div>
-          </div>
-        </section>
-
-        <section className={`signal-strip-band${lang === 'zh' ? ' signal-strip-band-cn' : ''}`} aria-label="Core concepts">
-          <div className="signal-strip">
-            {t.signalTags.map((tag, i) => (
-              <span
-                className={`signal-tag signal-tag-${tag.size} signal-tag-${tag.tone}`}
-                key={tag.label}
-                style={{ animationDelay: `${i * 0.06}s` }}
+        <div
+          id="mobile-nav-panel"
+          className={`mobile-nav-panel ${mobileNavOpen ? 'is-open' : ''}`}
+          aria-hidden={!mobileNavOpen}
+        >
+          <div className="mobile-nav-content container">
+            <nav className="mobile-nav" aria-label="Mobile primary">
+              <a
+                href={pagePaths.home}
+                onClick={(event) => handleNavigate(event, 'home')}
+                className={page === 'home' ? 'active' : undefined}
+                aria-current={page === 'home' ? 'page' : undefined}
+                style={{ animationDelay: '0.05s' }}
               >
-                {tag.label}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        <section className="container section cta-section">
-          <div className="cta-card">
-            <div className="cta-content">
-              <span className="section-label">{t.cta.label}</span>
-              <h2>{t.cta.title}</h2>
-              <div className="hero-meta cta-meta">
-                {t.hero.meta.map((m) => (
-                  <span key={m}>{m}</span>
-                ))}
-              </div>
-              <p>{t.cta.desc}</p>
-              <div className="cta-actions">
+                <HomeNavIcon />
+                <span className="mobile-nav-text">{t.nav.home}</span>
+                <ChevronIcon />
+              </a>
+              {navItems.map((item, i) => (
                 <a
-                  className="btn btn-primary"
-                  href="https://github.com/cure-lab/ArbiterOS"
-                  target="_blank"
-                  rel="noreferrer"
+                  key={item.page}
+                  href={pagePaths[item.page]}
+                  onClick={(event) => handleNavigate(event, item.page)}
+                  className={page === item.page ? 'active' : undefined}
+                  aria-current={page === item.page ? 'page' : undefined}
+                  style={{ animationDelay: `${0.08 + i * 0.06}s` }}
                 >
-                  {t.cta.primaryBtn}
-                </a>
-                <a
-                  className="btn btn-secondary"
-                  href="https://arxiv.org/abs/2510.13857"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {t.cta.secondaryBtn}
-                </a>
-                <a className="btn btn-outline" href="mailto:contact@arbiteros.ai">
-                  {t.cta.contactBtn}
-                </a>
-              </div>
-            </div>
-            <div className="cta-links">
-              {t.cta.resources.map((link) => (
-                <a
-                  className="resource-link"
-                  key={link.href}
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div>
-                    <span className="resource-name">{link.label}</span>
-                    <span className="resource-desc">{link.description}</span>
-                  </div>
-                  <ArrowIcon />
+                  <MobileNavPageIcon page={item.page} />
+                  <span className="mobile-nav-text">{item.label(t)}</span>
+                  <ChevronIcon />
                 </a>
               ))}
-            </div>
+            </nav>
           </div>
-        </section>
+        </div>
+      </header>
+      <div
+        className={`mobile-nav-overlay ${mobileNavOpen ? 'is-visible' : ''}`}
+        onClick={() => setMobileNavOpen(false)}
+      />
 
-        <section className="container section" id="how-it-works">
-          <div className="section-header section-header-wide">
-            <span className="section-label">{t.howItWorks.label}</span>
-            <h2>{t.howItWorks.title}</h2>
-          </div>
-          <div className="steps-grid">
-            {t.howItWorks.steps.map((s) => (
-              <article className="step-card" key={s.step}>
-                <span className="step-num">{s.step}</span>
-                <h3>{s.title}</h3>
-                <p>{s.description}</p>
-              </article>
-            ))}
-          </div>
-          <div className="how-architecture">
-            <div className="how-architecture-header">
-              <span className="section-label">{t.architecture.label}</span>
-              <h3>{t.architecture.title}</h3>
-            </div>
-            <div className="arch-flow">
-              {t.architecture.nodes.flatMap((node, i) => {
-                const items = [];
-                if (i > 0)
-                  items.push(
-                    <div className="flow-arrow" key={`arrow-${i}`}>→</div>
-                  );
-                items.push(
-                  <div className="flow-node" key={node.main}>
-                    {node.main}
-                    <span>{node.sub}</span>
-                  </div>
-                );
-                return items;
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section className="container section" id="features">
-          <div className="section-header">
-            <span className="section-label">{t.features.label}</span>
-            <h2>{t.features.title}</h2>
-            <p className="section-desc">{t.features.desc}</p>
-          </div>
-          <div className="features-layout">
-            <div className="features-grid">
-              {t.features.items.map((f, i) => {
-                const Icon = featureIcons[i];
-                return (
-                  <article className="feature-card" key={f.title}>
-                    <div className="feature-icon"><Icon /></div>
-                    <h3>{f.title}</h3>
-                    <p>{f.description}</p>
-                  </article>
-                );
-              })}
-            </div>
-            <div className="features-illustration">
-              <HeroIllustration />
-            </div>
-          </div>
-        </section>
-
-        <section className="container section" id="extension">
-          <div className="section-header section-header-wide">
-            <span className="section-label">{t.extension.label}</span>
-            <h2>{t.extension.title}</h2>
-            <p className="section-desc section-desc--forced-break">{t.extension.desc}</p>
-          </div>
-          <div className="ext-grid">
-            {t.extension.items.map((f, i) => {
-              const Visual = extensionVisuals[i];
-              return (
-                <article className="ext-card" key={f.title}>
-                  <div className="ext-visual"><Visual /></div>
-                  <h3>{f.title}</h3>
-                  <p>{f.description}</p>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-
+      <main id="top">
+        {page === 'home' && (
+          <>
+            <HeroSection t={t} lang={lang} />
+            <CtaSection t={t} />
+            <AdvantagesSection t={t} onSelect={setActiveAdvantage} />
+            <QuickStartSection t={t} />
+          </>
+        )}
+        {page === 'how-it-works' && <HowItWorksSection t={t} />}
+        {page === 'features' && <FeaturesSection t={t} />}
+        {page === 'extension' && <ExtensionSection t={t} />}
       </main>
+
+      {activeAdvantage !== null && (
+        <AdvantageModal
+          t={t}
+          activeAdvantage={activeAdvantage}
+          onClose={() => setActiveAdvantage(null)}
+        />
+      )}
 
       <footer className="footer">
         <div className="container footer-inner">
@@ -417,6 +490,271 @@ chmod +x install.sh
         </div>
       </footer>
     </div>
+  );
+}
+
+function HeroSection({ t, lang }: { t: SiteCopy; lang: Lang }) {
+  return (
+    <section className="hero container">
+      <div className="hero-content">
+        <span className={`eyebrow ${lang === 'zh' ? 'eyebrow-cn' : ''}`}>{t.hero.eyebrow}</span>
+        <h1>{t.hero.title}</h1>
+        <p className="hero-sub">{t.hero.sub}</p>
+      </div>
+      <div className="hero-panel">
+        <div className="code-card">
+          <p className="code-title">Quick Start</p>
+          <pre>
+            <code>{`git clone https://github.com/cure-lab/ArbiterOS.git
+cd ArbiterOS
+chmod +x install.sh
+./install.sh
+
+./run-kernel.sh`}</code>
+          </pre>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CtaSection({ t }: { t: SiteCopy }) {
+  return (
+    <section className="container section cta-section">
+      <div className="cta-card">
+        <div className="cta-content">
+          <span className="section-label">{t.cta.label}</span>
+          <h2>{t.cta.title}</h2>
+          <div className="hero-meta cta-meta">
+            {t.hero.meta.map((m) => (
+              <span key={m}>{m}</span>
+            ))}
+          </div>
+          <p>{t.cta.desc}</p>
+          <div className="cta-actions">
+            <a
+              className="btn btn-primary"
+              href="https://github.com/cure-lab/ArbiterOS"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {t.cta.primaryBtn}
+            </a>
+            <a
+              className="btn btn-secondary"
+              href="https://arxiv.org/abs/2510.13857"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {t.cta.secondaryBtn}
+            </a>
+            <a className="btn btn-outline" href="mailto:contact@arbiteros.ai">
+              {t.cta.contactBtn}
+            </a>
+          </div>
+        </div>
+        <div className="cta-links">
+          {t.cta.resources.map((link) => (
+            <a
+              className="resource-link"
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div>
+                <span className="resource-name">{link.label}</span>
+                <span className="resource-desc">{link.description}</span>
+              </div>
+              <ArrowIcon />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AdvantagesSection({
+  t,
+  onSelect,
+}: {
+  t: SiteCopy;
+  onSelect: (index: number) => void;
+}) {
+  return (
+    <section className="container section advantages-section" aria-label={t.advantages.label}>
+      <div className="advantages-card">
+        <div className="advantages-header">
+          <span className="section-label">{t.advantages.label}</span>
+          <h2>{t.advantages.title}</h2>
+        </div>
+        <div className="advantages-grid">
+          {t.advantages.items.map((item, i) => {
+            const Icon = advantageIcons[i];
+            return (
+              <article
+                className="advantage-card"
+                key={item.title}
+                onClick={() => onSelect(i)}
+                style={{ animationDelay: `${i * 0.08}s` }}
+              >
+                <div className="advantage-icon"><Icon /></div>
+                <h3>{item.title}</h3>
+                <p>{item.short}</p>
+                <span className="advantage-more"><ChevronIcon /></span>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AdvantageModal({
+  t,
+  activeAdvantage,
+  onClose,
+}: {
+  t: SiteCopy;
+  activeAdvantage: number;
+  onClose: () => void;
+}) {
+  const Icon = advantageIcons[activeAdvantage];
+
+  return (
+    <div className="adv-modal-backdrop" onClick={onClose}>
+      <div className="adv-modal" onClick={(event) => event.stopPropagation()}>
+        <button className="adv-modal-close" onClick={onClose} aria-label="Close">&times;</button>
+        <div className="adv-modal-icon"><Icon /></div>
+        <h3>{t.advantages.items[activeAdvantage].title}</h3>
+        <p>{t.advantages.items[activeAdvantage].detail}</p>
+      </div>
+    </div>
+  );
+}
+
+function QuickStartSection({ t }: { t: SiteCopy }) {
+  return (
+    <section className="container section quickstart-section">
+      <div className="quickstart-card">
+        <div className="quickstart-header">
+          <span className="section-label">{t.quickStart.label}</span>
+          <h2>{t.quickStart.title}</h2>
+        </div>
+        <div className="quickstart-steps">
+          {t.quickStart.steps.map((step) => (
+            <div className="quickstart-step-group" key={step.step}>
+              <div className="quickstart-step">
+                <span className="quickstart-num">{step.step}</span>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HowItWorksSection({ t }: { t: SiteCopy }) {
+  return (
+    <section className="container section" id="how-it-works">
+      <div className="section-header section-header-wide">
+        <span className="section-label">{t.howItWorks.label}</span>
+        <h2>{t.howItWorks.title}</h2>
+      </div>
+      <div className="steps-grid">
+        {t.howItWorks.steps.map((step) => (
+          <article className="step-card" key={step.step}>
+            <span className="step-num">{step.step}</span>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </article>
+        ))}
+      </div>
+      <div className="how-architecture">
+        <div className="how-architecture-header">
+          <span className="section-label">{t.architecture.label}</span>
+          <h3>{t.architecture.title}</h3>
+        </div>
+        <div className="arch-flow">
+          {t.architecture.nodes.flatMap((node, i) => {
+            const items = [];
+
+            if (i > 0) {
+              items.push(
+                <div className="flow-arrow" key={`arrow-${i}`}>→</div>,
+              );
+            }
+
+            items.push(
+              <div className="flow-node" key={node.main}>
+                {node.main}
+                <span>{node.sub}</span>
+              </div>,
+            );
+
+            return items;
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeaturesSection({ t }: { t: SiteCopy }) {
+  return (
+    <section className="container section" id="features">
+      <div className="section-header">
+        <span className="section-label">{t.features.label}</span>
+        <h2>{t.features.title}</h2>
+        <p className="section-desc">{t.features.desc}</p>
+      </div>
+      <div className="features-layout">
+        <div className="features-grid">
+          {t.features.items.map((feature, i) => {
+            const Icon = featureIcons[i];
+            return (
+              <article className="feature-card" key={feature.title}>
+                <div className="feature-icon"><Icon /></div>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
+              </article>
+            );
+          })}
+        </div>
+        <div className="features-illustration">
+          <HeroIllustration />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ExtensionSection({ t }: { t: SiteCopy }) {
+  return (
+    <section className="container section" id="extension">
+      <div className="section-header section-header-wide">
+        <span className="section-label">{t.extension.label}</span>
+        <h2>{t.extension.title}</h2>
+        <p className="section-desc section-desc--forced-break">{t.extension.desc}</p>
+      </div>
+      <div className="ext-grid">
+        {t.extension.items.map((feature, i) => {
+          const Visual = extensionVisuals[i];
+          return (
+            <article className="ext-card" key={feature.title}>
+              <div className="ext-visual"><Visual /></div>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </article>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
@@ -758,6 +1096,78 @@ function ReliabilityIcon() {
 }
 
 /* ═══════════════════════════════════════════════
+   Advantage Icons
+   ═══════════════════════════════════════════════ */
+
+function ShieldConfirmIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <circle cx="12" cy="10" r="2" />
+      <path d="M9 15c0-1.7 1.3-3 3-3s3 1.3 3 3" />
+    </svg>
+  );
+}
+
+function InstructionParseIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z" />
+      <path d="M9 12l-2 2 2 2" />
+      <path d="M15 12l2 2-2 2" />
+      <path d="M8 8h8M8 18h4" strokeOpacity="0.5" />
+    </svg>
+  );
+}
+
+function ObservabilityIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 5V3M12 21v-2" />
+    </svg>
+  );
+}
+
+function TrustScanIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="8" />
+      <path d="M21 21l-4.35-4.35" />
+      <path d="M8 11l2 2 4-4" />
+    </svg>
+  );
+}
+
+function OpenClawIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+    </svg>
+  );
+}
+
+function DeployIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 14.899A7 7 0 1115.71 8h1.79a4.5 4.5 0 012.5 8.242" />
+      <path d="M12 12v9" />
+      <path d="M8 17l4 4 4-4" />
+    </svg>
+  );
+}
+
+function ChevronIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" width="16" height="16">
+      <path d="M7 4l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/* ═══════════════════════════════════════════════
    Visualization Extension Visuals
    ═══════════════════════════════════════════════ */
 
@@ -1001,6 +1411,55 @@ function ArrowIcon() {
   return (
     <svg viewBox="0 0 20 20" fill="none" width="18" height="18">
       <path d="M6 14L14 6M8 6h6v6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function HomeNavIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" width="18" height="18" className="mobile-nav-icon">
+      <path d="M3 10.5L10 4l7 6.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5 9v7a1 1 0 001 1h3v-4h2v4h3a1 1 0 001-1V9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function MobileNavPageIcon({ page }: { page: NavPageKey }) {
+  if (page === 'how-it-works') {
+    return (
+      <svg viewBox="0 0 20 20" fill="none" width="18" height="18" className="mobile-nav-icon">
+        <path d="M10 2a5 5 0 0 0-5 5c0 1.8.9 3.3 2.3 4.2.4.3.7.8.7 1.3V13h4v-.5c0-.5.3-1 .7-1.3A5 5 0 0 0 10 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M8 15h4M8.5 17h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="10" cy="8" r="1" fill="currentColor" opacity="0.5" />
+      </svg>
+    );
+  }
+  if (page === 'features') {
+    return (
+      <svg viewBox="0 0 20 20" fill="none" width="18" height="18" className="mobile-nav-icon">
+        <path d="M6 3.5h8a1.2 1.2 0 0 1 1.2 1.2v11.1a.5.5 0 0 1-.75.43L10 13.7l-4.45 2.56a.5.5 0 0 1-.75-.43V4.7A1.2 1.2 0 0 1 6 3.5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="m10 6.2.95 1.92 2.12.31-1.53 1.49.36 2.1L10 11.02l-1.9 1 .36-2.1-1.53-1.49 2.12-.31L10 6.2z" fill="currentColor" opacity="0.55" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 20 20" fill="none" width="18" height="18" className="mobile-nav-icon">
+      <rect x="3" y="3" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M6 7h8M6 10h5M6 13h6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.7" />
+    </svg>
+  );
+}
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" width="18" height="18" aria-hidden="true">
+      <path
+        d={open ? 'M5 5l10 10M15 5 5 15' : 'M4 6h12M4 10h12M4 14h12'}
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
