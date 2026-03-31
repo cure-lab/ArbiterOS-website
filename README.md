@@ -1,6 +1,6 @@
 # ArbiterOS Website
 
-Light-themed static React + Vite site for introducing ArbiterOS with emphasis on security, reliability, visualization, error analysis, and policy suggestion.
+Light-themed static React + Vite site for introducing ArbiterOS with emphasis on security, reliability, visualization, error analysis, and policy suggestion. Supports English / Simplified Chinese toggle.
 
 ## Run locally
 
