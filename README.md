@@ -1,6 +1,6 @@
 # ArbiterOS Website
 
-Light-themed static React + Vite site for introducing ArbiterOS with emphasis on security, reliability, visualization, error analysis, and policy suggestion. Supports English / Simplified Chinese toggle.
+Bilingual (中文 / English) React + Vite landing page for ArbiterOS — the open-source agent safety governance and observability kernel.
 
 ## Run locally
 
@@ -14,3 +14,5 @@ npm run dev
 ```bash
 npm run build
 ```
+
+The production build outputs to `dist/`.
