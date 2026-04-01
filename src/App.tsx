@@ -71,6 +71,12 @@ const en = {
       { step: '2', title: 'Configure Models & Policies', description: 'Configure models, API keys, optional skill trust scanning, and policy rules in litellm_config.yaml.' },
       { step: '3', title: 'Connect OpenClaw / Your Agent', description: 'Point your model provider to http://127.0.0.1:4000/v1 for instant governance, audit, and observability.' },
     ],
+    demo: {
+      title: 'Interactive Demo',
+      description: 'Explore real governance traces and policy decisions from ArbiterOS selected cases.',
+      openLabel: 'Open demo in new tab',
+      iframeTitle: 'ArbiterOS selected cases demo',
+    },
   },
   howItWorks: {
     label: 'How It Works',
@@ -201,6 +207,12 @@ const zh: typeof en = {
       { step: '2', title: '配置模型与策略', description: '在 litellm_config.yaml 中配置模型、API 密钥、可选的技能信任扫描参数与策略规则。' },
       { step: '3', title: '连接 OpenClaw / 你的智能体', description: '将模型提供方指向 http://127.0.0.1:4000/v1，即可获得治理、审计与可观测能力。' },
     ],
+    demo: {
+      title: '交互式 Demo',
+      description: '浏览 ArbiterOS 真实样例中的治理追踪与策略决策过程。',
+      openLabel: '在新标签页打开 Demo',
+      iframeTitle: 'ArbiterOS 选定样例演示',
+    },
   },
   howItWorks: {
     label: '工作原理',
@@ -698,6 +710,8 @@ function AdvantageModal({
 }
 
 function QuickStartSection({ t }: { t: SiteCopy }) {
+  const demoHref = withBasePath('/demo/selected-cases/index.html');
+
   return (
     <section className="container section quickstart-section">
       <div className="quickstart-card">
@@ -715,6 +729,28 @@ function QuickStartSection({ t }: { t: SiteCopy }) {
               </div>
             </div>
           ))}
+        </div>
+        <div className="quickstart-demo">
+          <div className="quickstart-demo-head">
+            <h3>{t.quickStart.demo.title}</h3>
+            <a
+              className="btn btn-outline"
+              href={demoHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {t.quickStart.demo.openLabel}
+            </a>
+          </div>
+          <p>{t.quickStart.demo.description}</p>
+          <div className="quickstart-demo-frame-wrap">
+            <iframe
+              title={t.quickStart.demo.iframeTitle}
+              src={demoHref}
+              className="quickstart-demo-frame"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
     </section>
