@@ -3,6 +3,21 @@ import { type MouseEvent, useEffect, useState } from 'react';
 type Lang = 'en' | 'zh';
 
 const en = {
+  meta: {
+    homeTitle: 'ArbiterOS | Home',
+    titleSuffix: 'ArbiterOS',
+    description: 'ArbiterOS is an open-source agent safety governance and observability kernel with policy protection, instruction parsing, Langfuse tracing, and one-click deployment.',
+  },
+  ui: {
+    brandHomeLabel: 'ArbiterOS home',
+    primaryNavLabel: 'Primary',
+    mobileNavLabel: 'Mobile primary',
+    toggleNavigationLabel: 'Toggle navigation menu',
+    switchToChineseLabel: 'Switch to Simplified Chinese',
+    switchToEnglishLabel: 'Switch to English',
+    closeLabel: 'Close',
+    footerLabel: '\u00a9 2026 ArbiterOS Team',
+  },
   nav: { home: 'Home', howItWorks: 'How It Works', features: 'Features', extension: 'Observability' },
   hero: {
     eyebrow: 'Open-Source Agent Governance',
@@ -118,115 +133,130 @@ const en = {
 };
 
 const zh: typeof en = {
+  meta: {
+    homeTitle: 'ArbiterOS | 首页',
+    titleSuffix: 'ArbiterOS',
+    description: 'ArbiterOS 是一个开源的智能体安全治理与可观测内核，提供策略保护、指令解析、Langfuse 可观测性与一键部署能力。',
+  },
+  ui: {
+    brandHomeLabel: 'ArbiterOS 首页',
+    primaryNavLabel: '主导航',
+    mobileNavLabel: '移动端主导航',
+    toggleNavigationLabel: '切换导航菜单',
+    switchToChineseLabel: '切换到简体中文',
+    switchToEnglishLabel: '切换到英文',
+    closeLabel: '关闭',
+    footerLabel: '\u00a9 2026 ArbiterOS 团队',
+  },
   nav: { home: '首页', howItWorks: '工作原理', features: '核心能力', extension: '可观测性' },
   hero: {
-    eyebrow: '开源 Agent Governance Kernel',
-    title: '让每一次 Agent 调用都可控、可审计、可回放',
-    sub: 'ArbiterOS 在 LiteLLM Proxy 层之上提供 Policy Protection、Instruction Parsing、Langfuse Observability 与 Skill Trust 评估，帮助团队更安全地运行 Agent。',
+    eyebrow: '开源智能体安全治理内核',
+    title: '让每一次智能体调用都可控、可审计、可回放',
+    sub: 'ArbiterOS 在 LiteLLM Proxy 层之上提供策略保护、指令解析、Langfuse 可观测性与技能信任评估，帮助团队更安全地运行智能体。',
     primaryBtn: '三步部署',
     secondaryBtn: '查看核心能力',
-    meta: ['OpenAI-compatible API', 'OpenClaw Integration', 'Local / Docker Deployment'],
+    meta: ['兼容 OpenAI 的 API', 'OpenClaw 集成', '本地 / Docker 部署'],
   },
   advantages: {
     label: '功能优势',
-    title: '不是只转发 Model，而是治理整个 Agent Execution Path',
+    title: '不是只做模型转发，而是治理整个智能体执行链路',
     items: [
       {
-        title: 'Policy Protection + 用户确认',
-        short: 'Policy 触发拦截时等待用户决策',
-        detail: '当 Policy 触发拦截时，Kernel 会返回确认信息并等待用户 Yes/No 决策，避免高风险 Tool Call 直接执行。',
+        title: '策略保护 + 用户确认',
+        short: '策略触发拦截时等待用户决策',
+        detail: '当策略触发拦截时，内核会返回确认信息并等待用户进行是/否决策，避免高风险工具调用被直接执行。',
       },
       {
-        title: 'Instruction Parsing 与结构化落盘',
-        short: '统一映射为 Instruction Flow 并生成可 Replay 文件',
-        detail: '将 Structured Output、Tool Call、Tool Result 统一映射为 Instruction Flow，并按 Trace 生成可 Replay 文件，支持 Audit 与复盘。',
+        title: '指令解析与结构化落盘',
+        short: '统一映射为指令流并生成可回放文件',
+        detail: '将结构化输出、工具调用与工具结果统一映射为指令流，并按追踪生成可回放文件，支持审计与复盘。',
       },
       {
-        title: 'Full Observability',
-        short: '记录 Pre-call / Post-call Log 并接入 Langfuse',
-        detail: '同时记录 Pre-call / Post-call Log，接入 Langfuse Trace 与 Node 持久化，便于监控性能、行为和异常。',
+        title: '全链路可观测性',
+        short: '记录调用前 / 调用后日志并接入 Langfuse',
+        detail: '同时记录调用前 / 调用后日志，接入 Langfuse 追踪与节点持久化，便于监控性能、行为和异常。',
       },
       {
-        title: 'Skill Trust Scanning',
-        short: '对 Skill Package 进行 Trust 评估并缓存结果',
-        detail: '可选接入 Skill Scanner，对 Skill Package 进行 Trust 评估并缓存结果，降低不可信技能带来的执行风险。',
+        title: '技能信任扫描',
+        short: '对技能包进行信任评估并缓存结果',
+        detail: '可选接入技能扫描器，对技能包进行信任评估并缓存结果，降低不可信技能带来的执行风险。',
       },
       {
-        title: 'OpenClaw Integration',
-        short: '对外暴露 OpenAI-compatible API',
-        detail: '对外暴露 OpenAI-compatible API，配置后可作为 OpenClaw 默认 Model Provider，平滑接入现有 Workflow。',
+        title: 'OpenClaw 集成',
+        short: '对外暴露兼容 OpenAI 的 API',
+        detail: '对外暴露兼容 OpenAI 的 API，配置后可作为 OpenClaw 默认模型提供方，平滑接入现有工作流。',
       },
       {
-        title: 'One-Command Install 与弹性部署',
-        short: '多种 Deployment 方式覆盖个人与团队环境',
-        detail: '支持 Install Script、User-level systemd、Docker Compose 与本地源码编译，覆盖个人与团队环境。',
+        title: '一键安装与弹性部署',
+        short: '多种部署方式覆盖个人与团队环境',
+        detail: '支持安装脚本、用户级 systemd、Docker Compose 与本地源码编译，覆盖个人与团队环境。',
       },
     ],
   },
   quickStart: {
     label: '快速上手',
-    title: '三步将 ArbiterOS 接入你的 Agent Workflow',
+    title: '三步将 ArbiterOS 接入你的智能体工作流',
     steps: [
-      { step: '1', title: '安装并启动 Kernel', description: '运行安装脚本或 Docker Compose，启动 ArbiterOS Kernel（默认端口:4000）。' },
-      { step: '2', title: '配置 Model 与 Policy', description: '在 litellm_config.yaml 配置 Model、API Key、可选 Skill Trust Scanning 参数与 Policy Rule。' },
-      { step: '3', title: '连接 OpenClaw / 你的 Agent', description: '将 Model Provider 指向 http://127.0.0.1:4000/v1，即刻获得 Governance、Audit 与 Observability 能力。' },
+      { step: '1', title: '安装并启动内核', description: '运行安装脚本或 Docker Compose，启动 ArbiterOS 内核（默认端口：4000）。' },
+      { step: '2', title: '配置模型与策略', description: '在 litellm_config.yaml 中配置模型、API 密钥、可选的技能信任扫描参数与策略规则。' },
+      { step: '3', title: '连接 OpenClaw / 你的智能体', description: '将模型提供方指向 http://127.0.0.1:4000/v1，即可获得治理、审计与可观测能力。' },
     ],
   },
   howItWorks: {
     label: '工作原理',
-    title: '从 Agent Output 到 Governed Action 的四个步骤',
+    title: '从智能体输出到受治理动作的四个步骤',
     steps: [
-      { step: '01', title: 'Intercept', description: '网关在 Agent 提交 Action 之前捕获每个 LLM Response。' },
-      { step: '02', title: 'Parse', description: '将 Tool Call 与 Structured Output 转化为可检查的 Instruction，并附带 Security Metadata。' },
-      { step: '03', title: 'Govern', description: '可配置的 Policy 允许、阻止或保护 Operation，必要时升级为人工 Approval。' },
-      { step: '04', title: 'Observe', description: '追踪每个 Decision、分析 Failure，并通过 Evidence-driven Dashboard 持续优化 Policy。' },
+      { step: '01', title: '拦截', description: '网关会在智能体提交动作之前捕获每一次大模型响应。' },
+      { step: '02', title: '解析', description: '将工具调用与结构化输出转化为可检查的指令，并附带安全元数据。' },
+      { step: '03', title: '治理', description: '可配置策略能够允许、阻止或保护操作，并在必要时升级为人工审批。' },
+      { step: '04', title: '观测', description: '追踪每个决策、分析失败原因，并通过基于证据的仪表盘持续优化策略。' },
     ],
   },
   features: {
     label: '核心能力',
-    title: '以 Security 与 Reliability 为核心',
-    desc: 'ArbiterOS 让 Agent Behavior 在执行前可检查，让高风险 Behavior 在关键时刻可治理。',
+    title: '以安全性与可靠性为核心',
+    desc: 'ArbiterOS 让智能体行为在执行前可检查，让高风险行为在关键时刻可治理。',
     items: [
-      { title: 'Instruction-Aware Gateway', description: '通过 LiteLLM Proxy 拦截 LLM Request Path，将 Model Output 与 Tool Intent 转化为 Structured Instruction 后再执行。' },
-      { title: 'Configurable Policy Engine', description: '顺序 Policy Check 审查每个 Operation 的 Trustworthiness、Confidentiality、Reversibility 与 Execution Risk。' },
-      { title: 'Human-in-the-Loop Approval', description: '敏感 Operation 通过明确的 Confirmation Loop 升级。已批准的 Action 携带完整 Evidence，用于 Audit 与 Replay。' },
-      { title: 'Traceable Reliability', description: '每个 Request、Policy Decision 与 Governed Trace 都会被持久化，支持 Deterministic Replay、Incident Review 与 Reporting。' },
+      { title: '指令感知网关', description: '通过 LiteLLM Proxy 拦截大模型请求链路，将模型输出与工具意图转化为结构化指令后再执行。' },
+      { title: '可配置策略引擎', description: '按顺序执行策略检查，审查每个操作的可信性、保密性、可逆性与执行风险。' },
+      { title: 'Human-in-the-Loop 审批', description: '敏感操作会通过明确的确认流程升级。已批准的动作携带完整证据，用于审计与回放。' },
+      { title: '可追踪的可靠性', description: '每个请求、策略决策与治理追踪都会被持久化，支持确定性回放、事故复盘与报告分析。' },
     ],
   },
   extension: {
     label: '可视化扩展',
-    title: 'Visualization、Analysis 与 Policy Iteration',
-    desc: '基于 Langfuse 构建的 Governance 界面将 Trace 转化为可操作 Insight\n\u2014 从 Error Diagnosis 到基于 Evidence 的 Policy Refinement。',
+    title: '可视化、分析与策略迭代',
+    desc: '基于 Langfuse 构建的治理界面将追踪转化为可执行洞察\n\u2014 从错误诊断到基于证据的策略优化。',
     items: [
-      { title: 'Governance Dashboard', description: '监控 Governed Signal \u2014 Error、Warning 与 Policy Violation \u2014 提供实时 Severity Count 与 Governance Trend Chart。' },
-      { title: 'Trace & Execution Graph', description: '以层级视图探索 Execution Flow，包含 Governance Banner、Node Search 与高亮的 Error / Violation Node。' },
-      { title: 'Error Root Cause Analysis', description: '识别 Run Failure 的原因，提供 Structured Root Cause、即时 Fix Suggestion 与 Recurrence Prevention Guidance。' },
-      { title: 'Policy Violation Tracking', description: '追踪每个 Policy Violation 的 Action Detail、Severity Label，以及从 Trace 到违规 Instruction 的 Drill-down。' },
-      { title: 'Policy Refinement & Confirmation', description: '分析 Confirmation 的 Accept / Reject Rate，并从 Evidence 中生成 LLM-assisted 的 Policy Update Suggestion。' },
-      { title: 'Experience & Prompt Assets', description: '将 Governance 经验转化为 Prompt Pack 与 Experience Summary，为后续 Agent Iteration 提供输入。' },
+      { title: '治理仪表盘', description: '监控受治理信号，包括错误、警告与策略违规，并提供实时严重级别统计与治理趋势图。' },
+      { title: '追踪与执行图谱', description: '以层级视图探索执行流程，包含治理横幅、节点搜索以及高亮的错误 / 违规节点。' },
+      { title: '错误根因分析', description: '识别运行失败的原因，提供结构化根因、即时修复建议与复发预防指导。' },
+      { title: '策略违规跟踪', description: '追踪每一次策略违规的动作详情、严重级别标签，以及从追踪到违规指令的下钻能力。' },
+      { title: '策略优化与确认分析', description: '分析确认的接受 / 拒绝比率，并基于证据生成 LLM 辅助的策略更新建议。' },
+      { title: '经验与提示词资产', description: '将治理经验转化为提示词包与经验总结，为后续智能体迭代提供输入。' },
     ],
   },
   architecture: {
     label: '架构能力',
-    title: 'Pre-call 到 Post-call 的全流程 Governance',
+    title: '从调用前到调用后的全流程治理',
     nodes: [
-      { main: 'Request Preprocessing', sub: 'Trace 管理 / 格式合并 / 分类封装' },
+      { main: '请求预处理', sub: '追踪管理 / 格式合并 / 分类封装' },
       { main: 'LLM 调用', sub: 'LiteLLM Proxy' },
-      { main: 'Response Parsing', sub: '结构化抽取 / Instruction 构建' },
-      { main: 'Policy Check', sub: '拦截改写 / Yes-No 确认' },
-      { main: 'Audit & Observability', sub: 'Trace 文件 / Langfuse / 日志' },
+      { main: '响应解析', sub: '结构化抽取 / 指令构建' },
+      { main: '策略检查', sub: '拦截改写 / 是或否确认' },
+      { main: '审计与可观测性', sub: '追踪文件 / Langfuse / 日志' },
     ],
   },
   cta: {
     label: '立即开始',
-    title: '把 Agent 的"可用"升级为"可控"',
-    desc: 'ArbiterOS 适合希望将 Agent 稳定落地到真实业务系统的研发与平台团队。克隆仓库、配置 Model Provider，并通过 Docker Compose 或 Install Script 运行。',
+    title: '把智能体的"可用"升级为"可控"',
+    desc: 'ArbiterOS 适合希望将智能体稳定落地到真实业务系统的研发与平台团队。克隆仓库、配置模型提供方，并通过 Docker Compose 或安装脚本运行。',
     primaryBtn: '查看 GitHub',
     secondaryBtn: '阅读论文',
     contactBtn: '联系团队',
     resources: [
       { label: 'GitHub 仓库', description: '源码、文档与部署指南。', href: 'https://github.com/cure-lab/ArbiterOS' },
-      { label: 'Visualization Extension', description: 'Governance 可视化工作空间。', href: 'https://github.com/cure-lab/ArbiterOS/tree/main/langfuse' },
+      { label: '可视化扩展', description: '治理可视化工作空间。', href: 'https://github.com/cure-lab/ArbiterOS/tree/main/langfuse' },
       { label: '研究论文', description: 'arXiv 上的技术细节。', href: 'https://arxiv.org/abs/2510.13857' },
     ],
   },
@@ -246,6 +276,7 @@ type PageKey = 'home' | 'how-it-works' | 'features' | 'extension';
 type NavPageKey = Exclude<PageKey, 'home'>;
 
 const appBasePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const langStorageKey = 'arbiteros-site-lang';
 
 const pagePaths: Record<PageKey, string> = {
   home: withBasePath('/'),
@@ -312,6 +343,27 @@ function getPageTitle(page: PageKey, copy: SiteCopy): string {
   }
 }
 
+function isLang(value: string | null): value is Lang {
+  return value === 'en' || value === 'zh';
+}
+
+function getInitialLang(): Lang {
+  if (typeof window === 'undefined') {
+    return 'en';
+  }
+
+  try {
+    const savedLang = window.localStorage.getItem(langStorageKey);
+    if (isLang(savedLang)) {
+      return savedLang;
+    }
+  } catch {
+    // Ignore storage access issues and fall back to browser locale.
+  }
+
+  return window.navigator.language.toLowerCase().startsWith('zh') ? 'zh' : 'en';
+}
+
 function isPlainLeftClick(event: MouseEvent<HTMLAnchorElement>): boolean {
   return !(
     event.defaultPrevented ||
@@ -324,15 +376,25 @@ function isPlainLeftClick(event: MouseEvent<HTMLAnchorElement>): boolean {
 }
 
 export default function App() {
-  const [lang, setLang] = useState<Lang>('en');
+  const [lang, setLang] = useState<Lang>(getInitialLang);
   const [activeAdvantage, setActiveAdvantage] = useState<number | null>(null);
   const [page, setPage] = useState<PageKey>(() => getPageFromPath(window.location.pathname));
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const t = i18n[lang];
+  const languageToggleLabel = lang === 'en' ? t.ui.switchToChineseLabel : t.ui.switchToEnglishLabel;
 
   useEffect(() => {
+    try {
+      window.localStorage.setItem(langStorageKey, lang);
+    } catch {
+      // Ignore storage access issues.
+    }
+
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-    document.title = page === 'home' ? 'ArbiterOS' : `${getPageTitle(page, t)} | ArbiterOS`;
+    document.title = page === 'home' ? t.meta.homeTitle : `${getPageTitle(page, t)} | ${t.meta.titleSuffix}`;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute('content', t.meta.description);
   }, [lang, page, t]);
 
   useEffect(() => {
@@ -373,12 +435,12 @@ export default function App() {
             className="brand"
             href={pagePaths.home}
             onClick={(event) => handleNavigate(event, 'home')}
-            aria-label="ArbiterOS home"
+            aria-label={t.ui.brandHomeLabel}
           >
             <BrandMark />
             <span>ArbiterOS</span>
           </a>
-          <nav className="nav" aria-label="Primary">
+          <nav className="nav" aria-label={t.ui.primaryNavLabel}>
             {navItems.map((item) => (
               <a
                 key={item.page}
@@ -397,14 +459,14 @@ export default function App() {
             onClick={() => setMobileNavOpen((open) => !open)}
             aria-expanded={mobileNavOpen}
             aria-controls="mobile-nav-panel"
-            aria-label="Toggle navigation menu"
+            aria-label={t.ui.toggleNavigationLabel}
           >
             <MenuIcon open={mobileNavOpen} />
           </button>
           <button
             className="lang-toggle"
             onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
-            aria-label="Switch language"
+            aria-label={languageToggleLabel}
           >
             <span className={lang === 'zh' ? 'active' : ''}>中</span>
             <span className="lang-sep">/</span>
@@ -426,7 +488,7 @@ export default function App() {
           aria-hidden={!mobileNavOpen}
         >
           <div className="mobile-nav-content container">
-            <nav className="mobile-nav" aria-label="Mobile primary">
+            <nav className="mobile-nav" aria-label={t.ui.mobileNavLabel}>
               <a
                 href={pagePaths.home}
                 onClick={(event) => handleNavigate(event, 'home')}
@@ -486,7 +548,7 @@ export default function App() {
       <footer className="footer">
         <div className="container footer-inner">
           <span>ArbiterOS</span>
-          <span>&copy; 2026 ArbiterOS Team</span>
+          <span>{t.ui.footerLabel}</span>
         </div>
       </footer>
     </div>
@@ -503,7 +565,7 @@ function HeroSection({ t, lang }: { t: SiteCopy; lang: Lang }) {
       </div>
       <div className="hero-panel">
         <div className="code-card">
-          <p className="code-title">Quick Start</p>
+          <p className="code-title">{t.quickStart.label}</p>
           <pre>
             <code>{`git clone https://github.com/cure-lab/ArbiterOS.git
 cd ArbiterOS
@@ -626,7 +688,7 @@ function AdvantageModal({
   return (
     <div className="adv-modal-backdrop" onClick={onClose}>
       <div className="adv-modal" onClick={(event) => event.stopPropagation()}>
-        <button className="adv-modal-close" onClick={onClose} aria-label="Close">&times;</button>
+        <button className="adv-modal-close" onClick={onClose} aria-label={t.ui.closeLabel}>&times;</button>
         <div className="adv-modal-icon"><Icon /></div>
         <h3>{t.advantages.items[activeAdvantage].title}</h3>
         <p>{t.advantages.items[activeAdvantage].detail}</p>
