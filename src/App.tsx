@@ -138,84 +138,119 @@ const en = {
   },
   overview: {
     label: 'System Overview',
-    title: 'How ArbiterOS governs the AI\u00a0agent execution chain',
-    desc: 'ArbiterOS sits on the LLM request path as a transparent governance layer. Every model call from your AI agent passes through the kernel \u2014 parsed, policy-checked, and traced \u2014 before reaching the LLM and before actions execute.',
+    title: 'How ArbiterOS reviews AI\u00a0agent actions',
+    desc: 'ArbiterOS sits between an AI agent and its model provider. It helps teams review model outputs, turn tool-related responses into structured instructions, apply policy checks, request user confirmation when needed, and keep trace records for audit.',
     architecture: {
       label: 'Architecture',
-      title: 'ArbiterOS in the agent ecosystem',
+      title: 'Where ArbiterOS sits in the agent stack',
+      diagram: {
+        ariaLabel: 'ArbiterOS ecosystem diagram',
+        humanTitle: 'Operator',
+        humanSubtitle: 'Approve / Reject',
+        yesNo: 'Yes/No',
+        agentsTitle: 'AI Agents',
+        customAgent: 'Custom Agent',
+        routeNote: 'LLM traffic -> Kernel',
+        requestLabel: 'Request',
+        responseLabel: 'Response',
+        kernelTitle: 'ArbiterOS Kernel',
+        proxy: 'LiteLLM Proxy',
+        parser: 'Instruction Parser',
+        policy: 'Policy Checks',
+        registry: 'Registry & Context',
+        risk: 'Risk',
+        trust: 'Trust',
+        confidentiality: 'Confid.',
+        reversibility: 'Reversible',
+        authority: 'Authority',
+        categoriesLabel: 'INSTRUCTION TYPES',
+        cognitive: 'Reasoning',
+        actuation: 'Action',
+        perception: 'Perception',
+        apiCall: 'API Call',
+        llmOutput: 'Model Output',
+        providersTitle: 'Model Providers',
+        compatibleApiLine1: 'OpenAI',
+        compatibleApiLine2: 'Compatible API',
+        endpoint: '/v1 endpoint',
+        anyModel: 'Compatible models',
+        observabilityTitle: 'Trace & Audit',
+        instructionFiles: 'Instruction Files',
+        apiCallLogs: 'API Call Logs',
+      },
     },
     dataflow: {
       label: 'Data Flow',
-      title: 'Request lifecycle: from agent call to governed response',
+      title: 'What happens during a request',
       stages: [
-        { num: '1', title: 'Pre-Call', desc: 'Confirmation detection \u00b7 Trace resolution \u00b7 Format merge \u00b7 Category wrapping \u00b7 Metadata injection' },
-        { num: '2', title: 'LLM Call', desc: 'LiteLLM Proxy forwards to upstream \u00b7 OpenAI / GLM / O-series \u00b7 Streaming & batch' },
-        { num: '3', title: 'Parse', desc: 'Response extraction \u00b7 Category/topic transform \u00b7 Instruction parsing \u00b7 Security type classification' },
-        { num: '4', title: 'Policy', desc: 'Sequential checks \u00b7 Taint validation \u00b7 Block / modify / approve \u00b7 Human confirmation' },
-        { num: '5', title: 'Audit', desc: 'Per-trace files \u00b7 Langfuse tracing \u00b7 Pre/post-call logs \u00b7 Auto taint tracking' },
+        { num: '1', title: 'Prepare Request', desc: 'Detect pending approval replies \u00b7 Assign trace context \u00b7 Merge response format \u00b7 Attach metadata' },
+        { num: '2', title: 'Call Model', desc: 'Forward through LiteLLM proxy to the configured model provider \u00b7 Supports streaming and batch requests' },
+        { num: '3', title: 'Parse Output', desc: 'Read assistant content and tool calls \u00b7 Build structured instructions \u00b7 Classify security attributes' },
+        { num: '4', title: 'Check Policy', desc: 'Run configured checks \u00b7 Allow, revise, or hold actions \u00b7 Ask for Yes/No when needed' },
+        { num: '5', title: 'Record Trace', desc: 'Write per-trace instruction files \u00b7 Keep request logs \u00b7 Emit Langfuse traces when configured' },
       ],
     },
     comparison: {
-      label: 'Why Instruction-Centric',
-      title: 'A fundamentally different approach to agent safety',
-      desc: 'Traditional security operates at the system-call or network-packet layer \u2014 neither understands what an AI agent is trying to do. ArbiterOS governs at the semantic instruction layer where agent decisions are made.',
+      label: 'Why Govern Instructions',
+      title: 'How ArbiterOS differs from lower-level protections',
+      desc: 'Some controls protect the runtime environment, and some watch events during execution. ArbiterOS adds another layer: it reviews the meaning of model outputs and tool actions before those actions move forward.',
       columns: [
         {
-          name: 'OpenClaw Sandboxing',
-          tag: 'Container Isolation / Exec Approval',
+          name: 'OpenClaw Isolation',
+          tag: 'Container boundary / execution approval',
           items: [
-            'Container / Process level',
-            'Host OS, file system, network binding',
-            'Per-container boundary + exec allowlist',
-            'None \u2014 binary allow/deny per system call',
-            'None \u2014 no metadata propagation across steps',
-            'Static allowlist; single exec-level checks',
-            'Limited \u2014 treats agent as isolated process',
-            'Command-level logging only (commands.log)',
-            'Cannot inspect agent decisions or tool-call intent',
+            'Container or process level',
+            'Host access, file mounts, and network exposure',
+            'Mainly per container or per command',
+            'No \u2014 it does not interpret agent intent',
+            'No',
+            'Mostly fixed allow or deny rules',
+            'Basic command logs',
+            'Running the assistant in a tighter environment',
+            'Cannot explain why the agent wanted the action',
           ],
         },
         {
-          name: 'OpenClaw Runtime Guard',
-          tag: 'PRISM / ClawKeeper / HITL',
+          name: 'OpenClaw Runtime Checks',
+          tag: 'Approvals / runtime monitoring',
           items: [
-            'Agent lifecycle hooks / Tool policy',
-            'Tool invocations, credential leaks, SOUL.md boundaries',
-            'Per-tool allow/deny with TTL-based risk accumulator',
-            'Partial \u2014 monitors outgoing domains & sensitive data',
-            'None \u2014 risk accumulator is session-level, not per-instruction',
-            'Hook-based; all-or-nothing per lifecycle stage',
-            'Moderate \u2014 lifecycle hooks & session risk scoring',
-            'Session-level risk score; no per-instruction replay',
-            'Requires OpenClaw runtime; no cross-platform instruction parsing',
+            'Runtime hooks and approval flow',
+            'Tool actions and risky steps during a live session',
+            'Per tool or per session',
+            'Partial \u2014 it can inspect some runtime events',
+            'Limited \u2014 mainly session level',
+            'Hook-based checks and approvals',
+            'Session-oriented logs and risk signals',
+            'Supervising a live assistant session',
+            'Not a full instruction-by-instruction view',
           ],
         },
         {
           name: 'ArbiterOS',
-          tag: 'Instruction-Centric Governance',
+          tag: 'Instruction-level governance',
           items: [
-            'LLM response / Instruction level',
-            'Every agent action pre-execution across 6 intent categories',
-            'Per-instruction with security metadata (confidentiality, trustworthiness, risk, authority)',
-            'Full \u2014 two-layer YAML registry classifies executables & paths for READ/WRITE/EXEC intent',
-            'Full \u2014 propagated taint (min-trust, max-conf) flows across tool-call instruction chains',
-            'Composable pipeline \u2014 relational + unary gate policies; observe-only mode for safe rollout',
-            'Deep \u2014 InstructionBuilder normalizes every tool call into a unified instruction graph',
-            'Per-trace instruction JSON + Langfuse tracing; deterministic replay & red-team harness',
-            'Requires LLM traffic routing through proxy',
+            'Model response and instruction level',
+            'The actions an agent is preparing to take',
+            'Per instruction, with linked trace records',
+            'Yes \u2014 it parses structured output and tool calls',
+            'Yes \u2014 security labels can carry across related steps',
+            'Configurable policy pipeline with confirmation support',
+            'Per-trace instruction files and Langfuse tracing',
+            'Reviewing decisions before sensitive actions continue',
+            'Requires traffic to pass through the ArbiterOS proxy',
           ],
         },
       ],
-      rows: ['Protection Layer', 'What It Guards', 'Granularity', 'Semantic Understanding', 'Taint Propagation', 'Policy Architecture', 'Agent Awareness', 'Audit & Replay', 'Key Limitation'],
+      rows: ['Works At', 'Main Focus', 'Review Detail', 'Understands Meaning', 'Tracks Context Across Steps', 'How Rules Apply', 'Audit Record', 'Best Fit', 'Main Limitation'],
     },
     kernelEdge: {
-      label: 'ArbiterOS Kernel Advantages',
-      title: 'Technical capabilities that set ArbiterOS apart',
+      label: 'Kernel Capabilities',
+      title: 'Key capabilities behind the governance layer',
       items: [
-        { title: 'Propagated Taint Tracking', desc: 'Security metadata (confidentiality, trustworthiness) propagates across instruction chains via min-trust / max-conf aggregation \u2014 catching multi-step privilege escalation that per-tool checks miss.' },
-        { title: 'Two-Layer Classification Registry', desc: 'Shipped YAML rules classify executables and paths by READ/WRITE/EXEC risk. A user-override layer enables customization without forking \u2014 worst-wins semantics ensure safety defaults.' },
-        { title: 'Observe-Only Policy Rollout', desc: 'Policies run full check() logic even when disabled. Modifications are reverted but logged as inactivate_error_type \u2014 enabling shadow-mode evaluation before enforcement.' },
-        { title: 'Composable Policy Pipeline', desc: 'Sequential policies (RelationalPolicy + UnaryGatePolicy) see the already-modified response from prior stages \u2014 enabling layered defense-in-depth with registry-driven configuration.' },
+        { title: 'Cross-step context tracking', desc: 'ArbiterOS can carry security labels such as trust and confidentiality across related instructions, so later actions can still reflect earlier risky inputs.' },
+        { title: 'Configurable classification rules', desc: 'Built-in YAML registries classify files, paths, and executables, and teams can override defaults locally without changing the source code.' },
+        { title: 'Review mode before enforcement', desc: 'Policies can run in observation mode and record what they would have changed before you turn on blocking behavior.' },
+        { title: 'Confirmation for protected responses', desc: 'When a policy changes or blocks a response, the kernel can pause and ask the user for a Yes/No decision before continuing.' },
       ],
     },
   },
@@ -357,84 +392,119 @@ const zh: typeof en = {
   },
   overview: {
     label: '系统总览',
-    title: 'ArbiterOS 如何治理智能体执行链路',
-    desc: 'ArbiterOS 作为透明治理层嵌入大模型请求路径。智能体的每一次模型调用都经过内核的解析、策略检查与追踪\u2014\u2014在到达大模型之前、在动作执行之前完成治理。',
+    title: 'ArbiterOS 如何审查智能体动作',
+    desc: 'ArbiterOS 位于智能体与模型提供方之间。它帮助团队审查模型输出，把与工具相关的响应整理成结构化指令，执行策略检查，在需要时请求人工确认，并保留可审计的追踪记录。',
     architecture: {
       label: '架构图',
-      title: 'ArbiterOS 在智能体生态中的位置',
+      title: 'ArbiterOS 在智能体链路中的位置',
+      diagram: {
+        ariaLabel: 'ArbiterOS 生态架构图',
+        humanTitle: '操作人员',
+        humanSubtitle: '批准 / 拒绝',
+        yesNo: '是 / 否',
+        agentsTitle: 'AI 智能体',
+        customAgent: '自定义 Agent',
+        routeNote: 'LLM 流量 -> Kernel',
+        requestLabel: '请求',
+        responseLabel: '响应',
+        kernelTitle: 'ArbiterOS Kernel',
+        proxy: 'LiteLLM 代理',
+        parser: '指令解析',
+        policy: '策略检查',
+        registry: '注册表 / 上下文',
+        risk: '风险',
+        trust: '信任',
+        confidentiality: '保密',
+        reversibility: '可逆',
+        authority: '权限',
+        categoriesLabel: '指令类别',
+        cognitive: '思考',
+        actuation: '执行',
+        perception: '感知',
+        apiCall: 'API 调用',
+        llmOutput: '模型输出',
+        providersTitle: '模型提供方',
+        compatibleApiLine1: 'OpenAI',
+        compatibleApiLine2: '兼容 API',
+        endpoint: '/v1 接口',
+        anyModel: '兼容模型',
+        observabilityTitle: '追踪与审计',
+        instructionFiles: '指令文件',
+        apiCallLogs: '调用日志',
+      },
     },
     dataflow: {
       label: '数据流转',
-      title: '请求生命周期：从智能体调用到治理响应',
+      title: '一次请求会经历什么',
       stages: [
-        { num: '1', title: '调用前处理', desc: '确认检测 \u00b7 追踪解析 \u00b7 格式合并 \u00b7 分类封装 \u00b7 元数据注入' },
-        { num: '2', title: 'LLM 调用', desc: 'LiteLLM 代理转发至上游 \u00b7 OpenAI / GLM / O 系列 \u00b7 流式与批量' },
-        { num: '3', title: '解析', desc: '响应提取 \u00b7 分类/主题转换 \u00b7 指令解析 \u00b7 安全类型分类' },
-        { num: '4', title: '策略', desc: '顺序检查 \u00b7 污点验证 \u00b7 阻止 / 修改 / 放行 \u00b7 人工确认' },
-        { num: '5', title: '审计', desc: '按追踪生成文件 \u00b7 Langfuse 追踪 \u00b7 调用前后日志 \u00b7 自动污点跟踪' },
+        { num: '1', title: '准备请求', desc: '识别待处理的确认回复 \u00b7 分配追踪上下文 \u00b7 合并响应格式 \u00b7 附加元数据' },
+        { num: '2', title: '调用模型', desc: '通过 LiteLLM 代理转发到已配置的模型提供方 \u00b7 支持流式和批量请求' },
+        { num: '3', title: '解析输出', desc: '读取助手内容与工具调用 \u00b7 生成结构化指令 \u00b7 分类安全属性' },
+        { num: '4', title: '执行策略检查', desc: '运行已配置的检查 \u00b7 放行、调整或暂缓动作 \u00b7 需要时请求是/否确认' },
+        { num: '5', title: '记录追踪', desc: '写入逐追踪指令文件 \u00b7 保留请求日志 \u00b7 在配置后输出 Langfuse 追踪' },
       ],
     },
     comparison: {
-      label: '为什么选择指令中心化',
-      title: '一种根本不同的智能体安全方法',
-      desc: '传统安全在系统调用层或网络包层运作\u2014\u2014两者都无法理解智能体正在做什么。ArbiterOS 在语义指令层进行治理，这正是智能体做出决策的层面。',
+      label: '为什么治理指令',
+      title: 'ArbiterOS 与底层防护有什么不同',
+      desc: '有些机制负责保护运行环境，有些机制负责监控运行过程。ArbiterOS 增加的是另一层能力：在动作继续前，先理解模型输出和工具动作的含义。',
       columns: [
         {
-          name: 'OpenClaw 沙箱隔离',
-          tag: '容器隔离 / 执行审批',
+          name: 'OpenClaw 隔离层',
+          tag: '容器边界 / 执行审批',
           items: [
-            '容器 / 进程级',
-            '宿主机 OS、文件系统、网络绑定',
-            '按容器的资源边界 + 执行白名单',
-            '无\u2014\u2014按系统调用的二元允许/拒绝',
-            '无\u2014\u2014无跨步骤元数据传播',
-            '静态白名单；单次执行级检查',
-            '有限\u2014\u2014将智能体视为隔离进程',
-            '仅命令级日志 (commands.log)',
-            '无法检查智能体决策或工具调用意图',
+            '容器或进程层',
+            '宿主机访问、目录挂载和网络暴露',
+            '主要按容器或命令',
+            '否 - 不解释智能体意图',
+            '否',
+            '以固定的允许/拒绝规则为主',
+            '基础命令日志',
+            '让助手运行在更收敛的环境中',
+            '无法说明智能体为什么想执行该动作',
           ],
         },
         {
-          name: 'OpenClaw 运行时护栏',
-          tag: 'PRISM / ClawKeeper / HITL',
+          name: 'OpenClaw 运行时检查',
+          tag: '审批流程 / 运行时监控',
           items: [
-            '智能体生命周期钩子 / 工具策略',
-            '工具调用、凭证泄露、SOUL.md 安全边界',
-            '按工具的允许/拒绝 + 基于 TTL 的风险累计器',
-            '部分\u2014\u2014监控外发域名与敏感数据',
-            '无\u2014\u2014风险累计器仅会话级，非逐指令级',
-            '钩子式；按生命周期阶段全有或全无',
-            '中等\u2014\u2014生命周期钩子与会话风险评分',
-            '会话级风险分；无逐指令回放',
-            '依赖 OpenClaw 运行时；无跨平台指令解析',
+            '运行时钩子和审批流程',
+            '实时会话中的工具动作和高风险步骤',
+            '按工具或按会话',
+            '部分 - 可以读取部分运行时信号',
+            '有限 - 主要停留在会话层',
+            '基于钩子的检查和审批',
+            '会话级日志与风险信号',
+            '监督正在运行的助手会话',
+            '不是完整的逐指令视图',
           ],
         },
         {
           name: 'ArbiterOS',
-          tag: '指令中心化治理',
+          tag: '指令级治理',
           items: [
-            'LLM 响应 / 指令层',
-            '执行前的每一个智能体动作，覆盖 6 大意图类别',
-            '逐指令的安全元数据（保密性、可信度、风险、权限）',
-            '完整\u2014\u2014双层 YAML 注册表按 READ/WRITE/EXEC 意图分类可执行文件与路径',
-            '完整\u2014\u2014传播式污点（最小信任度/最大保密度）跨工具调用指令链流动',
-            '可组合管线\u2014\u2014关系型 + 一元门控策略；仅观测模式支持安全上线',
-            '深度\u2014\u2014InstructionBuilder 将每个工具调用统一为指令图',
-            '逐追踪指令 JSON + Langfuse 追踪；确定性回放与红队测试架',
-            '需要 LLM 流量经代理路由',
+            '模型响应和指令层',
+            '智能体准备执行的动作',
+            '逐指令，并带有关联追踪记录',
+            '是 - 会解析结构化输出和工具调用',
+            '是 - 安全标签可沿相关步骤继续传递',
+            '可配置的策略管线，并支持确认流程',
+            '逐追踪指令文件和 Langfuse 追踪',
+            '在敏感动作继续前先审查决策',
+            '需要让流量先经过 ArbiterOS 代理',
           ],
         },
       ],
-      rows: ['保护层级', '守护目标', '治理粒度', '语义理解', '污点传播', '策略架构', '智能体感知', '审计与回放', '主要限制'],
+      rows: ['工作位置', '主要关注点', '审查粒度', '能否理解含义', '能否跨步骤保留上下文', '规则如何执行', '审计记录', '更适合', '主要限制'],
     },
     kernelEdge: {
-      label: 'ArbiterOS 内核优势',
-      title: '让 ArbiterOS 脱颖而出的技术能力',
+      label: '内核能力',
+      title: '治理层背后的关键能力',
       items: [
-        { title: '传播式污点追踪', desc: '安全元数据（保密性、可信度）通过最小信任度/最大保密度聚合在指令链中传播\u2014\u2014捕获逐工具检查遗漏的多步权限提升。' },
-        { title: '双层分类注册表', desc: '内置 YAML 规则按 READ/WRITE/EXEC 风险分类可执行文件和路径。用户覆盖层支持无需 fork 的定制\u2014\u2014最坏值优先语义确保安全默认。' },
-        { title: '仅观测策略部署', desc: '策略在禁用状态下仍运行完整的 check() 逻辑。修改会被回滚但记录为 inactivate_error_type\u2014\u2014支持在强制执行前进行影子模式评估。' },
-        { title: '可组合策略管线', desc: '顺序策略（RelationalPolicy + UnaryGatePolicy）各自看到前置策略已修改的响应\u2014\u2014通过注册表驱动的配置实现分层纵深防御。' },
+        { title: '跨步骤上下文跟踪', desc: 'ArbiterOS 可以让信任度、保密性等安全标签沿相关指令继续传递，因此后续动作仍会受到前序风险输入的影响。' },
+        { title: '可配置的分类规则', desc: '内置 YAML 注册表可对文件、路径和可执行文件进行分类，团队也可以在本地覆盖默认规则，而无需改动源码。' },
+        { title: '先观察、后强制', desc: '策略可以先以观察模式运行，记录“如果启用会发生什么”，帮助团队在正式拦截前先验证规则效果。' },
+        { title: '受保护响应的人机确认', desc: '当策略修改或阻止响应时，内核可以暂停流程，并向用户请求明确的“是 / 否”决定后再继续。' },
       ],
     },
   },
@@ -663,7 +733,7 @@ export default function App() {
             rel="noreferrer"
           >
             <GitHubIcon />
-            GitHub
+            <span>GitHub</span>
           </a>
         </div>
         <div
@@ -944,7 +1014,7 @@ function OverviewSection({ t }: { t: SiteCopy }) {
           <span className="section-label">{t.overview.architecture.label}</span>
           <h3>{t.overview.architecture.title}</h3>
         </div>
-        <EcosystemDiagram />
+        <EcosystemDiagram copy={t.overview.architecture.diagram} />
       </div>
 
       <div className="overview-card">
@@ -1012,9 +1082,9 @@ function OverviewSection({ t }: { t: SiteCopy }) {
   );
 }
 
-function EcosystemDiagram() {
+function EcosystemDiagram({ copy }: { copy: SiteCopy['overview']['architecture']['diagram'] }) {
   return (
-    <svg viewBox="0 0 760 440" className="eco-svg" role="img" aria-label="ArbiterOS ecosystem architecture">
+    <svg viewBox="0 0 760 440" className="eco-svg" role="img" aria-label={copy.ariaLabel}>
       <defs>
         <linearGradient id="eco-bg" x1="0" y1="0" x2="760" y2="440">
           <stop offset="0%" stopColor="#f8faff" />
@@ -1065,88 +1135,88 @@ function EcosystemDiagram() {
       </g>
       <circle cx="330" cy="40" r="12" fill="#eef4ff" />
       <text x="330" y="44" fill="#0f66ff" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="800" textAnchor="middle">H</text>
-      <text x="352" y="36" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700">Human Operator</text>
-      <text x="352" y="50" fill="#8ca0b8" fontFamily="'Public Sans',sans-serif" fontSize="8.5">Approve / Reject</text>
+      <text x="352" y="36" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700">{copy.humanTitle}</text>
+      <text x="352" y="50" fill="#8ca0b8" fontFamily="'Public Sans',sans-serif" fontSize="8.5">{copy.humanSubtitle}</text>
 
       {/* Arrow: Human to Kernel */}
       <path d="M375 66 v14 h-6 l11 12 l11 -12 h-6 v-14 Z" fill="url(#eco-arrow-v)" stroke="url(#eco-arrow-v)" strokeWidth="1" strokeLinejoin="round" />
-      <text x="396" y="82" fill="#6ea8ff" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="600">Yes/No</text>
+      <text x="396" y="82" fill="#6ea8ff" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="600">{copy.yesNo}</text>
 
       {/* AI Agents */}
       <g filter="url(#eco-shadow)">
         <rect x="16" y="116" width="164" height="188" rx="16" fill="#fff" stroke="#d0e2f6" strokeWidth="1" />
       </g>
       <rect x="16" y="116" width="164" height="4" rx="2" fill="#f59e0b" opacity="0.5" clipPath="url(#eco-agents-clip)" />
-      <text x="98" y="146" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">AI Agents</text>
+      <text x="98" y="146" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">{copy.agentsTitle}</text>
       <rect x="34" y="160" width="128" height="28" rx="8" fill="#fffbeb" stroke="#fde68a" strokeWidth="0.8" />
       <text x="98" y="178" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="600" textAnchor="middle">OpenClaw</text>
       <rect x="34" y="194" width="128" height="28" rx="8" fill="#fef3c7" stroke="#fde68a" strokeWidth="0.8" />
       <text x="98" y="212" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="600" textAnchor="middle">Nanobot</text>
       <rect x="34" y="228" width="128" height="28" rx="8" fill="#fefce8" stroke="#fde68a" strokeWidth="0.8" />
-      <text x="98" y="246" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="600" textAnchor="middle">Custom Agent</text>
-      <text x="98" y="286" fill="#8ca0b8" fontFamily="'Public Sans',sans-serif" fontSize="8" textAnchor="middle">LLM URL → Kernel</text>
+      <text x="98" y="246" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="600" textAnchor="middle">{copy.customAgent}</text>
+      <text x="98" y="286" fill="#8ca0b8" fontFamily="'Public Sans',sans-serif" fontSize="8" textAnchor="middle">{copy.routeNote}</text>
 
       {/* Arrows: Agents to Kernel */}
       <path d="M180 195 h38 v-6 l14 11 l-14 11 v-6 h-38 Z" fill="url(#eco-arrow)" stroke="url(#eco-arrow)" strokeWidth="1" strokeLinejoin="round" />
-      <text x="206" y="185" fill="#6ea8ff" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">Request</text>
+      <text x="206" y="185" fill="#6ea8ff" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.requestLabel}</text>
       <path d="M232 220H180" fill="none" stroke="#b5d0f0" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round" markerEnd="url(#eco-arrowhead-soft)" />
-      <text x="206" y="234" fill="#b5d0f0" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">Response</text>
+      <text x="206" y="234" fill="#b5d0f0" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.responseLabel}</text>
 
       {/* ArbiterOS Kernel */}
       <g filter="url(#eco-shadow)">
         <rect x="236" y="96" width="288" height="228" rx="18" fill="url(#eco-kernel-fill)" stroke="#0f66ff" strokeWidth="1.2" strokeOpacity="0.25" />
       </g>
       <rect x="236" y="96" width="288" height="5" rx="2.5" fill="#0f66ff" opacity="0.35" clipPath="url(#eco-kernel-clip)" />
-      <text x="380" y="124" fill="#0c1d36" fontFamily="'Manrope',sans-serif" fontSize="13" fontWeight="800" textAnchor="middle">ArbiterOS Kernel</text>
+      <text x="380" y="124" fill="#0c1d36" fontFamily="'Manrope',sans-serif" fontSize="13" fontWeight="800" textAnchor="middle">{copy.kernelTitle}</text>
       <rect x="256" y="140" width="120" height="32" rx="10" fill="#fff" stroke="#d0e2f6" strokeWidth="0.8" />
-      <text x="316" y="160" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">LiteLLM Proxy</text>
+      <text x="316" y="160" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.proxy}</text>
       <rect x="384" y="140" width="120" height="32" rx="10" fill="#fff" stroke="#d0e2f6" strokeWidth="0.8" />
-      <text x="444" y="160" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">Instruction Parser</text>
+      <text x="444" y="160" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.parser}</text>
       <rect x="256" y="180" width="120" height="32" rx="10" fill="#fff" stroke="#d0e2f6" strokeWidth="0.8" />
-      <text x="316" y="200" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">Policy Engine</text>
+      <text x="316" y="200" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.policy}</text>
       <rect x="384" y="180" width="120" height="32" rx="10" fill="#fff" stroke="#d0e2f6" strokeWidth="0.8" />
-      <text x="444" y="200" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">Registry & Taint</text>
+      <text x="444" y="200" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.registry}</text>
 
       {/* Taint dimension pills */}
       <rect x="256" y="224" width="248" height="24" rx="8" fill="rgba(255,255,255,0.7)" stroke="#e2ecfa" strokeWidth="0.8" />
       <rect x="264" y="228" width="40" height="16" rx="8" fill="#fef2f2" />
-      <text x="284" y="239" fill="#dc2626" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">Risk</text>
+      <text x="284" y="239" fill="#dc2626" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.risk}</text>
       <rect x="308" y="228" width="42" height="16" rx="8" fill="#eef4ff" />
-      <text x="329" y="239" fill="#0f66ff" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">Trust</text>
+      <text x="329" y="239" fill="#0f66ff" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.trust}</text>
       <rect x="354" y="228" width="48" height="16" rx="8" fill="#ecfdf5" />
-      <text x="378" y="239" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">Confid.</text>
+      <text x="378" y="239" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.confidentiality}</text>
       <rect x="406" y="228" width="48" height="16" rx="8" fill="#fffbeb" />
-      <text x="430" y="239" fill="#ca8a04" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">Revers.</text>
+      <text x="430" y="239" fill="#ca8a04" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.reversibility}</text>
       <rect x="458" y="228" width="38" height="16" rx="8" fill="#f0f7ff" />
-      <text x="477" y="239" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">Auth</text>
+      <text x="477" y="239" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.authority}</text>
 
       {/* Instruction categories */}
       <rect x="256" y="258" width="248" height="50" rx="10" fill="rgba(255,255,255,0.5)" stroke="#e2ecfa" strokeWidth="0.6" />
-      <text x="380" y="273" fill="#6b84a3" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="700" textAnchor="middle">INSTRUCTION CATEGORIES</text>
+      <text x="380" y="273" fill="#6b84a3" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="700" textAnchor="middle">{copy.categoriesLabel}</text>
       <rect x="264" y="280" width="70" height="18" rx="6" fill="#eef4ff" />
-      <text x="299" y="292" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">COGNITIVE</text>
+      <text x="299" y="292" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.cognitive}</text>
       <rect x="340" y="280" width="76" height="18" rx="6" fill="#ecfdf5" />
-      <text x="378" y="292" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">ACTUATION</text>
+      <text x="378" y="292" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.actuation}</text>
       <rect x="422" y="280" width="76" height="18" rx="6" fill="#fef3c7" />
-      <text x="460" y="292" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">PERCEPTION</text>
+      <text x="460" y="292" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.perception}</text>
 
       {/* Arrows: Kernel to LLMs */}
       <path d="M524 195 h38 v-6 l14 11 l-14 11 v-6 h-38 Z" fill="url(#eco-arrow)" stroke="url(#eco-arrow)" strokeWidth="1" strokeLinejoin="round" />
-      <text x="550" y="185" fill="#6ea8ff" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">API Call</text>
+      <text x="550" y="185" fill="#6ea8ff" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.apiCall}</text>
       <path d="M576 220H524" fill="none" stroke="#b5d0f0" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round" markerEnd="url(#eco-arrowhead-soft)" />
-      <text x="550" y="234" fill="#b5d0f0" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">LLM Output</text>
+      <text x="550" y="234" fill="#b5d0f0" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.llmOutput}</text>
 
       {/* LLM Providers */}
       <g filter="url(#eco-shadow)">
         <rect x="580" y="116" width="164" height="188" rx="16" fill="#fff" stroke="#d0e2f6" strokeWidth="1" />
       </g>
       <rect x="580" y="116" width="164" height="4" rx="2" fill="#22c55e" opacity="0.5" clipPath="url(#eco-providers-clip)" />
-      <text x="662" y="146" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">LLM Providers</text>
+      <text x="662" y="146" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">{copy.providersTitle}</text>
       <rect x="598" y="176" width="128" height="62" rx="10" fill="#ecfdf5" stroke="#bbf7d0" strokeWidth="1" />
-      <text x="662" y="199" fill="#166534" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700" textAnchor="middle">OpenAI</text>
-      <text x="662" y="213" fill="#166534" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700" textAnchor="middle">Compatible API</text>
-      <text x="662" y="230" fill="#6b84a3" fontFamily="'Public Sans',sans-serif" fontSize="8" textAnchor="middle">/v1 endpoint</text>
-      <text x="662" y="268" fill="#8ca0b8" fontFamily="'Public Sans',sans-serif" fontSize="8" textAnchor="middle">Any compatible model</text>
+      <text x="662" y="199" fill="#166534" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700" textAnchor="middle">{copy.compatibleApiLine1}</text>
+      <text x="662" y="213" fill="#166534" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700" textAnchor="middle">{copy.compatibleApiLine2}</text>
+      <text x="662" y="230" fill="#6b84a3" fontFamily="'Public Sans',sans-serif" fontSize="8" textAnchor="middle">{copy.endpoint}</text>
+      <text x="662" y="268" fill="#8ca0b8" fontFamily="'Public Sans',sans-serif" fontSize="8" textAnchor="middle">{copy.anyModel}</text>
 
       {/* Arrow: Kernel to Observability */}
       <path d="M375 324 v18 h-6 l11 12 l11 -12 h-6 v-18 Z" fill="url(#eco-arrow-v)" stroke="url(#eco-arrow-v)" strokeWidth="1" strokeLinejoin="round" />
@@ -1156,13 +1226,13 @@ function EcosystemDiagram() {
         <rect x="200" y="358" width="360" height="64" rx="14" fill="#fff" stroke="#d0e2f6" strokeWidth="1" />
       </g>
       <rect x="200" y="358" width="360" height="4" rx="2" fill="#39c0b7" opacity="0.5" clipPath="url(#eco-observability-clip)" />
-      <text x="380" y="384" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">Observability</text>
+      <text x="380" y="384" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">{copy.observabilityTitle}</text>
       <rect x="249" y="394" width="76" height="18" rx="9" fill="#e0f7f5" />
       <text x="287" y="407" fill="#0d9488" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="600" textAnchor="middle">Langfuse</text>
       <rect x="333" y="394" width="90" height="18" rx="9" fill="#eef4ff" />
-      <text x="378" y="407" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="600" textAnchor="middle">Instruction Files</text>
+      <text x="378" y="407" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="600" textAnchor="middle">{copy.instructionFiles}</text>
       <rect x="431" y="394" width="80" height="18" rx="9" fill="#f1f5fa" />
-      <text x="471" y="407" fill="#6b84a3" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="600" textAnchor="middle">API Call Logs</text>
+      <text x="471" y="407" fill="#6b84a3" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="600" textAnchor="middle">{copy.apiCallLogs}</text>
     </svg>
   );
 }

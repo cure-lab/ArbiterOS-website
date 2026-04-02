@@ -1735,6 +1735,14 @@ img, svg { display: block; }
 @media (max-width: 860px) {
   .nav { display: none; }
   .mobile-nav-toggle { display: inline-flex; }
+  .header-inner { gap: 12px; }
+  .lang-toggle { padding: 0 12px; }
+  .header-cta.btn {
+    width: 44px;
+    padding: 0;
+    margin-left: 0;
+  }
+  .header-cta.btn span { display: none; }
   .mobile-nav-panel {
     display: grid;
     grid-template-rows: 0fr;
@@ -1856,7 +1864,7 @@ img, svg { display: block; }
   .flow-arrow { justify-content: center; padding: 4px 0; transform: rotate(90deg); }
   .flow-node { min-width: auto; }
 
-  .header-cta span { display: none; }
+  .brand { flex-shrink: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
