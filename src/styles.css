@@ -967,6 +967,7 @@ img, svg { display: block; }
   transform-origin: top left;
 }
 
+
 /* ── Sections ── */
 
 .section {
@@ -1792,15 +1793,14 @@ img, svg { display: block; }
   .quickstart-step-group { flex: 0 0 100%; }
   .quickstart-demo-frame-wrap {
     --demo-scale: 1;
-    height: 500px;
+    height: auto;
     overflow-x: auto;
-    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
   }
   .quickstart-demo-frame {
-    width: 744px;
-    min-width: 744px;
-    height: 100%;
+    width: 780px;
+    min-width: 780px;
+    height: 620px;
     transform: none;
   }
 
@@ -1842,11 +1842,6 @@ img, svg { display: block; }
   .quickstart-step-group { flex: none; }
   .quickstart-step { padding-bottom: 20px; }
   .quickstart-demo-head { flex-direction: column; align-items: flex-start; }
-  .quickstart-demo-frame-wrap {
-    --demo-scale: 1;
-    height: 460px;
-  }
-  .quickstart-demo-frame { height: 100%; }
 
   .adv-modal { padding: 32px 24px 28px; }
   .overview-card { padding: 20px 16px; }
