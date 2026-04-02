@@ -1791,10 +1791,18 @@ img, svg { display: block; }
   .quickstart-steps { flex-wrap: wrap; gap: 16px; }
   .quickstart-step-group { flex: 0 0 100%; }
   .quickstart-demo-frame-wrap {
-    --demo-scale: 0.9;
+    --demo-scale: 1;
     height: 500px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
   }
-  .quickstart-demo-frame { height: calc(500px / var(--demo-scale)); }
+  .quickstart-demo-frame {
+    width: 744px;
+    min-width: 744px;
+    height: 100%;
+    transform: none;
+  }
 
   .arch-flow { gap: 8px; }
   .flow-arrow { padding: 0 4px; font-size: 1rem; }
@@ -1835,10 +1843,10 @@ img, svg { display: block; }
   .quickstart-step { padding-bottom: 20px; }
   .quickstart-demo-head { flex-direction: column; align-items: flex-start; }
   .quickstart-demo-frame-wrap {
-    --demo-scale: 0.94;
+    --demo-scale: 1;
     height: 460px;
   }
-  .quickstart-demo-frame { height: calc(460px / var(--demo-scale)); }
+  .quickstart-demo-frame { height: 100%; }
 
   .adv-modal { padding: 32px 24px 28px; }
   .overview-card { padding: 20px 16px; }
