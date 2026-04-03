@@ -193,21 +193,21 @@ const en = {
     comparison: {
       label: 'Why Govern Instructions',
       title: 'How ArbiterOS differs from lower-level protections',
-      desc: 'Some controls protect the runtime environment, and some watch events during execution. ArbiterOS adds another layer: it reviews the meaning of model outputs and tool actions before those actions move forward.',
+      desc: 'Some controls harden the runtime environment; others inspect events during execution. ArbiterOS operates at a different level: it parses model outputs and tool calls into structured instructions, enabling policy rules to evaluate the intent behind each action before sensitive steps proceed.',
       columns: [
         {
           name: 'OpenClaw Isolation',
-          tag: 'Container boundary / execution approval',
+          tag: 'Sandbox boundary / runtime constraints',
           items: [
             'Container or process level',
             'Host access, file mounts, and network exposure',
             'Mainly per container or per command',
             'No \u2014 it does not interpret agent intent',
             'No',
-            'Mostly fixed allow or deny rules',
-            'Basic command logs',
-            'Running the assistant in a tighter environment',
-            'Cannot explain why the agent wanted the action',
+            'Primarily static allow-or-deny rules with configurable profiles',
+            'Container-level command and event logs',
+            'Confining the assistant to a more restricted environment',
+            'Cannot explain the intent behind an agent\u2019s action',
           ],
         },
         {
@@ -217,12 +217,12 @@ const en = {
             'Runtime hooks and approval flow',
             'Tool actions and risky steps during a live session',
             'Per tool or per session',
-            'Partial \u2014 it can inspect some runtime events',
-            'Limited \u2014 mainly session level',
+            'Partial \u2014 certain runtime events can be inspected',
+            'Limited \u2014 context is mainly session-scoped',
             'Hook-based checks and approvals',
-            'Session-oriented logs and risk signals',
+            'Session transcripts, command logs, and risk signals',
             'Supervising a live assistant session',
-            'Not a full instruction-by-instruction view',
+            'Does not provide a full instruction-level view',
           ],
         },
         {
@@ -236,12 +236,67 @@ const en = {
             'Yes \u2014 security labels can carry across related steps',
             'Configurable policy pipeline with confirmation support',
             'Per-trace instruction files and Langfuse tracing',
-            'Reviewing decisions before sensitive actions continue',
+            'Evaluating decisions before sensitive actions proceed',
             'Requires traffic to pass through the ArbiterOS proxy',
           ],
         },
       ],
       rows: ['Works At', 'Main Focus', 'Review Detail', 'Understands Meaning', 'Tracks Context Across Steps', 'How Rules Apply', 'Audit Record', 'Best Fit', 'Main Limitation'],
+    },
+    addOnComparison: {
+      label: 'Add-On Protections vs Kernel Governance',
+      title: 'How ArbiterOS compares to current agent security add-ons',
+      desc: 'The community has built a range of OpenClaw security add-ons \u2014 including SecureClaw, OpenGuardrails, OpenClaw Shield, ClawAegis, GuardClaw, and ClawKeeper \u2014 along with broader adapter-style layers such as APort Agent Guardrails. Each project addresses different concerns, but they are generally attached to a particular runtime or plugin surface. ArbiterOS takes a different approach: as a LiteLLM-based governance kernel, it sits at the proxy layer and can serve any agent that routes LLM traffic through a custom OpenAI-compatible endpoint.',
+      columns: [
+        {
+          name: 'Current Add-On Protections',
+          tag: 'Plugins / skills / watcher layers',
+          items: [
+            'Primarily designed for OpenClaw \u2014 SecureClaw, ClawAegis, OpenGuardrails, OpenClaw Shield, GuardClaw, and ClawKeeper are each built around the OpenClaw plugin or skill surface, while APort Agent Guardrails operates as a broader adapter-style authorization layer',
+            'Each project emphasizes a different surface \u2014 SecureClaw focuses on audit, hardening, and runtime behavior rules; OpenGuardrails combines static scanning, runtime interception, and data masking; OpenClaw Shield structures defense into layered gating with output redaction',
+            'Typically per-call or per-layer checks \u2014 SecureClaw, OpenGuardrails, OpenClaw Shield, and ClawAegis provide runtime checks and approvals at their respective layers, but none maintains a stateful plan-to-act workflow model across a shared instruction trace',
+            'Scanning and masking are common approaches \u2014 SecureClaw and OpenGuardrails emphasize file and skill scanning, while OpenClaw Shield and ClawAegis add runtime inspection or output redaction, though none propagates trust or confidentiality labels across instructions in the way a taint-tracking system does',
+            'Each project defines its own policy surface \u2014 ClawKeeper spans skill, plugin, and watcher layers; SecureClaw and ClawAegis bundle controls within their own configuration formats and frameworks',
+            'Enforcement is typically all-or-nothing \u2014 OpenClaw Shield, APort Agent Guardrails, and GuardClaw emphasize deterministic allow/deny or approval outcomes, and tightening rules too quickly can disrupt existing workflows',
+            'Pre-execution gate or approval flows \u2014 OpenClaw Shield and APort Agent Guardrails emphasize decisions before tool execution, and within OpenClaw itself a plugin can block or pause a call for approval without restarting the entire session',
+          ],
+        },
+        {
+          name: 'ArbiterOS Kernel Defense',
+          tag: 'Instruction-level governance kernel',
+          items: [
+            'Any agent that can route through the ArbiterOS proxy \u2014 operates at the LiteLLM proxy layer, serving agents that support a custom OpenAI-compatible base URL and API key',
+            'Instructionization \u2014 structured outputs and tool calls are parsed into a unified instruction stream with security metadata',
+            'Stateful workflow gating (EFSM) \u2014 configurable plan or state rules can require that sensitive actions align with a recently declared plan',
+            'Taint propagation carries trust and confidentiality labels across instructions and tool results, enabling provenance-aware policy decisions',
+            'Centralized policy configuration (policy.json + policy_registry.json) supporting budgets, rate limits, taint tracking, EFSM gating, and composable rule types',
+            'Observe-only mode \u2014 policies with enforcement disabled still run and record would-be violations, so teams can review impact before turning on blocking',
+            'Policy confirmation flow \u2014 when a policy modifies or blocks a response, the kernel returns a protected version and asks for a Yes/No decision without making a new LLM call',
+          ],
+        },
+        {
+          name: 'The ArbiterOS Advantage',
+          tag: 'Why it matters',
+          items: [
+            'Broader reuse \u2014 a single governance layer can serve any agent that routes LLM traffic through the ArbiterOS proxy, regardless of the agent framework',
+            'Deeper semantic grounding \u2014 enforcement attaches to parsed instructions and their metadata, not just raw text patterns or surface-level signals',
+            'Configurable workflow control \u2014 sensitive actions can be gated by EFSM rules, taint policies, or user confirmation',
+            'Taint-aware leak prevention \u2014 when taint policies are active, untrusted data can be stopped before reaching high-impact sinks such as messaging or file writes',
+            'Operational flexibility \u2014 policy behavior can be adjusted through configuration files rather than hard-coding checks into each agent',
+            'Safer rollout tuning \u2014 observe-only mode shows would-be violations before turning on enforcement',
+            'Lower-friction oversight \u2014 Yes/No confirmation keeps the session moving without forcing a restart or requiring a new LLM call',
+          ],
+        },
+      ],
+      rows: [
+        'Agent Scope',
+        'I/O Representation',
+        'Workflow Statefulness',
+        'Data Flow & Provenance',
+        'Policy Configuration',
+        'Testing & Deployment',
+        'Human-in-the-Loop',
+      ],
     },
     kernelEdge: {
       label: 'Kernel Capabilities',
@@ -447,21 +502,21 @@ const zh: typeof en = {
     comparison: {
       label: '为什么治理指令',
       title: 'ArbiterOS 与底层防护有什么不同',
-      desc: '有些机制负责保护运行环境，有些机制负责监控运行过程。ArbiterOS 增加的是另一层能力：在动作继续前，先理解模型输出和工具动作的含义。',
+      desc: '有些机制负责加固运行环境，另一些负责在执行过程中检查事件。ArbiterOS 工作在不同的层次上：它将模型输出和工具调用解析为结构化指令，使策略规则能够在敏感步骤执行前评估每个动作背后的意图。',
       columns: [
         {
           name: 'OpenClaw 隔离层',
-          tag: '容器边界 / 执行审批',
+          tag: '沙箱边界 / 运行时约束',
           items: [
             '容器或进程层',
             '宿主机访问、目录挂载和网络暴露',
             '主要按容器或命令',
             '否 - 不解释智能体意图',
             '否',
-            '以固定的允许/拒绝规则为主',
-            '基础命令日志',
-            '让助手运行在更收敛的环境中',
-            '无法说明智能体为什么想执行该动作',
+            '以静态允许/拒绝规则为主，并可配置策略档位',
+            '容器级命令和事件日志',
+            '将助手限制在更受控的运行环境中',
+            '无法解释智能体执行某动作背后的意图',
           ],
         },
         {
@@ -471,12 +526,12 @@ const zh: typeof en = {
             '运行时钩子和审批流程',
             '实时会话中的工具动作和高风险步骤',
             '按工具或按会话',
-            '部分 - 可以读取部分运行时信号',
-            '有限 - 主要停留在会话层',
+            '部分 - 可检查特定运行时事件',
+            '有限 - 上下文主要局限于会话范围',
             '基于钩子的检查和审批',
-            '会话级日志与风险信号',
+            '会话记录、命令日志和风险信号',
             '监督正在运行的助手会话',
-            '不是完整的逐指令视图',
+            '无法提供完整的指令级视图',
           ],
         },
         {
@@ -490,12 +545,67 @@ const zh: typeof en = {
             '是 - 安全标签可沿相关步骤继续传递',
             '可配置的策略管线，并支持确认流程',
             '逐追踪指令文件和 Langfuse 追踪',
-            '在敏感动作继续前先审查决策',
+            '在敏感动作执行前评估决策',
             '需要让流量先经过 ArbiterOS 代理',
           ],
         },
       ],
       rows: ['工作位置', '主要关注点', '审查粒度', '能否理解含义', '能否跨步骤保留上下文', '规则如何执行', '审计记录', '更适合', '主要限制'],
+    },
+    addOnComparison: {
+      label: '附加防护 vs 内核治理',
+      title: 'ArbiterOS 与当前智能体安全附加防护的差异',
+      desc: '社区已围绕 OpenClaw 生态构建了多种安全附加防护 \u2014 包括 SecureClaw、OpenGuardrails、OpenClaw Shield、ClawAegis、GuardClaw、ClawKeeper 等项目 \u2014 以及更偏适配器路线的 APort Agent Guardrails。各项目关注的方向不尽相同，但通常绑定在特定运行时或插件接入面上。ArbiterOS 采用不同方式：作为基于 LiteLLM 的治理内核，它工作在代理层，能够服务任何将 LLM 流量路由到自定义 OpenAI 兼容端点的智能体。',
+      columns: [
+        {
+          name: '当前附加防护',
+          tag: '插件 / 技能 / 监管层',
+          items: [
+            '主要面向 OpenClaw 生态 \u2014 SecureClaw、ClawAegis、OpenGuardrails、OpenClaw Shield、GuardClaw、ClawKeeper 均围绕 OpenClaw 的插件或技能接入面构建，APort Agent Guardrails 则以更通用的适配器式授权层定位',
+            '各项目关注的层面有所不同 \u2014 SecureClaw 侧重审计、加固和运行时行为规则；OpenGuardrails 整合静态扫描、运行时拦截和数据脱敏；OpenClaw Shield 以分层闸门和输出脱敏为核心',
+            '通常按单次调用或分层检查执行 \u2014 SecureClaw、OpenGuardrails、OpenClaw Shield、ClawAegis 各自在所属层面提供运行时检查和审批，但均未维护跨共享指令轨迹的有状态计划-执行工作流模型',
+            '扫描与脱敏是更常见的手段 \u2014 SecureClaw、OpenGuardrails 侧重文件和技能扫描，OpenClaw Shield 和 ClawAegis 增加运行时检查或输出脱敏，但均不像污点追踪系统那样在指令之间传播信任度和机密性标签',
+            '各项目定义各自的策略接入面 \u2014 ClawKeeper 横跨技能、插件和监管三层；SecureClaw 和 ClawAegis 将控制逻辑封装在各自的配置格式与框架中',
+            '执行决策通常为全有或全无 \u2014 OpenClaw Shield、APort Agent Guardrails、GuardClaw 强调确定性的 allow/deny 或审批结果，如果规则收紧过快，可能影响现有工作流',
+            '执行前闸门或审批流程 \u2014 OpenClaw Shield、APort Agent Guardrails 强调工具执行前做出决策，在 OpenClaw 自身中，插件也可以阻断或暂停调用以等待审批，而无需重启整个会话',
+          ],
+        },
+        {
+          name: 'ArbiterOS 内核防御',
+          tag: '指令级治理内核',
+          items: [
+            '任何可接入 ArbiterOS 代理的智能体 \u2014 工作在 LiteLLM 代理层，服务支持自定义 OpenAI 兼容 base URL 和 API key 的智能体',
+            '指令化 \u2014 把结构化输出和工具调用解析为统一的指令流，并附带安全元数据',
+            '有状态的工作流治理（EFSM）\u2014 可配置的计划或状态规则要求敏感动作必须与近期声明的计划对齐',
+            '污点传播在指令与工具结果之间延续信任度和机密性标签，支持基于来源感知的策略决策',
+            '集中式策略配置（policy.json + policy_registry.json）\u2014 支持预算、速率限制、污点追踪、EFSM 治理和可组合的规则类型',
+            '观察模式 \u2014 即使关闭执行，策略仍会运行并记录潜在违规，方便团队在开启拦截前评估影响',
+            '策略确认流程 \u2014 当策略修改或阻断响应时，内核返回受保护版本并等待用户 Yes/No 决策，无需发起新的 LLM 调用',
+          ],
+        },
+        {
+          name: 'ArbiterOS 优势',
+          tag: '为何重要',
+          items: [
+            '更广的复用范围 \u2014 一套治理层即可服务任何将 LLM 流量路由到 ArbiterOS 代理的智能体，不受具体框架限制',
+            '更深的语义锚点 \u2014 规则直接作用于解析后的指令及其元数据，而非仅依赖原始文本模式或表面信号',
+            '可配置的工作流控制 \u2014 敏感动作可通过 EFSM 规则、污点策略或用户确认进行治理',
+            '来源感知的泄漏防护 \u2014 启用污点策略后，不可信数据可在到达消息发送或文件写入等高风险出口前被拦截',
+            '运维灵活性 \u2014 可通过配置文件调整策略行为，而非将检查逻辑硬编码进每个智能体',
+            '更安全的上线调优 \u2014 先用观察模式查看潜在违规，再启用正式拦截',
+            '更低打扰的监督 \u2014 Yes/No 确认流程可延续会话进程，无需强制重启或发起新的 LLM 调用',
+          ],
+        },
+      ],
+      rows: [
+        '适用范围',
+        'I/O 表示',
+        '工作流状态性',
+        '数据流与来源追踪',
+        '策略配置',
+        '测试与部署',
+        '人机协同',
+      ],
     },
     kernelEdge: {
       label: '内核能力',
@@ -1048,7 +1158,7 @@ function OverviewSection({ t }: { t: SiteCopy }) {
         </div>
         <div className="comparison-grid">
           {t.overview.comparison.columns.map((col, colIdx) => (
-            <div className={`comparison-col${colIdx === 2 ? ' comparison-col-highlight' : ''}`} key={col.name}>
+            <div className={`comparison-col${colIdx === 2 ? ' comparison-col-highlight' : ''}`} key={col.name} style={{ gridRow: `span ${t.overview.comparison.rows.length + 1}` }}>
               <div className="comparison-head">
                 <h4>{col.name}</h4>
                 <span className="comparison-tag">{col.tag}</span>
@@ -1056,6 +1166,30 @@ function OverviewSection({ t }: { t: SiteCopy }) {
               {col.items.map((value, rowIdx) => (
                 <div className="comparison-cell" key={rowIdx}>
                   <span className="comparison-cell-label">{t.overview.comparison.rows[rowIdx]}</span>
+                  <span className="comparison-cell-value">{value}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="overview-card">
+        <div className="overview-card-header">
+          <span className="section-label">{t.overview.addOnComparison.label}</span>
+          <h3>{t.overview.addOnComparison.title}</h3>
+          <p className="section-desc">{t.overview.addOnComparison.desc}</p>
+        </div>
+        <div className="comparison-grid">
+          {t.overview.addOnComparison.columns.map((col, colIdx) => (
+            <div className={`comparison-col${colIdx === 2 ? ' comparison-col-highlight' : ''}`} key={col.name} style={{ gridRow: `span ${t.overview.addOnComparison.rows.length + 1}` }}>
+              <div className="comparison-head">
+                <h4>{col.name}</h4>
+                <span className="comparison-tag">{col.tag}</span>
+              </div>
+              {col.items.map((value, rowIdx) => (
+                <div className="comparison-cell" key={rowIdx}>
+                  <span className="comparison-cell-label">{t.overview.addOnComparison.rows[rowIdx]}</span>
                   <span className="comparison-cell-value">{value}</span>
                 </div>
               ))}

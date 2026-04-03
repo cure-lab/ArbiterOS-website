@@ -1608,11 +1608,14 @@ img, svg { display: block; }
 .comparison-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  column-gap: 16px;
+  row-gap: 0;
   margin-top: 28px;
 }
 
 .comparison-col {
+  display: grid;
+  grid-template-rows: subgrid;
   border-radius: var(--radius-md);
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1757,7 +1760,8 @@ img, svg { display: block; }
   }
   .header-cta { margin-left: auto; }
   .overview-card { padding: 24px; }
-  .comparison-grid { grid-template-columns: 1fr; }
+  .comparison-grid { grid-template-columns: 1fr; gap: 16px; }
+  .comparison-col { grid-row: auto !important; grid-template-rows: auto; }
   .kernel-edge-grid { grid-template-columns: 1fr; }
 
   .hero {
