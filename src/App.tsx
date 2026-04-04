@@ -6,7 +6,7 @@ const en = {
   meta: {
     homeTitle: 'ArbiterOS | Home',
     titleSuffix: 'ArbiterOS',
-    description: 'ArbiterOS is an open-source agent safety governance and observability kernel with policy protection, instruction parsing, Langfuse tracing, and one-click deployment.',
+    description: 'ArbiterOS is an open-source execution governance layer for AI agents that intercepts model outputs, maps them into structured instructions, and applies policy, approval, and trace controls before actions run.',
   },
   ui: {
     brandHomeLabel: 'ArbiterOS home',
@@ -20,83 +20,101 @@ const en = {
   },
   nav: { home: 'Home', overview: 'Overview', howItWorks: 'How It Works', features: 'Features', extension: 'Observability' },
   hero: {
-    eyebrow: 'Open-Source Agent Governance',
-    title: 'Secure every AI\u00a0agent action before it\u00a0happens.',
-    sub: 'ArbiterOS is an open-source protection layer for AI agents. It intercepts model outputs, applies policy-driven safety checks with human-in-the-loop approval, and provides full observability through Langfuse-powered tracing and analysis.',
-    primaryBtn: 'Get Started',
-    secondaryBtn: 'Learn More',
-    meta: ['OpenAI-compatible API', 'OpenClaw Integration', 'Local / Docker Deploy'],
+    eyebrow: 'Agent Execution Governance',
+    title: 'Make execution governable, not just runnable.',
+    sub: 'ArbiterOS intercepts model outputs, turns tool intent into structured instructions, and applies policy, approval, and audit controls before execution. That makes AI agents controllable, reviewable, and replayable.',
+    demoBtn: 'Watch Demo',
+    howItWorksBtn: 'How It Works',
+    githubBtn: 'GitHub',
+    meta: ['OpenAI-compatible API', 'OpenClaw-ready', 'Docker / Local deploy'],
+  },
+  positioning: {
+    label: 'Why ArbiterOS',
+    title: 'Govern actions before they run',
+    desc: 'Sandboxes, guardrails, and observability still matter, but they solve different problems. ArbiterOS intercepts model outputs, turns tool intent into structured instructions, and applies policy, approval, and tracing before sensitive actions run.',
+    items: [
+      { title: 'Sandboxing', short: 'Constrain what code can touch' },
+      { title: 'Patchwork Guardrails', short: 'Add checks at isolated steps' },
+      { title: 'Content Guardrails', short: 'Filter model inputs and outputs' },
+      { title: 'Behavior Monitoring', short: 'Observe after execution starts' },
+      { title: 'ArbiterOS', short: 'Gate actions before they run' },
+    ],
   },
   advantages: {
-    label: 'Feature Advantages',
-    title: 'Not just forwarding models \u2014 governing the entire Agent execution chain',
+    label: 'Core Mechanisms',
+    title: 'How ArbiterOS governs actions',
     items: [
       {
-        title: 'Policy Protection + User Confirmation',
-        short: 'Policy-driven interception with human-in-the-loop approval',
-        detail: 'When a policy triggers interception, the kernel returns a confirmation prompt and waits for the user\u2019s Yes/No decision, preventing high-risk tool calls from executing directly.',
+        title: 'Intercept Before The Agent Acts',
+        short: 'Capture outputs and tool calls before workflows commit',
+        detail: 'ArbiterOS sits on the LLM path and captures assistant responses before the runtime turns them into live actions.',
       },
       {
-        title: 'Instruction Parsing & Structured Persistence',
-        short: 'Unified instruction streams with replayable trace files',
-        detail: 'Maps structured outputs, tool calls, and tool results into a unified instruction stream, generating replayable files per trace for audit and review.',
+        title: 'Discrete Instructions + Registry',
+        short: 'Map responses into typed instructions with registry context',
+        detail: 'Structured outputs, tool calls, and tool results are normalized into discrete instructions, then classified with registry-backed type, risk, trustworthiness, and confidentiality metadata.',
       },
       {
-        title: 'Full-Chain Observability',
-        short: 'Pre-call / post-call logging with Langfuse tracing',
-        detail: 'Records pre-call and post-call logs simultaneously, integrates Langfuse tracing and node persistence for monitoring performance, behavior, and anomalies.',
+        title: 'Data-Flow-Aware Policy Control',
+        short: 'Carry taint, trust, and confidentiality across steps',
+        detail: 'Registry rules and taint tracking let policies reason about where data came from, what it touched, and whether a later write, exec, or outbound step should proceed.',
       },
       {
-        title: 'Skill Trust Scanning',
-        short: 'Trust evaluation and caching for skill packages',
-        detail: 'Optionally integrates a skill scanner to evaluate trustworthiness of skill packages and cache results, reducing execution risk from untrusted skills.',
+        title: 'Tools And Skills In One Governance Path',
+        short: 'Fold tool results and optional skill trust into one loop',
+        detail: 'ArbiterOS can merge tool results into the same instruction flow and incorporate optional skill-trust signals, instead of splitting governance across disconnected safety layers.',
       },
       {
-        title: 'OpenClaw Out-of-Box Integration',
-        short: 'OpenAI-compatible endpoint for seamless workflow integration',
-        detail: 'Exposes an OpenAI-compatible interface that can serve as OpenClaw\u2019s default model provider, enabling seamless integration into existing workflows.',
+        title: 'Approval Is A Policy Outcome',
+        short: 'Allow, deny, rewrite, or hold in one decision pipeline',
+        detail: 'Human confirmation is not bolted on later. It is one possible policy result when an instruction crosses a configured risk threshold.',
       },
       {
-        title: 'One-Click Install & Elastic Deploy',
-        short: 'Multiple deployment methods for individuals and teams',
-        detail: 'Supports install scripts, user-level systemd, Docker Compose, and local source builds, covering both individual and team environments.',
+        title: 'Traceable, Replayable Decisions',
+        short: 'Keep evidence for every governed instruction and result',
+        detail: 'Per-trace instruction files, decision logs, and replay context make it possible to inspect why a step was classified, changed, blocked, or approved.',
       },
     ],
   },
   quickStart: {
     label: 'Quick Start',
-    title: 'Connect ArbiterOS to your Agent system in three steps',
+    title: 'Get started in three steps',
     steps: [
       { step: '1', title: 'Install & Start Kernel', description: 'Run the install script or Docker Compose to start ArbiterOS Kernel (default port:4000).' },
       { step: '2', title: 'Configure Models & Policies', description: 'Configure models, API keys, optional skill trust scanning, and policy rules in litellm_config.yaml.' },
       { step: '3', title: 'Connect OpenClaw / Your Agent', description: 'Point your model provider to http://127.0.0.1:4000/v1 for instant governance, audit, and observability.' },
     ],
+    commandsLabel: 'Install commands',
+    copyLabel: 'Copy',
+    copiedLabel: 'Copied',
     demo: {
-      title: 'Interactive Demo',
-      description: 'Explore real governance traces and policy decisions from ArbiterOS selected cases.',
-      openLabel: 'Open demo in new tab',
+      title: 'See governed execution in a real trace',
+      description: 'Compare the same agent workflow through real governance traces and policy decisions once ArbiterOS is in the loop.',
+      openLabel: 'Open live demo',
       iframeTitle: 'ArbiterOS selected cases demo',
     },
   },
   howItWorks: {
     label: 'How It Works',
-    title: 'From agent output to governed action in four steps',
+    title: 'Four steps to governed actions',
+    statement: 'The key difference is not another filter around the model. ArbiterOS intercepts outputs, builds typed instructions, and governs each step before execution.',
+    outcomes: ['Allow', 'Deny', 'Approve', 'Rewrite'],
     steps: [
-      { step: '01', title: 'Intercept', description: 'The gateway captures every LLM response before the agent commits to action.' },
-      { step: '02', title: 'Parse', description: 'Tool calls and structured outputs become checkable instructions with security metadata.' },
-      { step: '03', title: 'Govern', description: 'Configurable policies allow, block, or protect operations \u2014 escalating to human approval when needed.' },
-      { step: '04', title: 'Observe', description: 'Trace every decision, analyze failures, and refine policies through evidence-backed dashboards.' },
+      { step: '01', title: 'Intercept', description: 'The gateway captures assistant responses and tool calls before the agent runtime commits to action.' },
+      { step: '02', title: 'Structure', description: 'Structured output, tool calls, and tool results are converted into discrete instructions with registry and security metadata.' },
+      { step: '03', title: 'Govern', description: 'Registry rules, taint labels, and policy checks decide whether each instruction is allowed, denied, rewritten, or held for approval.' },
+      { step: '04', title: 'Replay', description: 'Each instruction, classification, and decision is persisted for replay, audit, and policy iteration.' },
     ],
   },
   features: {
     label: 'Core Capabilities',
-    title: 'Security and reliability at the center',
-    desc: 'ArbiterOS makes agent behavior inspectable before it becomes action, and risky behavior governable when reliability matters.',
+    title: 'Turn output into instructions',
+    desc: 'ArbiterOS does more than add checks around an agent. It intercepts outputs, builds discrete instructions, carries security labels across steps, and applies policy before execution.',
     items: [
-      { title: 'Instruction-Aware Gateway', description: 'Sits on the LLM request path via LiteLLM proxy, converting model outputs and tool intents into structured instructions before execution.' },
-      { title: 'Configurable Policy Engine', description: 'Sequential policy checks inspect every action for trustworthiness, confidentiality, reversibility, and execution risk.' },
-      { title: 'Human-in-the-Loop Approval', description: 'Sensitive operations escalate through explicit confirmation loops. Approved actions carry full evidence for audit and replay.' },
-      { title: 'Traceable Reliability', description: 'Every request, policy decision, and governance trace is persisted for deterministic replay, incident review, and reporting.' },
+      { title: 'Intercept Model Output', description: 'Capture assistant responses and tool calls on the LLM path before the runtime commits them to action.' },
+      { title: 'Build Typed Instructions', description: 'Convert structured output, tool calls, and tool results into discrete instructions with category, type, and registry-backed security metadata.' },
+      { title: 'Apply Data-Flow-Aware Policies', description: 'Use registry rules, trust/confidentiality labels, and taint propagation to evaluate reads, writes, execs, and sensitive downstream steps.' },
+      { title: 'Govern Tools, Skills, and Outcomes', description: 'Feed tool results and optional skill-trust signals into the same governance loop, then return allow, deny, rewrite, or approval outcomes with trace evidence.' },
     ],
   },
   extension: {
@@ -114,12 +132,13 @@ const en = {
   },
   architecture: {
     label: 'Architecture',
-    title: 'Full governance from pre-call to post-call',
+    title: 'Governance flow',
     nodes: [
       { main: 'Request Preprocessing', sub: 'Trace mgmt / Format merge / Classification' },
       { main: 'LLM Invocation', sub: 'LiteLLM Proxy' },
       { main: 'Response Parsing', sub: 'Structured extraction / Instruction building' },
-      { main: 'Policy Check', sub: 'Intercept & rewrite / Yes-No confirmation' },
+      { main: 'Policy Check', sub: 'Allow / deny / rewrite' },
+      { main: 'Approval & Execution', sub: 'Hold for confirmation / Release safely' },
       { main: 'Audit & Observability', sub: 'Trace files / Langfuse / Logs' },
     ],
   },
@@ -142,7 +161,7 @@ const en = {
     desc: 'ArbiterOS sits between an AI agent and its model provider. It helps teams review model outputs, turn tool-related responses into structured instructions, apply policy checks, request user confirmation when needed, and keep trace records for audit.',
     architecture: {
       label: 'Architecture',
-      title: 'Where ArbiterOS sits in the agent stack',
+      title: 'Where ArbiterOS sits',
       diagram: {
         ariaLabel: 'ArbiterOS ecosystem diagram',
         humanTitle: 'Operator',
@@ -181,7 +200,7 @@ const en = {
     },
     dataflow: {
       label: 'Data Flow',
-      title: 'What happens during a request',
+      title: 'Request flow',
       stages: [
         { num: '1', title: 'Prepare Request', desc: 'Detect pending approval replies \u00b7 Assign trace context \u00b7 Merge response format \u00b7 Attach metadata' },
         { num: '2', title: 'Call Model', desc: 'Forward through LiteLLM proxy to the configured model provider \u00b7 Supports streaming and batch requests' },
@@ -192,7 +211,7 @@ const en = {
     },
     comparison: {
       label: 'Why Govern Instructions',
-      title: 'How ArbiterOS differs from lower-level protections',
+      title: 'Why it is different',
       desc: 'Some controls harden the runtime environment; others inspect events during execution. ArbiterOS operates at a different level: it parses model outputs and tool calls into structured instructions, enabling policy rules to evaluate the intent behind each action before sensitive steps proceed.',
       columns: [
         {
@@ -245,7 +264,7 @@ const en = {
     },
     addOnComparison: {
       label: 'Add-On Protections vs Kernel Governance',
-      title: 'How ArbiterOS compares to current agent security add-ons',
+      title: 'Compared with agent add-ons',
       desc: 'The community has built a range of OpenClaw security add-ons \u2014 including SecureClaw, OpenGuardrails, OpenClaw Shield, ClawAegis, GuardClaw, and ClawKeeper \u2014 along with broader adapter-style layers such as APort Agent Guardrails. Each project addresses different concerns, but they are generally attached to a particular runtime or plugin surface. ArbiterOS takes a different approach: as a LiteLLM-based governance kernel, it sits at the proxy layer and can serve any agent that routes LLM traffic through a custom OpenAI-compatible endpoint.',
       columns: [
         {
@@ -300,7 +319,7 @@ const en = {
     },
     kernelEdge: {
       label: 'Kernel Capabilities',
-      title: 'Key capabilities behind the governance layer',
+      title: 'Kernel capabilities',
       items: [
         { title: 'Cross-step context tracking', desc: 'ArbiterOS can carry security labels such as trust and confidentiality across related instructions, so later actions can still reflect earlier risky inputs.' },
         { title: 'Configurable classification rules', desc: 'Built-in YAML registries classify files, paths, and executables, and teams can override defaults locally without changing the source code.' },
@@ -315,7 +334,7 @@ const zh: typeof en = {
   meta: {
     homeTitle: 'ArbiterOS | 首页',
     titleSuffix: 'ArbiterOS',
-    description: 'ArbiterOS 是一个开源的智能体安全治理与可观测内核，提供策略保护、指令解析、Langfuse 可观测性与一键部署能力。',
+    description: 'ArbiterOS 是一个开源的智能体执行治理层，在动作真正执行前拦截模型输出、映射结构化指令，并施加策略、审批与追踪控制。',
   },
   ui: {
     brandHomeLabel: 'ArbiterOS 首页',
@@ -329,83 +348,101 @@ const zh: typeof en = {
   },
   nav: { home: '首页', overview: '系统总览', howItWorks: '工作原理', features: '核心能力', extension: '可观测性' },
   hero: {
-    eyebrow: '开源智能体安全治理内核',
-    title: '让每一次智能体调用都可控、可审计、可回放',
-    sub: 'ArbiterOS 在 LiteLLM Proxy 层之上提供策略保护、指令解析、Langfuse 可观测性与技能信任评估，帮助团队更安全地运行智能体。',
-    primaryBtn: '三步部署',
-    secondaryBtn: '查看核心能力',
-    meta: ['兼容 OpenAI 的 API', 'OpenClaw 集成', '本地 / Docker 部署'],
+    eyebrow: '智能体执行治理层',
+    title: '不仅让智能体能够运行，更让执行过程可控',
+    sub: 'ArbiterOS 会拦截模型输出，将工具意图整理为可检查的结构化指令，并在真正执行前结合策略、审批与审计进行控制，使智能体行为更可控、可审计、可回放。',
+    demoBtn: '观看 Demo',
+    howItWorksBtn: '查看工作原理',
+    githubBtn: 'GitHub',
+    meta: ['兼容 OpenAI API', '支持 OpenClaw 集成', '支持 Docker / 本地部署'],
+  },
+  positioning: {
+    label: '为什么是 ArbiterOS',
+    title: '在执行前治理关键动作',
+    desc: '沙箱、Guardrails 和可观测性都很重要，但它们解决的是不同层面的问题。ArbiterOS 会先拦截模型输出，将工具意图整理为结构化指令，再在敏感动作真正执行前施加策略、审批和追踪控制。',
+    items: [
+      { title: '沙箱隔离', short: '限制代码能接触什么' },
+      { title: '碎片化 Guardrails', short: '在局部环节补检查' },
+      { title: '内容 Guardrails', short: '过滤模型输入与输出' },
+      { title: '行为监测', short: '执行开始后再观察' },
+      { title: 'ArbiterOS', short: '在执行前治理关键动作' },
+    ],
   },
   advantages: {
-    label: '功能优势',
-    title: '不是只做模型转发，而是治理整个智能体执行链路',
+    label: '核心机制',
+    title: 'ArbiterOS 如何治理关键动作',
     items: [
       {
-        title: '策略保护 + 用户确认',
-        short: '策略触发拦截时等待用户决策',
-        detail: '当策略触发拦截时，内核会返回确认信息并等待用户进行是/否决策，避免高风险工具调用被直接执行。',
+        title: '执行前拦截',
+        short: '在工作流真正提交前捕获输出和工具调用',
+        detail: 'ArbiterOS 工作在 LLM 链路上，会在运行时将模型响应转化为真实动作之前完成拦截。',
       },
       {
-        title: '指令解析与结构化落盘',
-        short: '统一映射为指令流并生成可回放文件',
-        detail: '将结构化输出、工具调用与工具结果统一映射为指令流，并按追踪生成可回放文件，支持审计与复盘。',
+        title: '离散指令 + 规则注册表',
+        short: '把响应整理成带上下文的类型化指令',
+        detail: '结构化输出、工具调用和工具结果会被统一整理成离散指令，再结合规则注册表补上类型、风险、可信度和保密性等元数据。',
       },
       {
-        title: '全链路可观测性',
-        short: '记录调用前 / 调用后日志并接入 Langfuse',
-        detail: '同时记录调用前 / 调用后日志，接入 Langfuse 追踪与节点持久化，便于监控性能、行为和异常。',
+        title: '按数据流施加策略',
+        short: '让污点标签、可信度和保密性跨步骤延续',
+        detail: '借助规则注册表和污点跟踪，策略可以判断数据从哪里来、经过了哪些环节，以及后续写入、执行或外发动作是否应该继续。',
       },
       {
-        title: '技能信任扫描',
-        short: '对技能包进行信任评估并缓存结果',
-        detail: '可选接入技能扫描器，对技能包进行信任评估并缓存结果，降低不可信技能带来的执行风险。',
+        title: '工具和 Skills 统一治理',
+        short: '把工具结果和可选的技能信任信号放进同一循环',
+        detail: 'ArbiterOS 可以把工具结果并入同一条指令流，也能接入可选的技能信任信号，而不是把治理拆散到多个彼此割裂的安全层。',
       },
       {
-        title: 'OpenClaw 集成',
-        short: '对外暴露兼容 OpenAI 的 API',
-        detail: '对外暴露兼容 OpenAI 的 API，配置后可作为 OpenClaw 默认模型提供方，平滑接入现有工作流。',
+        title: '审批是策略结果之一',
+        short: '放行、拦截、改写或挂起都在同一决策链里',
+        detail: '人工审批并非事后附加的能力，而是在某条指令越过配置阈值时，策略流水线本身可能给出的一个结果。',
       },
       {
-        title: '一键安装与弹性部署',
-        short: '多种部署方式覆盖个人与团队环境',
-        detail: '支持安装脚本、用户级 systemd、Docker Compose 与本地源码编译，覆盖个人与团队环境。',
+        title: '决策可追溯、可回放',
+        short: '为每条受治理指令保留证据和结果',
+        detail: '逐条追踪的指令文件、决策日志和回放上下文，让你能在事后看清某一步为什么被分类、改写、拦截或批准。',
       },
     ],
   },
   quickStart: {
     label: '快速上手',
-    title: '三步将 ArbiterOS 接入你的智能体工作流',
+    title: '三步接入 ArbiterOS',
     steps: [
       { step: '1', title: '安装并启动内核', description: '运行安装脚本或 Docker Compose，启动 ArbiterOS 内核（默认端口：4000）。' },
-      { step: '2', title: '配置模型与策略', description: '在 litellm_config.yaml 中配置模型、API 密钥、可选的技能信任扫描参数与策略规则。' },
+      { step: '2', title: '配置模型与策略', description: '在 litellm_config.yaml 中配置模型、API 密钥、可选的技能信任扫描，以及策略规则。' },
       { step: '3', title: '连接 OpenClaw / 你的智能体', description: '将模型提供方指向 http://127.0.0.1:4000/v1，即可获得治理、审计与可观测能力。' },
     ],
+    commandsLabel: '安装命令',
+    copyLabel: '复制',
+    copiedLabel: '已复制',
     demo: {
-      title: '交互式 Demo',
-      description: '浏览 ArbiterOS 真实样例中的治理追踪与策略决策过程。',
-      openLabel: '在新标签页打开 Demo',
+      title: '看一次真实的治理过程',
+      description: '通过真实的治理追踪和策略决策，对比 ArbiterOS 接入前后，同一类智能体工作流会发生什么变化。',
+      openLabel: '打开在线 Demo',
       iframeTitle: 'ArbiterOS 选定样例演示',
     },
   },
   howItWorks: {
     label: '工作原理',
-    title: '从智能体输出到受治理动作的四个步骤',
+    title: '动作治理的四个步骤',
+    statement: '关键不在于额外增加一层过滤器，而在于先拦截输出、将其整理为类型化指令，再在执行前完成逐步治理。',
+    outcomes: ['允许', '阻止', '审批', '改写'],
     steps: [
-      { step: '01', title: '拦截', description: '网关会在智能体提交动作之前捕获每一次大模型响应。' },
-      { step: '02', title: '解析', description: '将工具调用与结构化输出转化为可检查的指令，并附带安全元数据。' },
-      { step: '03', title: '治理', description: '可配置策略能够允许、阻止或保护操作，并在必要时升级为人工审批。' },
-      { step: '04', title: '观测', description: '追踪每个决策、分析失败原因，并通过基于证据的仪表盘持续优化策略。' },
+      { step: '01', title: '拦截', description: '网关会在运行时真正提交动作前，先捕获模型响应与工具调用。' },
+      { step: '02', title: '结构化', description: '结构化输出、工具调用和工具结果会被整理成离散指令，并补上规则注册表和安全元数据。' },
+      { step: '03', title: '治理', description: '规则注册表、污点标签和策略检查会共同决定每条指令是放行、拦截、改写，还是进入审批。' },
+      { step: '04', title: '回放', description: '每条指令、分类结果与决策都会被持久化，方便回放、审计与持续优化策略。' },
     ],
   },
   features: {
     label: '核心能力',
-    title: '以安全性与可靠性为核心',
-    desc: 'ArbiterOS 让智能体行为在执行前可检查，让高风险行为在关键时刻可治理。',
+    title: '将输出转化为可治理指令',
+    desc: 'ArbiterOS 并非仅在智能体外围增加检查，而是先拦截输出、构建离散指令、在跨步骤间传递安全标签，并在执行前施加策略控制。',
     items: [
-      { title: '指令感知网关', description: '通过 LiteLLM Proxy 拦截大模型请求链路，将模型输出与工具意图转化为结构化指令后再执行。' },
-      { title: '可配置策略引擎', description: '按顺序执行策略检查，审查每个操作的可信性、保密性、可逆性与执行风险。' },
-      { title: 'Human-in-the-Loop 审批', description: '敏感操作会通过明确的确认流程升级。已批准的动作携带完整证据，用于审计与回放。' },
-      { title: '可追踪的可靠性', description: '每个请求、策略决策与治理追踪都会被持久化，支持确定性回放、事故复盘与报告分析。' },
+      { title: '拦截模型输出', description: '在 LLM 链路上捕获模型响应与工具调用，而不是等运行时已经开始动作后再补救。' },
+      { title: '构建类型化指令', description: '把结构化输出、工具调用和工具结果转成离散指令，并补齐类别、类型以及规则注册表支持的安全元数据。' },
+      { title: '按数据流施加策略', description: '结合规则注册表、可信度 / 保密性标签和污点传播，对读取、写入、执行以及敏感下游动作做判断。' },
+      { title: '统一治理工具、Skills 和结果', description: '把工具结果和可选的技能信任信号纳入同一治理循环，再输出放行、拦截、改写或审批等结果，并保留追踪证据。' },
     ],
   },
   extension: {
@@ -423,12 +460,13 @@ const zh: typeof en = {
   },
   architecture: {
     label: '架构能力',
-    title: '从调用前到调用后的全流程治理',
+    title: '治理流程',
     nodes: [
       { main: '请求预处理', sub: '追踪管理 / 格式合并 / 分类封装' },
       { main: 'LLM 调用', sub: 'LiteLLM Proxy' },
       { main: '响应解析', sub: '结构化抽取 / 指令构建' },
-      { main: '策略检查', sub: '拦截改写 / 是或否确认' },
+      { main: '策略检查', sub: '允许 / 阻止 / 改写' },
+      { main: '审批与执行', sub: '等待确认 / 安全放行' },
       { main: '审计与可观测性', sub: '追踪文件 / Langfuse / 日志' },
     ],
   },
@@ -451,7 +489,7 @@ const zh: typeof en = {
     desc: 'ArbiterOS 位于智能体与模型提供方之间。它帮助团队审查模型输出，把与工具相关的响应整理成结构化指令，执行策略检查，在需要时请求人工确认，并保留可审计的追踪记录。',
     architecture: {
       label: '架构图',
-      title: 'ArbiterOS 在智能体链路中的位置',
+      title: 'ArbiterOS 在链路中的位置',
       diagram: {
         ariaLabel: 'ArbiterOS 生态架构图',
         humanTitle: '操作人员',
@@ -490,7 +528,7 @@ const zh: typeof en = {
     },
     dataflow: {
       label: '数据流转',
-      title: '一次请求会经历什么',
+      title: '请求流程',
       stages: [
         { num: '1', title: '准备请求', desc: '识别待处理的确认回复 \u00b7 分配追踪上下文 \u00b7 合并响应格式 \u00b7 附加元数据' },
         { num: '2', title: '调用模型', desc: '通过 LiteLLM 代理转发到已配置的模型提供方 \u00b7 支持流式和批量请求' },
@@ -501,7 +539,7 @@ const zh: typeof en = {
     },
     comparison: {
       label: '为什么治理指令',
-      title: 'ArbiterOS 与底层防护有什么不同',
+      title: 'ArbiterOS 与底层防护的差异',
       desc: '有些机制负责加固运行环境，另一些负责在执行过程中检查事件。ArbiterOS 工作在不同的层次上：它将模型输出和工具调用解析为结构化指令，使策略规则能够在敏感步骤执行前评估每个动作背后的意图。',
       columns: [
         {
@@ -553,8 +591,8 @@ const zh: typeof en = {
       rows: ['工作位置', '主要关注点', '审查粒度', '能否理解含义', '能否跨步骤保留上下文', '规则如何执行', '审计记录', '更适合', '主要限制'],
     },
     addOnComparison: {
-      label: '附加防护 vs 内核治理',
-      title: 'ArbiterOS 与当前智能体安全附加防护的差异',
+      label: '附加防护与内核治理',
+      title: 'ArbiterOS 与现有智能体防护的差异',
       desc: '社区已围绕 OpenClaw 生态构建了多种安全附加防护 \u2014 包括 SecureClaw、OpenGuardrails、OpenClaw Shield、ClawAegis、GuardClaw、ClawKeeper 等项目 \u2014 以及更偏适配器路线的 APort Agent Guardrails。各项目关注的方向不尽相同，但通常绑定在特定运行时或插件接入面上。ArbiterOS 采用不同方式：作为基于 LiteLLM 的治理内核，它工作在代理层，能够服务任何将 LLM 流量路由到自定义 OpenAI 兼容端点的智能体。',
       columns: [
         {
@@ -609,7 +647,7 @@ const zh: typeof en = {
     },
     kernelEdge: {
       label: '内核能力',
-      title: '治理层背后的关键能力',
+      title: '内核的关键能力',
       items: [
         { title: '跨步骤上下文跟踪', desc: 'ArbiterOS 可以让信任度、保密性等安全标签沿相关指令继续传递，因此后续动作仍会受到前序风险输入的影响。' },
         { title: '可配置的分类规则', desc: '内置 YAML 注册表可对文件、路径和可执行文件进行分类，团队也可以在本地覆盖默认规则，而无需改动源码。' },
@@ -622,8 +660,8 @@ const zh: typeof en = {
 
 const i18n = { en, zh };
 
-const featureIcons = [GatewayIcon, PolicyEngineIcon, ApprovalIcon, ReliabilityIcon];
-const advantageIcons = [ShieldConfirmIcon, InstructionParseIcon, ObservabilityIcon, TrustScanIcon, OpenClawIcon, DeployIcon];
+const featureIcons = [GatewayIcon, InstructionParseIcon, PolicyEngineIcon, TrustScanIcon];
+const advantageIcons = [GatewayIcon, InstructionParseIcon, PolicyEngineIcon, TrustScanIcon, ApprovalIcon, ObservabilityIcon];
 const extensionVisuals = [
   GovernanceDashboardVisual, TraceGraphVisual, ErrorAnalysisVisual,
   ViolationTrackingVisual, PolicyRefinementVisual, ExperienceAssetsVisual,
@@ -657,6 +695,31 @@ function withBasePath(path: `/${string}`): string {
   }
 
   return path === '/' ? `${appBasePath}/` : `${appBasePath}${path}`;
+}
+
+async function copyTextToClipboard(text: string): Promise<boolean> {
+  if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+
+  if (typeof document === 'undefined') {
+    return false;
+  }
+
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.setAttribute('readonly', '');
+  textArea.style.position = 'absolute';
+  textArea.style.left = '-9999px';
+  document.body.appendChild(textArea);
+  textArea.select();
+
+  try {
+    return document.execCommand('copy');
+  } finally {
+    document.body.removeChild(textArea);
+  }
 }
 
 function toRelativePathname(pathname: string): string {
@@ -890,10 +953,15 @@ export default function App() {
       <main id="top">
         {page === 'home' && (
           <>
-            <HeroSection t={t} lang={lang} />
-            <CtaSection t={t} />
+            <HeroSection
+              t={t}
+              lang={lang}
+              onHowItWorksClick={(event) => handleNavigate(event, 'how-it-works')}
+            />
+            <PositioningSection t={t} />
             <AdvantagesSection t={t} onSelect={setActiveAdvantage} />
             <QuickStartSection t={t} />
+            <CtaSection t={t} />
           </>
         )}
         {page === 'overview' && <OverviewSection t={t} />}
@@ -920,25 +988,75 @@ export default function App() {
   );
 }
 
-function HeroSection({ t, lang }: { t: SiteCopy; lang: Lang }) {
+function HeroSection({
+  t,
+  lang,
+  onHowItWorksClick,
+}: {
+  t: SiteCopy;
+  lang: Lang;
+  onHowItWorksClick: (event: MouseEvent<HTMLAnchorElement>) => void;
+}) {
   return (
     <section className="hero container">
       <div className="hero-content">
         <span className={`eyebrow ${lang === 'zh' ? 'eyebrow-cn' : ''}`}>{t.hero.eyebrow}</span>
         <h1>{t.hero.title}</h1>
         <p className="hero-sub">{t.hero.sub}</p>
+        <div className="hero-actions">
+          <a className="btn btn-primary" href="#quickstart-demo">
+            {t.hero.demoBtn}
+          </a>
+          <a
+            className="btn btn-secondary"
+            href={pagePaths['how-it-works']}
+            onClick={onHowItWorksClick}
+          >
+            {t.hero.howItWorksBtn}
+          </a>
+          <a
+            className="btn btn-outline"
+            href="https://github.com/cure-lab/ArbiterOS"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {t.hero.githubBtn}
+          </a>
+        </div>
+        <div className="hero-meta">
+          {t.hero.meta.map((m) => (
+            <span key={m}>{m}</span>
+          ))}
+        </div>
       </div>
       <div className="hero-panel">
-        <div className="code-card">
-          <p className="code-title">{t.quickStart.label}</p>
-          <pre>
-            <code>{`git clone https://github.com/cure-lab/ArbiterOS.git
-cd ArbiterOS
-chmod +x install.sh
-./install.sh
+        <div className="hero-visual">
+          <HeroIllustration />
+        </div>
+      </div>
+    </section>
+  );
+}
 
-./run-kernel.sh`}</code>
-          </pre>
+function PositioningSection({ t }: { t: SiteCopy }) {
+  return (
+    <section className="container section positioning-section">
+      <div className="positioning-card">
+        <div className="positioning-header">
+          <span className="section-label">{t.positioning.label}</span>
+          <h2>{t.positioning.title}</h2>
+          <p className="section-desc">{t.positioning.desc}</p>
+        </div>
+        <div className="positioning-grid">
+          {t.positioning.items.map((item, index) => (
+            <article
+              className={`positioning-item${index === t.positioning.items.length - 1 ? ' is-highlight' : ''}`}
+              key={item.title}
+            >
+              <span className="positioning-kind">{item.title}</span>
+              <p>{item.short}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -952,11 +1070,6 @@ function CtaSection({ t }: { t: SiteCopy }) {
         <div className="cta-content">
           <span className="section-label">{t.cta.label}</span>
           <h2>{t.cta.title}</h2>
-          <div className="hero-meta cta-meta">
-            {t.hero.meta.map((m) => (
-              <span key={m}>{m}</span>
-            ))}
-          </div>
           <p>{t.cta.desc}</p>
           <div className="cta-actions">
             <a
@@ -1063,10 +1176,28 @@ function AdvantageModal({
 }
 
 function QuickStartSection({ t }: { t: SiteCopy }) {
+  const [copiedCommands, setCopiedCommands] = useState(false);
   const demoHref = withBasePath('/demo/selected-cases/index.html');
+  const installCommands = `git clone https://github.com/cure-lab/ArbiterOS.git
+cd ArbiterOS
+chmod +x install.sh
+./install.sh
+
+./run-kernel.sh`;
+
+  async function handleCopyCommands() {
+    const didCopy = await copyTextToClipboard(installCommands);
+
+    if (!didCopy) {
+      return;
+    }
+
+    setCopiedCommands(true);
+    window.setTimeout(() => setCopiedCommands(false), 1800);
+  }
 
   return (
-    <section className="container section quickstart-section">
+    <section className="container section quickstart-section" id="quickstart">
       <div className="quickstart-card">
         <div className="quickstart-header">
           <span className="section-label">{t.quickStart.label}</span>
@@ -1083,7 +1214,22 @@ function QuickStartSection({ t }: { t: SiteCopy }) {
             </div>
           ))}
         </div>
-        <div className="quickstart-demo">
+        <div className="code-card quickstart-code-card">
+          <div className="quickstart-code-head">
+            <p className="code-title">{t.quickStart.commandsLabel}</p>
+            <button
+              type="button"
+              className={`code-copy-btn${copiedCommands ? ' is-copied' : ''}`}
+              onClick={() => { void handleCopyCommands(); }}
+            >
+              {copiedCommands ? t.quickStart.copiedLabel : t.quickStart.copyLabel}
+            </button>
+          </div>
+          <pre>
+            <code>{installCommands}</code>
+          </pre>
+        </div>
+        <div className="quickstart-demo" id="quickstart-demo">
           <div className="quickstart-demo-head">
             <h3>{t.quickStart.demo.title}</h3>
             <a
@@ -1371,48 +1517,81 @@ function EcosystemDiagram({ copy }: { copy: SiteCopy['overview']['architecture']
   );
 }
 
-function HowItWorksSection({ t }: { t: SiteCopy }) {
+function HowItWorksSection({
+  t,
+  variant = 'page',
+}: {
+  t: SiteCopy;
+  variant?: 'home' | 'page';
+}) {
+  const isHome = variant === 'home';
   return (
-    <section className="container section" id="how-it-works">
-      <div className="section-header section-header-wide">
-        <span className="section-label">{t.howItWorks.label}</span>
-        <h2>{t.howItWorks.title}</h2>
-      </div>
-      <div className="steps-grid">
-        {t.howItWorks.steps.map((step) => (
-          <article className="step-card" key={step.step}>
-            <span className="step-num">{step.step}</span>
-            <h3>{step.title}</h3>
-            <p>{step.description}</p>
-          </article>
-        ))}
-      </div>
-      <div className="how-architecture">
-        <div className="how-architecture-header">
-          <span className="section-label">{t.architecture.label}</span>
-          <h3>{t.architecture.title}</h3>
+    <section className={`container section${isHome ? ' how-home-section' : ''}`} id="how-it-works">
+      {isHome ? (
+        <div className="how-home-card">
+          <div className="how-home-header">
+            <span className="section-label">{t.howItWorks.label}</span>
+            <h2>{t.howItWorks.title}</h2>
+          </div>
+          <div className="steps-grid">
+            {t.howItWorks.steps.map((step) => (
+              <article className="step-card" key={step.step}>
+                <span className="step-num">{step.step}</span>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </article>
+            ))}
+          </div>
         </div>
-        <div className="arch-flow">
-          {t.architecture.nodes.flatMap((node, i) => {
-            const items = [];
+      ) : (
+        <>
+          <div className="section-header section-header-wide">
+            <span className="section-label">{t.howItWorks.label}</span>
+            <h2>{t.howItWorks.title}</h2>
+            <p className="how-lead">{t.howItWorks.statement}</p>
+            <div className="how-outcomes">
+              {t.howItWorks.outcomes.map((outcome) => (
+                <span key={outcome}>{outcome}</span>
+              ))}
+            </div>
+          </div>
+          <div className="steps-grid">
+            {t.howItWorks.steps.map((step) => (
+              <article className="step-card" key={step.step}>
+                <span className="step-num">{step.step}</span>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </article>
+            ))}
+          </div>
+          <div className="how-architecture">
+            <div className="how-architecture-header">
+              <span className="section-label">{t.architecture.label}</span>
+              <h3>{t.architecture.title}</h3>
+            </div>
+            <div className="arch-flow">
+              {t.architecture.nodes.flatMap((node, i) => {
+                const items = [];
 
-            if (i > 0) {
-              items.push(
-                <div className="flow-arrow" key={`arrow-${i}`}>→</div>,
-              );
-            }
+                if (i > 0) {
+                  items.push(
+                    <div className="flow-arrow" key={`arrow-${i}`}>→</div>,
+                  );
+                }
 
-            items.push(
-              <div className="flow-node" key={node.main}>
-                {node.main}
-                <span>{node.sub}</span>
-              </div>,
-            );
+                items.push(
+                  <div className="flow-node" key={node.main}>
+                    {node.main}
+                    <span>{node.sub}</span>
+                  </div>,
+                );
 
-            return items;
-          })}
-        </div>
-      </div>
+                return items;
+              })}
+            </div>
+          </div>
+        </>
+      )}
     </section>
   );
 }
@@ -1425,22 +1604,17 @@ function FeaturesSection({ t }: { t: SiteCopy }) {
         <h2>{t.features.title}</h2>
         <p className="section-desc">{t.features.desc}</p>
       </div>
-      <div className="features-layout">
-        <div className="features-grid">
-          {t.features.items.map((feature, i) => {
-            const Icon = featureIcons[i];
-            return (
-              <article className="feature-card" key={feature.title}>
-                <div className="feature-icon"><Icon /></div>
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
-              </article>
-            );
-          })}
-        </div>
-        <div className="features-illustration">
-          <HeroIllustration />
-        </div>
+      <div className="features-grid">
+        {t.features.items.map((feature, i) => {
+          const Icon = featureIcons[i];
+          return (
+            <article className="feature-card" key={feature.title}>
+              <div className="feature-icon"><Icon /></div>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
