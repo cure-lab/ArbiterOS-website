@@ -651,7 +651,7 @@ img, svg { display: block; }
 .advantages-header h2 {
   margin-top: 10px;
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
   font-weight: 800;
   line-height: 1.1;
   color: var(--heading);
@@ -877,7 +877,7 @@ img, svg { display: block; }
 .quickstart-header h2 {
   margin-top: 10px;
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
   font-weight: 800;
   line-height: 1.15;
   color: var(--heading);
@@ -1342,7 +1342,7 @@ img, svg { display: block; }
 .cta-content h2 {
   margin-top: 12px;
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
   font-weight: 800;
   line-height: 1.15;
   color: var(--heading);
