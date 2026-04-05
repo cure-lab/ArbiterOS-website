@@ -18,7 +18,7 @@ const en = {
     closeLabel: 'Close',
     footerLabel: '\u00a9 2026 ArbiterOS Team',
   },
-  nav: { home: 'Home', overview: 'Overview', howItWorks: 'How It Works', features: 'Features', extension: 'Observability' },
+  nav: { introHome: 'Home', home: 'Home', overview: 'Overview', howItWorks: 'How It Works', features: 'Features', extension: 'Observability' },
   hero: {
     eyebrow: 'Agent Execution Governance',
     title: 'Make execution governable, not just runnable.',
@@ -346,7 +346,7 @@ const zh: typeof en = {
     closeLabel: '关闭',
     footerLabel: '\u00a9 2026 ArbiterOS 团队',
   },
-  nav: { home: '首页', overview: '系统总览', howItWorks: '工作原理', features: '核心能力', extension: '可观测性' },
+  nav: { introHome: '介绍首页', home: '首页', overview: '系统总览', howItWorks: '工作原理', features: '核心能力', extension: '可观测性' },
   hero: {
     eyebrow: '智能体执行治理层',
     title: '不仅让智能体能够运行，更让执行过程可控',
@@ -868,6 +868,14 @@ export default function App() {
             <span>ArbiterOS</span>
           </a>
           <nav className="nav" aria-label={t.ui.primaryNavLabel}>
+            <a
+              href={pagePaths.home}
+              onClick={(event) => handleNavigate(event, 'home')}
+              className={page === 'home' ? 'active' : undefined}
+              aria-current={page === 'home' ? 'page' : undefined}
+            >
+              {t.nav.introHome}
+            </a>
             {navItems.map((item) => (
               <a
                 key={item.page}
