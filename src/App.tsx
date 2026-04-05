@@ -20,16 +20,16 @@ const en = {
   },
   nav: { introHome: 'Home', home: 'Home', overview: 'Overview', howItWorks: 'How It Works', features: 'Features', extension: 'Observability' },
   hero: {
-    eyebrow: 'Agent Execution Governance',
-    title: 'Make execution governable, not just runnable.',
-    sub: 'ArbiterOS intercepts model outputs, turns tool intent into structured instructions, and applies policy, approval, and audit controls before execution. That makes AI agents controllable, reviewable, and replayable.',
-    demoBtn: 'Watch Demo',
-    howItWorksBtn: 'How It Works',
+    eyebrow: '',
+    title: 'LLMs think. ArbiterOS enforces.',
+    sub: 'Deterministic rules for probabilistic AI.',
+    demoBtn: 'Demo',
+    howItWorksBtn: 'How it works',
     githubBtn: 'GitHub',
-    meta: ['OpenAI-compatible API', 'OpenClaw-ready', 'Docker / Local deploy'],
+    meta: ['OpenAI-compatible API', 'OpenClaw-ready', 'Local deploy'],
   },
   positioning: {
-    label: 'Why ArbiterOS',
+    label: '',
     title: 'Govern actions before they run',
     desc: 'Sandboxes, guardrails, and observability still matter, but they solve different problems. ArbiterOS intercepts model outputs, turns tool intent into structured instructions, and applies policy, approval, and tracing before sensitive actions run.',
     items: [
@@ -41,7 +41,7 @@ const en = {
     ],
   },
   advantages: {
-    label: 'Core Mechanisms',
+    label: '',
     title: 'How ArbiterOS governs actions',
     items: [
       {
@@ -77,7 +77,7 @@ const en = {
     ],
   },
   quickStart: {
-    label: 'Quick Start',
+    label: '',
     title: 'Get started in three steps',
     steps: [
       { step: '1', title: 'Install & Start Kernel', description: 'Run the install script or Docker Compose to start ArbiterOS Kernel (default port:4000).' },
@@ -95,7 +95,7 @@ const en = {
     },
   },
   howItWorks: {
-    label: 'How It Works',
+    label: '',
     title: 'Four steps to governed actions',
     statement: 'The key difference is not another filter around the model. ArbiterOS intercepts outputs, builds typed instructions, and governs each step before execution.',
     outcomes: ['Allow', 'Deny', 'Approve', 'Rewrite'],
@@ -107,7 +107,7 @@ const en = {
     ],
   },
   features: {
-    label: 'Core Capabilities',
+    label: '',
     title: 'Turn output into instructions',
     desc: 'ArbiterOS does more than add checks around an agent. It intercepts outputs, builds discrete instructions, carries security labels across steps, and applies policy before execution.',
     items: [
@@ -118,7 +118,7 @@ const en = {
     ],
   },
   extension: {
-    label: 'Visualization Extension',
+    label: '',
     title: 'Visualization, analysis, and policy iteration',
     desc: 'Built on Langfuse, the governance interface turns traces into actionable insights\n\u2014 from error diagnosis to evidence-backed policy refinement.',
     items: [
@@ -131,7 +131,7 @@ const en = {
     ],
   },
   architecture: {
-    label: 'Architecture',
+    label: '',
     title: 'Governance flow',
     nodes: [
       { main: 'Request Preprocessing', sub: 'Trace mgmt / Format merge / Classification' },
@@ -143,7 +143,7 @@ const en = {
     ],
   },
   cta: {
-    label: 'Get Started',
+    label: '',
     title: 'Deploy ArbiterOS in\u00a0minutes',
     desc: 'Clone the repository, configure your model provider, and run with Docker Compose or the install script. The full stack \u2014 Kernel, Langfuse, and infrastructure \u2014 starts with a single command.',
     primaryBtn: 'View on GitHub',
@@ -156,11 +156,11 @@ const en = {
     ],
   },
   overview: {
-    label: 'System Overview',
+    label: '',
     title: 'How ArbiterOS reviews AI\u00a0agent actions',
-    desc: 'ArbiterOS sits between an AI agent and its model provider. It helps teams review model outputs, turn tool-related responses into structured instructions, apply policy checks, request user confirmation when needed, and keep trace records for audit.',
+    desc: 'ArbiterOS sits between the agent and the LLM. It helps teams review model outputs, turn LLM responses into structured instructions, apply policy checks, request human confirmation when needed, and retain auditable trace records.',
     architecture: {
-      label: 'Architecture',
+      label: '',
       title: 'Where ArbiterOS sits',
       diagram: {
         ariaLabel: 'ArbiterOS ecosystem diagram',
@@ -199,7 +199,7 @@ const en = {
       },
     },
     dataflow: {
-      label: 'Data Flow',
+      label: '',
       title: 'Request flow',
       stages: [
         { num: '1', title: 'Prepare Request', desc: 'Detect pending approval replies \u00b7 Assign trace context \u00b7 Merge response format \u00b7 Attach metadata' },
@@ -210,8 +210,8 @@ const en = {
       ],
     },
     comparison: {
-      label: 'Why Govern Instructions',
-      title: 'Why it is different',
+      label: '',
+      title: 'Isolation, runtime checks, and ArbiterOS: what each layer does',
       desc: 'Some controls harden the runtime environment; others inspect events during execution. ArbiterOS operates at a different level: it parses model outputs and tool calls into structured instructions, enabling policy rules to evaluate the intent behind each action before sensitive steps proceed.',
       columns: [
         {
@@ -263,9 +263,10 @@ const en = {
       rows: ['Works At', 'Main Focus', 'Review Detail', 'Understands Meaning', 'Tracks Context Across Steps', 'How Rules Apply', 'Audit Record', 'Best Fit', 'Main Limitation'],
     },
     addOnComparison: {
-      label: 'Add-On Protections vs Kernel Governance',
+      label: '',
       title: 'Compared with agent add-ons',
-      desc: 'The community has built a range of OpenClaw security add-ons \u2014 including SecureClaw, OpenGuardrails, OpenClaw Shield, ClawAegis, GuardClaw, and ClawKeeper \u2014 along with broader adapter-style layers such as APort Agent Guardrails. Each project addresses different concerns, but they are generally attached to a particular runtime or plugin surface. ArbiterOS takes a different approach: as a LiteLLM-based governance kernel, it sits at the proxy layer and can serve any agent that routes LLM traffic through a custom OpenAI-compatible endpoint.',
+      // desc: 'The community has built a range of OpenClaw security add-ons \u2014 including SecureClaw, OpenGuardrails, OpenClaw Shield, ClawAegis, GuardClaw, and ClawKeeper \u2014 along with broader adapter-style layers such as APort Agent Guardrails. Each project addresses different concerns, but they are generally attached to a particular runtime or plugin surface. ArbiterOS takes a different approach: as a LiteLLM-based governance kernel, it sits at the proxy layer and can serve any agent that routes LLM traffic through a custom OpenAI-compatible endpoint.',
+      desc: '',
       columns: [
         {
           name: 'Current Add-On Protections',
@@ -318,7 +319,7 @@ const en = {
       ],
     },
     kernelEdge: {
-      label: 'Kernel Capabilities',
+      label: '',
       title: 'Kernel capabilities',
       items: [
         { title: 'Cross-step context tracking', desc: 'ArbiterOS can carry security labels such as trust and confidentiality across related instructions, so later actions can still reflect earlier risky inputs.' },
@@ -349,83 +350,83 @@ const zh: typeof en = {
   nav: { introHome: '介绍首页', home: '首页', overview: '系统总览', howItWorks: '工作原理', features: '核心能力', extension: '可观测性' },
   hero: {
     eyebrow: '智能体执行治理层',
-    title: '不仅让智能体能够运行，更让执行过程可控',
-    sub: 'ArbiterOS 会拦截模型输出，将工具意图整理为可检查的结构化指令，并在真正执行前结合策略、审批与审计进行控制，使智能体行为更可控、可审计、可回放。',
-    demoBtn: '观看 Demo',
-    howItWorksBtn: '查看工作原理',
+    title: '大模型负责思考，ArbiterOS 治理执行。',
+    sub: '用确定性的规则，约束不确定的硅基智能。',
+    demoBtn: 'Demo',
+    howItWorksBtn: '工作原理',
     githubBtn: 'GitHub',
-    meta: ['兼容 OpenAI API', '支持 OpenClaw 集成', '支持 Docker / 本地部署'],
+    meta: ['兼容 OpenAI API', '支持 OpenClaw 集成', '支持本地部署'],
   },
   positioning: {
-    label: '为什么是 ArbiterOS',
+    label: '',
     title: '在执行前治理关键动作',
     desc: '沙箱、Guardrails 和可观测性都很重要，但它们解决的是不同层面的问题。ArbiterOS 会先拦截模型输出，将工具意图整理为结构化指令，再在敏感动作真正执行前施加策略、审批和追踪控制。',
     items: [
       { title: '沙箱隔离', short: '限制代码能接触什么' },
-      { title: '碎片化 Guardrails', short: '在局部环节补检查' },
+      { title: '打补丁式 Guardrails', short: '在局部环节补检查' },
       { title: '内容 Guardrails', short: '过滤模型输入与输出' },
       { title: '行为监测', short: '执行开始后再观察' },
-      { title: 'ArbiterOS', short: '在执行前治理关键动作' },
+      { title: 'ArbiterOS', short: '治理关键动作意图和数据流' },
     ],
   },
   advantages: {
-    label: '核心机制',
-    title: 'ArbiterOS 如何治理关键动作',
+    label: '',
+    title: 'ArbiterOS 如何治理关键动作意图和数据流',
     items: [
       {
         title: '执行前拦截',
-        short: '在工作流真正提交前捕获输出和工具调用',
-        detail: 'ArbiterOS 工作在 LLM 链路上，会在运行时将模型响应转化为真实动作之前完成拦截。',
+        short: '在工作流真正提交前捕获LLM输出和工具调用',
+        detail: 'ArbiterOS 工作在 LLM 链路上，在模型响应被转化为真实动作之前完成拦截。',
       },
       {
         title: '离散指令 + 规则注册表',
-        short: '把响应整理成带上下文的类型化指令',
+        short: '把模型响应整理成带上下文的结构化指令',
         detail: '结构化输出、工具调用和工具结果会被统一整理成离散指令，再结合规则注册表补上类型、风险、可信度和保密性等元数据。',
       },
       {
         title: '按数据流施加策略',
         short: '让污点标签、可信度和保密性跨步骤延续',
-        detail: '借助规则注册表和污点跟踪，策略可以判断数据从哪里来、经过了哪些环节，以及后续写入、执行或外发动作是否应该继续。',
+        detail: '借助规则注册表和污点跟踪，策略可以判断数据从哪里来、经过了哪些环节，从而决定后续写入、执行或外发动作是否应该继续。',
       },
       {
-        title: '工具和 Skills 统一治理',
-        short: '把工具结果和可选的技能信任信号放进同一循环',
-        detail: 'ArbiterOS 可以把工具结果并入同一条指令流，也能接入可选的技能信任信号，而不是把治理拆散到多个彼此割裂的安全层。',
+        title: '统一治理各种工具和 Skills',
+        short: '同时支持工具结果和可选的技能信任信号同步治理',
+        detail: 'ArbiterOS 可以把工具结果和技能信任信号并入同一条指令流，而不是将治理拆散到多个彼此割裂的安全层。',
       },
       {
-        title: '审批是策略结果之一',
-        short: '放行、拦截、改写或挂起都在同一决策链里',
-        detail: '人工审批并非事后附加的能力，而是在某条指令越过配置阈值时，策略流水线本身可能给出的一个结果。',
+        title: '人工审批更灵活',
+        short: '放行、拦截、改写或挂起都在同一决策流程中',
+        detail: '人工审批并非事后附加的能力，而是在某条指令越过配置阈值时，策略本身可能给出的一个结果。',
       },
       {
-        title: '决策可追溯、可回放',
-        short: '为每条受治理指令保留证据和结果',
-        detail: '逐条追踪的指令文件、决策日志和回放上下文，让你能在事后看清某一步为什么被分类、改写、拦截或批准。',
+        title: '决策可追溯可回放',
+        short: '保留每条受治理指令的证据和结果',
+        detail: '逐条追踪的指令文件、决策日志和回放上下文，让你能事后看清每一步为什么被治理、怎么治理的、治理结果是什么。',
       },
     ],
   },
   quickStart: {
-    label: '快速上手',
+    label: '',
     title: '三步接入 ArbiterOS',
     steps: [
-      { step: '1', title: '安装并启动内核', description: '运行安装脚本或 Docker Compose，启动 ArbiterOS 内核（默认端口：4000）。' },
-      { step: '2', title: '配置模型与策略', description: '在 litellm_config.yaml 中配置模型、API 密钥、可选的技能信任扫描，以及策略规则。' },
-      { step: '3', title: '连接 OpenClaw / 你的智能体', description: '将模型提供方指向 http://127.0.0.1:4000/v1，即可获得治理、审计与可观测能力。' },
+      { step: '1', title: '安装并启动内核', description: '一条命令安装或使用 Docker Compose，启动 ArbiterOS 内核 (默认端口：4000)' },
+      { step: '2', title: '配置模型与策略', description: '在 ArbiterOS 的配置文件中配置模型、API、技能信任目录，以及策略规则' },
+      { step: '3', title: '连接 OpenClaw 或其他智能体', description: '将模型提供方指向 http://127.0.0.1:4000/v1，即可获得治理、审计与可观测能力。' },
     ],
     commandsLabel: '安装命令',
     copyLabel: '复制',
     copiedLabel: '已复制',
     demo: {
-      title: '看一次真实的治理过程',
-      description: '通过真实的治理追踪和策略决策，对比 ArbiterOS 接入前后，同一类智能体工作流会发生什么变化。',
-      openLabel: '打开在线 Demo',
-      iframeTitle: 'ArbiterOS 选定样例演示',
+      title: '真实治理过程演示',
+      description: '通过真实的治理追踪和策略决策，看看对于不安全的动作，ArbiterOS 接入后会发生什么变化。',
+      openLabel: '在新页面打开在线 Demo',
+      iframeTitle: 'ArbiterOS 真实治理过程演示',
     },
   },
   howItWorks: {
-    label: '工作原理',
-    title: '动作治理的四个步骤',
-    statement: '关键不在于额外增加一层过滤器，而在于先拦截输出、将其整理为类型化指令，再在执行前完成逐步治理。',
+    label: '',
+    title: '四个核心步骤',
+    statement: '关键不在于额外增加一层过滤器，而在于输出拦截、整理为结构化指令，执行前完成治理。',
     outcomes: ['允许', '阻止', '审批', '改写'],
     steps: [
       { step: '01', title: '拦截', description: '网关会在运行时真正提交动作前，先捕获模型响应与工具调用。' },
@@ -435,9 +436,10 @@ const zh: typeof en = {
     ],
   },
   features: {
-    label: '核心能力',
-    title: '将输出转化为可治理指令',
-    desc: 'ArbiterOS 并非仅在智能体外围增加检查，而是先拦截输出、构建离散指令、在跨步骤间传递安全标签，并在执行前施加策略控制。',
+    label: '',
+    title: '输出转化为可治理的结构化指令',
+    // desc: 'ArbiterOS 并非仅在智能体外围增加检查，而是先拦截输出、构建离散指令、在跨步骤间传递安全标签，并在执行前施加策略控制。',
+    desc: '',
     items: [
       { title: '拦截模型输出', description: '在 LLM 链路上捕获模型响应与工具调用，而不是等运行时已经开始动作后再补救。' },
       { title: '构建类型化指令', description: '把结构化输出、工具调用和工具结果转成离散指令，并补齐类别、类型以及规则注册表支持的安全元数据。' },
@@ -446,7 +448,7 @@ const zh: typeof en = {
     ],
   },
   extension: {
-    label: '可视化扩展',
+    label: '',
     title: '可视化、分析与策略迭代',
     desc: '基于 Langfuse 构建的治理界面将追踪转化为可执行洞察\n\u2014 从错误诊断到基于证据的策略优化。',
     items: [
@@ -459,7 +461,7 @@ const zh: typeof en = {
     ],
   },
   architecture: {
-    label: '架构能力',
+    label: '',
     title: '治理流程',
     nodes: [
       { main: '请求预处理', sub: '追踪管理 / 格式合并 / 分类封装' },
@@ -471,7 +473,7 @@ const zh: typeof en = {
     ],
   },
   cta: {
-    label: '立即开始',
+    label: '',
     title: '把智能体的"可用"升级为"可控"',
     desc: 'ArbiterOS 适合希望将智能体稳定落地到真实业务系统的研发与平台团队。克隆仓库、配置模型提供方，并通过 Docker Compose 或安装脚本运行。',
     primaryBtn: '查看 GitHub',
@@ -484,11 +486,11 @@ const zh: typeof en = {
     ],
   },
   overview: {
-    label: '系统总览',
-    title: 'ArbiterOS 如何审查智能体动作',
-    desc: 'ArbiterOS 位于智能体与模型提供方之间。它帮助团队审查模型输出，把与工具相关的响应整理成结构化指令，执行策略检查，在需要时请求人工确认，并保留可审计的追踪记录。',
+    label: '',
+    title: 'ArbiterOS 如何审查Agent动作',
+    desc: 'ArbiterOS 位于Agent与LLM之间。它帮助团队审查模型输出，将LLM的响应整理成结构化指令，执行策略检查，在需要时请求人工确认，并保留可审计的追踪记录。',
     architecture: {
-      label: '架构图',
+      label: '',
       title: 'ArbiterOS 在链路中的位置',
       diagram: {
         ariaLabel: 'ArbiterOS 生态架构图',
@@ -527,7 +529,7 @@ const zh: typeof en = {
       },
     },
     dataflow: {
-      label: '数据流转',
+      label: '',
       title: '请求流程',
       stages: [
         { num: '1', title: '准备请求', desc: '识别待处理的确认回复 \u00b7 分配追踪上下文 \u00b7 合并响应格式 \u00b7 附加元数据' },
@@ -538,9 +540,9 @@ const zh: typeof en = {
       ],
     },
     comparison: {
-      label: '为什么治理指令',
-      title: 'ArbiterOS 与底层防护的差异',
-      desc: '有些机制负责加固运行环境，另一些负责在执行过程中检查事件。ArbiterOS 工作在不同的层次上：它将模型输出和工具调用解析为结构化指令，使策略规则能够在敏感步骤执行前评估每个动作背后的意图。',
+      label: '',
+      title: '隔离层、运行时检查与 ArbiterOS：各自解决什么问题',
+      desc: '相比于加固运行环境与在执行过程中检查事件。ArbiterOS 更着重将模型输出和工具调用解析为结构化指令，使策略规则能够在敏感步骤执行前评估每个动作背后的意图以及数据流的安全性。',
       columns: [
         {
           name: 'OpenClaw 隔离层',
@@ -591,9 +593,10 @@ const zh: typeof en = {
       rows: ['工作位置', '主要关注点', '审查粒度', '能否理解含义', '能否跨步骤保留上下文', '规则如何执行', '审计记录', '更适合', '主要限制'],
     },
     addOnComparison: {
-      label: '附加防护与内核治理',
+      label: '',
       title: 'ArbiterOS 与现有智能体防护的差异',
-      desc: '社区已围绕 OpenClaw 生态构建了多种安全附加防护 \u2014 包括 SecureClaw、OpenGuardrails、OpenClaw Shield、ClawAegis、GuardClaw、ClawKeeper 等项目 \u2014 以及更偏适配器路线的 APort Agent Guardrails。各项目关注的方向不尽相同，但通常绑定在特定运行时或插件接入面上。ArbiterOS 采用不同方式：作为基于 LiteLLM 的治理内核，它工作在代理层，能够服务任何将 LLM 流量路由到自定义 OpenAI 兼容端点的智能体。',
+      // desc: '社区已围绕 OpenClaw 生态构建了多种安全附加防护 \u2014 包括 SecureClaw、OpenGuardrails、OpenClaw Shield、ClawAegis、GuardClaw、ClawKeeper 等项目 \u2014 以及更偏适配器路线的 APort Agent Guardrails。各项目关注的方向不尽相同，但通常绑定在特定运行时或插件接入面上。ArbiterOS 采用不同方式：作为基于 LiteLLM 的治理内核，它工作在代理层，能够服务任何将 LLM 流量路由到自定义 OpenAI 兼容端点的智能体。',
+      desc: '',
       columns: [
         {
           name: '当前附加防护',
@@ -646,7 +649,7 @@ const zh: typeof en = {
       ],
     },
     kernelEdge: {
-      label: '内核能力',
+      label: '',
       title: '内核的关键能力',
       items: [
         { title: '跨步骤上下文跟踪', desc: 'ArbiterOS 可以让信任度、保密性等安全标签沿相关指令继续传递，因此后续动作仍会受到前序风险输入的影响。' },

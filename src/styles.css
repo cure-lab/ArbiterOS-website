@@ -1042,6 +1042,22 @@ img, svg { display: block; }
   text-transform: uppercase;
 }
 
+/* Empty copy still renders a span; hide it and drop the title offset meant for a label above. */
+.section-label:empty {
+  display: none;
+}
+
+.section-header .section-label:empty + h2,
+.overview-card-header .section-label:empty + h3,
+.advantages-header .section-label:empty + h2,
+.quickstart-header .section-label:empty + h2,
+.how-home-header .section-label:empty + h2,
+.how-architecture-header .section-label:empty + h3,
+.positioning-header .section-label:empty + h2,
+.cta-content .section-label:empty + h2 {
+  margin-top: 0;
+}
+
 .section-header h2 {
   margin-top: 10px;
   font-family: 'Manrope', sans-serif;
