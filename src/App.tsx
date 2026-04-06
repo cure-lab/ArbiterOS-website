@@ -251,11 +251,6 @@ const en = {
       label: 'Security at a Glance',
       title: 'Replay benchmarks show ArbiterOS blocks 92\u201394% of attacks that already succeed without it.',
       desc: 'These samples are not hypothetical prompts. Each trace was first verified to complete a risky action without ArbiterOS. Once the governance kernel is inserted, most attacks are stopped at the critical step while normal workflows continue to pass at a high rate.',
-      metrics: [
-        { value: '94.25%', label: 'Highest block rate \u00b7 Agent-SafetyBench' },
-        { value: '93.94%', label: 'Highest block rate \u00b7 AgentDojo' },
-        { value: '1,914', label: 'Verified successful attack traces' },
-      ],
       comparisons: [
         {
           name: 'Agent-SafetyBench',
@@ -670,11 +665,6 @@ const zh: typeof en = {
       label: '安全概览',
       title: '在回放基准中，ArbiterOS 可拦截 92% 到 94% 的已验证成功攻击。',
       desc: '这里展示的不是潜在风险提示，而是未接入 ArbiterOS 时已被验证能够完成危险动作的攻击轨迹。接入治理内核后，大多数攻击会在关键步骤被切断，同时正常流程仍保持较高通过率。',
-      metrics: [
-        { value: '94.25%', label: 'Agent-SafetyBench 最高拦截率' },
-        { value: '93.94%', label: 'AgentDojo 最高拦截率' },
-        { value: '1,914', label: '已验证成功攻击轨迹' },
-      ],
       comparisons: [
         {
           name: 'Agent-SafetyBench',
@@ -1490,15 +1480,6 @@ function OverviewSection({ t }: { t: SiteCopy }) {
           <span className="section-label">{t.overview.benchmark.label}</span>
           <h3>{t.overview.benchmark.title}</h3>
           <p className="section-desc">{t.overview.benchmark.desc}</p>
-        </div>
-
-        <div className="bench-metrics">
-          {t.overview.benchmark.metrics.map((m) => (
-            <div className="bench-metric" key={m.label}>
-              <p className="bench-metric-value">{m.value}</p>
-              <p className="bench-metric-label">{m.label}</p>
-            </div>
-          ))}
         </div>
 
         <div className="bench-compare-grid">
