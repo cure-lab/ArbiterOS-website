@@ -390,12 +390,32 @@ img, svg { display: block; }
   max-width: 20ch;
 }
 
+.hero-title-en {
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  max-width: 16ch;
+}
+
+.hero-title-cn {
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  max-width: 14ch;
+}
+
 .hero-sub {
   margin-top: 20px;
   max-width: 50ch;
   color: var(--muted);
   font-size: 1.42rem;
   line-height: 1.7;
+}
+
+.hero-sub-en {
+  font-size: 1.5rem;
+  line-height: 1.62;
+}
+
+.hero-sub-cn {
+  font-size: 1.56rem;
+  line-height: 1.6;
 }
 
 .hero-actions {
@@ -2245,11 +2265,19 @@ img, svg { display: block; }
   .dataflow-arrow { justify-content: center; padding: 4px 0; transform: rotate(90deg); }
 
   .hero h1 {
-    font-size: clamp(1.7rem, 8vw, 2.4rem);
-    max-width: 13ch;
+    font-size: clamp(1.56rem, 6.4vw, 1.9rem);
+    max-width: 100%;
+    line-height: 1.18;
   }
 
-  .hero-sub { font-size: 1.22rem; }
+  .hero-title-en,
+  .hero-title-cn {
+    max-width: 100%;
+  }
+
+  .hero-sub { font-size: clamp(1.18rem, 4.8vw, 1.28rem); }
+  .hero-sub-en { font-size: clamp(1.16rem, 4.6vw, 1.24rem); }
+  .hero-sub-cn { font-size: clamp(1.2rem, 4.9vw, 1.3rem); }
 
   .btn { width: 100%; }
 

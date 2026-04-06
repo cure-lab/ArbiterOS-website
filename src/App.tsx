@@ -418,7 +418,7 @@ const zh: typeof en = {
   nav: { introHome: '介绍首页', home: '首页', overview: '系统总览', howItWorks: '工作原理', features: '核心能力', extension: '可观测性' },
   hero: {
     eyebrow: '智能体执行治理层',
-    title: '大模型负责思考，ArbiterOS 治理执行。',
+    title: '大模型负责思考，\nArbiterOS 治理执行。',
     sub: '用确定性的规则，约束不确定的硅基智能。',
     demoBtn: 'Demo',
     howItWorksBtn: '工作原理',
@@ -1149,8 +1149,8 @@ function HeroSection({
     <section className="hero container">
       <div className="hero-content">
         {t.hero.eyebrow ? <span className={`eyebrow ${lang === 'zh' ? 'eyebrow-cn' : ''}`}>{t.hero.eyebrow}</span> : null}
-        <h1>{t.hero.title}</h1>
-        <p className="hero-sub">{t.hero.sub}</p>
+        <h1 className={lang === 'zh' ? 'hero-title-cn' : 'hero-title-en'}>{t.hero.title}</h1>
+        <p className={`hero-sub ${lang === 'zh' ? 'hero-sub-cn' : 'hero-sub-en'}`}>{t.hero.sub}</p>
         <div className="hero-actions">
           <a className="btn btn-primary" href="#quickstart-demo">
             {t.hero.demoBtn}
