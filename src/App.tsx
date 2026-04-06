@@ -21,7 +21,7 @@ const en = {
   nav: { introHome: 'Home', home: 'Home', overview: 'Overview', howItWorks: 'How It Works', features: 'Features', extension: 'Observability' },
   hero: {
     eyebrow: '',
-    title: 'LLMs think. ArbiterOS enforces.',
+    title: 'LLMs think.\nArbiterOS enforces.',
     sub: 'Deterministic rules for probabilistic AI.',
     demoBtn: 'Demo',
     howItWorksBtn: 'How it works',
@@ -165,8 +165,9 @@ const en = {
       diagram: {
         ariaLabel: 'ArbiterOS ecosystem diagram',
         humanTitle: 'Operator',
-        humanSubtitle: 'Approve / Reject',
-        yesNo: 'Yes/No',
+        humanSubtitle: 'Confirm when flagged',
+        flaggedLabel: 'When flagged',
+        pipelineNote: 'Automated for every response',
         agentsTitle: 'AI Agents',
         customAgent: 'Custom Agent',
         routeNote: 'LLM traffic -> Kernel',
@@ -175,7 +176,7 @@ const en = {
         kernelTitle: 'ArbiterOS Kernel',
         proxy: 'LiteLLM Proxy',
         parser: 'Instruction Parser',
-        policy: 'Policy Checks',
+        policy: 'Policy Engine',
         registry: 'Registry & Context',
         risk: 'Risk',
         trust: 'Trust',
@@ -495,8 +496,9 @@ const zh: typeof en = {
       diagram: {
         ariaLabel: 'ArbiterOS 生态架构图',
         humanTitle: '操作人员',
-        humanSubtitle: '批准 / 拒绝',
-        yesNo: '是 / 否',
+        humanSubtitle: '策略标记时确认',
+        flaggedLabel: '策略标记时',
+        pipelineNote: '每次响应自动执行',
         agentsTitle: 'AI 智能体',
         customAgent: '自定义 Agent',
         routeNote: 'LLM 流量 -> Kernel',
@@ -504,8 +506,8 @@ const zh: typeof en = {
         responseLabel: '响应',
         kernelTitle: 'ArbiterOS Kernel',
         proxy: 'LiteLLM 代理',
-        parser: '指令解析',
-        policy: '策略检查',
+        parser: '指令解析器',
+        policy: '策略引擎',
         registry: '注册表 / 上下文',
         risk: '风险',
         trust: '信任',
@@ -1011,7 +1013,7 @@ function HeroSection({
   return (
     <section className="hero container">
       <div className="hero-content">
-        <span className={`eyebrow ${lang === 'zh' ? 'eyebrow-cn' : ''}`}>{t.hero.eyebrow}</span>
+        {t.hero.eyebrow ? <span className={`eyebrow ${lang === 'zh' ? 'eyebrow-cn' : ''}`}>{t.hero.eyebrow}</span> : null}
         <h1>{t.hero.title}</h1>
         <p className="hero-sub">{t.hero.sub}</p>
         <div className="hero-actions">
@@ -1375,17 +1377,17 @@ function OverviewSection({ t }: { t: SiteCopy }) {
 
 function EcosystemDiagram({ copy }: { copy: SiteCopy['overview']['architecture']['diagram'] }) {
   return (
-    <svg viewBox="0 0 760 440" className="eco-svg" role="img" aria-label={copy.ariaLabel}>
+    <svg viewBox="0 0 808 420" className="eco-svg" role="img" aria-label={copy.ariaLabel}>
       <defs>
-        <linearGradient id="eco-bg" x1="0" y1="0" x2="760" y2="440">
+        <linearGradient id="eco-bg" x1="0" y1="0" x2="808" y2="420">
           <stop offset="0%" stopColor="#f8faff" />
           <stop offset="100%" stopColor="#eef4ff" />
         </linearGradient>
-        <linearGradient id="eco-arrow" x1="180" y1="0" x2="576" y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient id="eco-arrow" x1="172" y1="0" x2="636" y2="0" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#b5d0f0" />
           <stop offset="100%" stopColor="#6ea8ff" />
         </linearGradient>
-        <linearGradient id="eco-arrow-v" x1="0" y1="66" x2="0" y2="354" gradientUnits="userSpaceOnUse">
+        <linearGradient id="eco-arrow-v" x1="0" y1="16" x2="0" y2="400" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#b5d0f0" />
           <stop offset="100%" stopColor="#6ea8ff" />
         </linearGradient>
@@ -1395,135 +1397,157 @@ function EcosystemDiagram({ copy }: { copy: SiteCopy['overview']['architecture']
         <marker id="eco-arrowhead-soft" viewBox="0 0 10 10" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto">
           <path d="M0 0L10 5L0 10Z" fill="#b5d0f0" opacity="0.95" />
         </marker>
-        <linearGradient id="eco-kernel-fill" x1="236" y1="96" x2="524" y2="324">
+        <linearGradient id="eco-kernel-fill" x1="240" y1="16" x2="568" y2="306">
           <stop offset="0%" stopColor="#eef4ff" />
           <stop offset="100%" stopColor="#f5f9ff" />
+        </linearGradient>
+        <linearGradient id="eco-policy-fill" x1="256" y1="166" x2="552" y2="200">
+          <stop offset="0%" stopColor="#e8f0ff" />
+          <stop offset="100%" stopColor="#eef4ff" />
         </linearGradient>
         <filter id="eco-shadow" x="-4%" y="-4%" width="108%" height="112%">
           <feDropShadow dx="0" dy="3" stdDeviation="6" floodColor="#0f2844" floodOpacity="0.06" />
         </filter>
         <clipPath id="eco-agents-clip">
-          <rect x="16" y="116" width="164" height="188" rx="16" />
+          <rect x="16" y="86" width="156" height="192" rx="16" />
         </clipPath>
         <clipPath id="eco-kernel-clip">
-          <rect x="236" y="96" width="288" height="228" rx="18" />
+          <rect x="240" y="16" width="328" height="290" rx="18" />
         </clipPath>
         <clipPath id="eco-providers-clip">
-          <rect x="580" y="116" width="164" height="188" rx="16" />
+          <rect x="636" y="86" width="156" height="192" rx="16" />
         </clipPath>
         <clipPath id="eco-observability-clip">
-          <rect x="200" y="358" width="360" height="64" rx="14" />
+          <rect x="234" y="336" width="340" height="56" rx="14" />
         </clipPath>
       </defs>
 
-      <rect width="760" height="440" rx="18" fill="url(#eco-bg)" />
+      <rect width="808" height="420" rx="18" fill="transparent" />
       <circle cx="60" cy="50" r="40" fill="#dbeafe" opacity="0.15" />
-      <circle cx="700" cy="400" r="50" fill="#d1fae5" opacity="0.1" />
+      <circle cx="748" cy="380" r="50" fill="#d1fae5" opacity="0.1" />
 
-      {/* Human Operator */}
+      {/* AI Agents (left) */}
       <g filter="url(#eco-shadow)">
-        <rect x="280" y="14" width="200" height="52" rx="14" fill="#fff" stroke="#d0e2f6" strokeWidth="1" />
+        <rect x="16" y="86" width="156" height="192" rx="16" fill="#fff" stroke="#d0e2f6" strokeWidth="1" />
       </g>
-      <circle cx="330" cy="40" r="12" fill="#eef4ff" />
-      <text x="330" y="44" fill="#0f66ff" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="800" textAnchor="middle">H</text>
-      <text x="352" y="36" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700">{copy.humanTitle}</text>
-      <text x="352" y="50" fill="#8ca0b8" fontFamily="'Public Sans',sans-serif" fontSize="8.5">{copy.humanSubtitle}</text>
-
-      {/* Arrow: Human to Kernel */}
-      <path d="M375 66 v14 h-6 l11 12 l11 -12 h-6 v-14 Z" fill="url(#eco-arrow-v)" stroke="url(#eco-arrow-v)" strokeWidth="1" strokeLinejoin="round" />
-      <text x="396" y="82" fill="#6ea8ff" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="600">{copy.yesNo}</text>
-
-      {/* AI Agents */}
-      <g filter="url(#eco-shadow)">
-        <rect x="16" y="116" width="164" height="188" rx="16" fill="#fff" stroke="#d0e2f6" strokeWidth="1" />
-      </g>
-      <rect x="16" y="116" width="164" height="4" rx="2" fill="#f59e0b" opacity="0.5" clipPath="url(#eco-agents-clip)" />
-      <text x="98" y="146" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">{copy.agentsTitle}</text>
-      <rect x="34" y="160" width="128" height="28" rx="8" fill="#fffbeb" stroke="#fde68a" strokeWidth="0.8" />
-      <text x="98" y="178" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="600" textAnchor="middle">OpenClaw</text>
-      <rect x="34" y="194" width="128" height="28" rx="8" fill="#fef3c7" stroke="#fde68a" strokeWidth="0.8" />
-      <text x="98" y="212" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="600" textAnchor="middle">Nanobot</text>
-      <rect x="34" y="228" width="128" height="28" rx="8" fill="#fefce8" stroke="#fde68a" strokeWidth="0.8" />
-      <text x="98" y="246" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="600" textAnchor="middle">{copy.customAgent}</text>
-      <text x="98" y="286" fill="#8ca0b8" fontFamily="'Public Sans',sans-serif" fontSize="8" textAnchor="middle">{copy.routeNote}</text>
+      <rect x="16" y="86" width="156" height="4" rx="2" fill="#f59e0b" opacity="0.5" clipPath="url(#eco-agents-clip)" />
+      <text x="94" y="116" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">{copy.agentsTitle}</text>
+      <rect x="34" y="132" width="120" height="26" rx="8" fill="#fffbeb" stroke="#fde68a" strokeWidth="0.8" />
+      <text x="94" y="149" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="600" textAnchor="middle">OpenClaw</text>
+      <rect x="34" y="164" width="120" height="26" rx="8" fill="#fef3c7" stroke="#fde68a" strokeWidth="0.8" />
+      <text x="94" y="181" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="600" textAnchor="middle">Nanobot</text>
+      <rect x="34" y="196" width="120" height="26" rx="8" fill="#fefce8" stroke="#fde68a" strokeWidth="0.8" />
+      <text x="94" y="213" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="600" textAnchor="middle">{copy.customAgent}</text>
+      <text x="94" y="252" fill="#5a7a96" fontFamily="'Public Sans',sans-serif" fontSize="11" textAnchor="middle">{copy.routeNote}</text>
 
       {/* Arrows: Agents to Kernel */}
-      <path d="M180 195 h38 v-6 l14 11 l-14 11 v-6 h-38 Z" fill="url(#eco-arrow)" stroke="url(#eco-arrow)" strokeWidth="1" strokeLinejoin="round" />
-      <text x="206" y="185" fill="#6ea8ff" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.requestLabel}</text>
-      <path d="M232 220H180" fill="none" stroke="#b5d0f0" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round" markerEnd="url(#eco-arrowhead-soft)" />
-      <text x="206" y="234" fill="#b5d0f0" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.responseLabel}</text>
+      <path d="M172,160 h52 v-5 l16,10 -16,10 v-5 h-52 Z" fill="url(#eco-arrow)" stroke="url(#eco-arrow)" strokeWidth="1" strokeLinejoin="round" />
+      <text x="206" y="152" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.requestLabel}</text>
+      <path d="M240,195 H176" fill="none" stroke="#b5d0f0" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round" markerEnd="url(#eco-arrowhead-soft)" />
+      <text x="206" y="209" fill="#6b93c4" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.responseLabel}</text>
 
-      {/* ArbiterOS Kernel */}
+      {/* ArbiterOS Kernel (center, expanded) */}
       <g filter="url(#eco-shadow)">
-        <rect x="236" y="96" width="288" height="228" rx="18" fill="url(#eco-kernel-fill)" stroke="#0f66ff" strokeWidth="1.2" strokeOpacity="0.25" />
+        <rect x="240" y="16" width="328" height="290" rx="18" fill="url(#eco-kernel-fill)" stroke="#0f66ff" strokeWidth="1.2" strokeOpacity="0.25" />
       </g>
-      <rect x="236" y="96" width="288" height="5" rx="2.5" fill="#0f66ff" opacity="0.35" clipPath="url(#eco-kernel-clip)" />
-      <text x="380" y="124" fill="#0c1d36" fontFamily="'Manrope',sans-serif" fontSize="13" fontWeight="800" textAnchor="middle">{copy.kernelTitle}</text>
-      <rect x="256" y="140" width="120" height="32" rx="10" fill="#fff" stroke="#d0e2f6" strokeWidth="0.8" />
-      <text x="316" y="160" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.proxy}</text>
-      <rect x="384" y="140" width="120" height="32" rx="10" fill="#fff" stroke="#d0e2f6" strokeWidth="0.8" />
-      <text x="444" y="160" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.parser}</text>
-      <rect x="256" y="180" width="120" height="32" rx="10" fill="#fff" stroke="#d0e2f6" strokeWidth="0.8" />
-      <text x="316" y="200" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.policy}</text>
-      <rect x="384" y="180" width="120" height="32" rx="10" fill="#fff" stroke="#d0e2f6" strokeWidth="0.8" />
-      <text x="444" y="200" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.registry}</text>
+      <rect x="240" y="16" width="328" height="5" rx="2.5" fill="#0f66ff" opacity="0.35" clipPath="url(#eco-kernel-clip)" />
+      <text x="404" y="44" fill="#0c1d36" fontFamily="'Manrope',sans-serif" fontSize="13" fontWeight="800" textAnchor="middle">{copy.kernelTitle}</text>
+
+      {/* Pipeline Step 1: LiteLLM Proxy + Registry & Context */}
+      <rect x="256" y="56" width="140" height="28" rx="10" fill="#fff" stroke="#d0e2f6" strokeWidth="0.8" />
+      <text x="326" y="74" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.proxy}</text>
+      <rect x="412" y="56" width="140" height="28" rx="10" fill="#fff" stroke="#d0e2f6" strokeWidth="0.8" />
+      <text x="482" y="74" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.registry}</text>
+
+      {/* Pipeline arrow down */}
+      <path d="M400,86 v4 h-4 l8,6 8,-6 h-4 v-4 Z" fill="url(#eco-arrow-v)" />
+
+      {/* Pipeline Step 2: Instruction Parser (emphasized) */}
+      <rect x="256" y="100" width="296" height="30" rx="10" fill="#f0f6ff" stroke="#0f66ff" strokeWidth="0.8" strokeOpacity="0.2" />
+      <text x="404" y="119" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="700" textAnchor="middle">{copy.parser}</text>
 
       {/* Taint dimension pills */}
-      <rect x="256" y="224" width="248" height="24" rx="8" fill="rgba(255,255,255,0.7)" stroke="#e2ecfa" strokeWidth="0.8" />
-      <rect x="264" y="228" width="40" height="16" rx="8" fill="#fef2f2" />
-      <text x="284" y="239" fill="#dc2626" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.risk}</text>
-      <rect x="308" y="228" width="42" height="16" rx="8" fill="#eef4ff" />
-      <text x="329" y="239" fill="#0f66ff" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.trust}</text>
-      <rect x="354" y="228" width="48" height="16" rx="8" fill="#ecfdf5" />
-      <text x="378" y="239" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.confidentiality}</text>
-      <rect x="406" y="228" width="48" height="16" rx="8" fill="#fffbeb" />
-      <text x="430" y="239" fill="#ca8a04" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.reversibility}</text>
-      <rect x="458" y="228" width="38" height="16" rx="8" fill="#f0f7ff" />
-      <text x="477" y="239" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.authority}</text>
+      <rect x="256" y="134" width="296" height="24" rx="8" fill="rgba(255,255,255,0.7)" stroke="#e2ecfa" strokeWidth="0.6" />
+      <rect x="279" y="137" width="42" height="17" rx="7" fill="#fef2f2" />
+      <text x="300" y="149" fill="#dc2626" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.risk}</text>
+      <rect x="325" y="137" width="42" height="17" rx="7" fill="#eef4ff" />
+      <text x="346" y="149" fill="#0f66ff" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.trust}</text>
+      <rect x="371" y="137" width="52" height="17" rx="7" fill="#ecfdf5" />
+      <text x="397" y="149" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.confidentiality}</text>
+      <rect x="427" y="137" width="56" height="17" rx="7" fill="#fffbeb" />
+      <text x="455" y="149" fill="#ca8a04" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.reversibility}</text>
+      <rect x="487" y="137" width="52" height="17" rx="7" fill="#f0f7ff" />
+      <text x="513" y="149" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.authority}</text>
+
+      {/* Pipeline arrow down */}
+      <path d="M400,156 v4 h-4 l8,6 8,-6 h-4 v-4 Z" fill="url(#eco-arrow-v)" />
+
+      {/* Pipeline Step 3: Policy Engine (CORE — highlighted) */}
+      <rect x="256" y="170" width="296" height="34" rx="10" fill="url(#eco-policy-fill)" stroke="#0f66ff" strokeWidth="1.4" strokeOpacity="0.35" />
+      <text x="404" y="191" fill="#0c1d36" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">{copy.policy}</text>
+
+      {/* Pipeline arrow down */}
+      <path d="M400,206 v4 h-4 l8,6 8,-6 h-4 v-4 Z" fill="url(#eco-arrow-v)" />
 
       {/* Instruction categories */}
-      <rect x="256" y="258" width="248" height="50" rx="10" fill="rgba(255,255,255,0.5)" stroke="#e2ecfa" strokeWidth="0.6" />
-      <text x="380" y="273" fill="#6b84a3" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="700" textAnchor="middle">{copy.categoriesLabel}</text>
-      <rect x="264" y="280" width="70" height="18" rx="6" fill="#eef4ff" />
-      <text x="299" y="292" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.cognitive}</text>
-      <rect x="340" y="280" width="76" height="18" rx="6" fill="#ecfdf5" />
-      <text x="378" y="292" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.actuation}</text>
-      <rect x="422" y="280" width="76" height="18" rx="6" fill="#fef3c7" />
-      <text x="460" y="292" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.perception}</text>
+      <rect x="256" y="220" width="296" height="46" rx="10" fill="rgba(255,255,255,0.5)" stroke="#e2ecfa" strokeWidth="0.6" />
+      <text x="404" y="236" fill="#4a6a8a" fontFamily="'Manrope',sans-serif" fontSize="10.5" fontWeight="700" textAnchor="middle">{copy.categoriesLabel}</text>
+      <rect x="282" y="242" width="76" height="20" rx="8" fill="#eef4ff" />
+      <text x="320" y="256" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.cognitive}</text>
+      <rect x="364" y="242" width="76" height="20" rx="8" fill="#ecfdf5" />
+      <text x="402" y="256" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.actuation}</text>
+      <rect x="446" y="242" width="80" height="20" rx="8" fill="#fef3c7" />
+      <text x="486" y="256" fill="#92400e" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.perception}</text>
 
-      {/* Arrows: Kernel to LLMs */}
-      <path d="M524 195 h38 v-6 l14 11 l-14 11 v-6 h-38 Z" fill="url(#eco-arrow)" stroke="url(#eco-arrow)" strokeWidth="1" strokeLinejoin="round" />
-      <text x="550" y="185" fill="#6ea8ff" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.apiCall}</text>
-      <path d="M576 220H524" fill="none" stroke="#b5d0f0" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round" markerEnd="url(#eco-arrowhead-soft)" />
-      <text x="550" y="234" fill="#b5d0f0" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">{copy.llmOutput}</text>
+      {/* Pipeline note */}
+      <text x="404" y="286" fill="#5a7a96" fontFamily="'Public Sans',sans-serif" fontSize="10.5" fontWeight="500" textAnchor="middle">{copy.pipelineNote}</text>
 
-      {/* LLM Providers */}
+      {/* Arrows: Kernel to Providers */}
+      <path d="M568,160 h52 v-5 l16,10 -16,10 v-5 h-52 Z" fill="url(#eco-arrow)" stroke="url(#eco-arrow)" strokeWidth="1" strokeLinejoin="round" />
+      <text x="602" y="152" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.apiCall}</text>
+      <path d="M636,195 H572" fill="none" stroke="#b5d0f0" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round" markerEnd="url(#eco-arrowhead-soft)" />
+      <text x="602" y="209" fill="#6b93c4" fontFamily="'Manrope',sans-serif" fontSize="9" fontWeight="700" textAnchor="middle">{copy.llmOutput}</text>
+
+      {/* Model Providers (right) */}
       <g filter="url(#eco-shadow)">
-        <rect x="580" y="116" width="164" height="188" rx="16" fill="#fff" stroke="#d0e2f6" strokeWidth="1" />
+        <rect x="636" y="86" width="156" height="192" rx="16" fill="#fff" stroke="#d0e2f6" strokeWidth="1" />
       </g>
-      <rect x="580" y="116" width="164" height="4" rx="2" fill="#22c55e" opacity="0.5" clipPath="url(#eco-providers-clip)" />
-      <text x="662" y="146" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">{copy.providersTitle}</text>
-      <rect x="598" y="176" width="128" height="62" rx="10" fill="#ecfdf5" stroke="#bbf7d0" strokeWidth="1" />
-      <text x="662" y="199" fill="#166534" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700" textAnchor="middle">{copy.compatibleApiLine1}</text>
-      <text x="662" y="213" fill="#166534" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700" textAnchor="middle">{copy.compatibleApiLine2}</text>
-      <text x="662" y="230" fill="#6b84a3" fontFamily="'Public Sans',sans-serif" fontSize="8" textAnchor="middle">{copy.endpoint}</text>
-      <text x="662" y="268" fill="#8ca0b8" fontFamily="'Public Sans',sans-serif" fontSize="8" textAnchor="middle">{copy.anyModel}</text>
+      <rect x="636" y="86" width="156" height="4" rx="2" fill="#22c55e" opacity="0.5" clipPath="url(#eco-providers-clip)" />
+      <text x="714" y="116" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">{copy.providersTitle}</text>
+      <rect x="654" y="138" width="120" height="54" rx="10" fill="#ecfdf5" stroke="#bbf7d0" strokeWidth="1" />
+      <text x="714" y="160" fill="#166534" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700" textAnchor="middle">{copy.compatibleApiLine1}</text>
+      <text x="714" y="174" fill="#166534" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700" textAnchor="middle">{copy.compatibleApiLine2}</text>
+      <rect x="654" y="200" width="120" height="26" rx="10" fill="#f8fbff" stroke="#d8e6f8" strokeWidth="0.8" />
+      <text x="714" y="217" fill="#4a6a8a" fontFamily="'Public Sans',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.endpoint}</text>
+      <rect x="654" y="234" width="120" height="26" rx="10" fill="#f8fbff" stroke="#d8e6f8" strokeWidth="0.8" />
+      <text x="714" y="251" fill="#5a7a96" fontFamily="'Public Sans',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.anyModel}</text>
 
       {/* Arrow: Kernel to Observability */}
-      <path d="M375 324 v18 h-6 l11 12 l11 -12 h-6 v-18 Z" fill="url(#eco-arrow-v)" stroke="url(#eco-arrow-v)" strokeWidth="1" strokeLinejoin="round" />
+      <path d="M404,308 v14 h-5 l9,10 9,-10 h-5 v-14 Z" fill="url(#eco-arrow-v)" stroke="url(#eco-arrow-v)" strokeWidth="1" strokeLinejoin="round" />
 
-      {/* Observability */}
+      {/* Observability (bottom center) */}
       <g filter="url(#eco-shadow)">
-        <rect x="200" y="358" width="360" height="64" rx="14" fill="#fff" stroke="#d0e2f6" strokeWidth="1" />
+        <rect x="234" y="336" width="340" height="56" rx="14" fill="#fff" stroke="#d0e2f6" strokeWidth="1" />
       </g>
-      <rect x="200" y="358" width="360" height="4" rx="2" fill="#39c0b7" opacity="0.5" clipPath="url(#eco-observability-clip)" />
-      <text x="380" y="384" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">{copy.observabilityTitle}</text>
-      <rect x="249" y="394" width="76" height="18" rx="9" fill="#e0f7f5" />
-      <text x="287" y="407" fill="#0d9488" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="600" textAnchor="middle">Langfuse</text>
-      <rect x="333" y="394" width="90" height="18" rx="9" fill="#eef4ff" />
-      <text x="378" y="407" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="600" textAnchor="middle">{copy.instructionFiles}</text>
-      <rect x="431" y="394" width="80" height="18" rx="9" fill="#f1f5fa" />
-      <text x="471" y="407" fill="#6b84a3" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="600" textAnchor="middle">{copy.apiCallLogs}</text>
+      <rect x="234" y="336" width="340" height="4" rx="2" fill="#39c0b7" opacity="0.5" clipPath="url(#eco-observability-clip)" />
+      <text x="404" y="358" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">{copy.observabilityTitle}</text>
+      <rect x="275" y="365" width="80" height="18" rx="8" fill="#e0f7f5" />
+      <text x="315" y="378" fill="#0d9488" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">Langfuse</text>
+      <rect x="361" y="365" width="92" height="18" rx="8" fill="#eef4ff" />
+      <text x="407" y="378" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.instructionFiles}</text>
+      <rect x="459" y="365" width="82" height="18" rx="8" fill="#f1f5fa" />
+      <text x="500" y="378" fill="#4a6a8a" fontFamily="'Manrope',sans-serif" fontSize="9.5" fontWeight="600" textAnchor="middle">{copy.apiCallLogs}</text>
+
+      {/* Dashed escalation path: Kernel to Human Operator */}
+      <path d="M534,306 Q596,310 636,336" fill="none" stroke="#b5d0f0" strokeWidth="1.2" strokeDasharray="4 3" strokeLinecap="round" markerEnd="url(#eco-arrowhead-soft)" />
+      <text x="578" y="308" fill="#6b93c4" fontFamily="'Manrope',sans-serif" fontSize="8.5" fontWeight="600">{copy.flaggedLabel}</text>
+
+      {/* Human Operator (optional, bottom-right) */}
+      <rect x="636" y="336" width="156" height="56" rx="14" fill="rgba(255,255,255,0.6)" stroke="#b5d0f0" strokeWidth="1" strokeDasharray="5 3" />
+      <circle cx="662" cy="364" r="11" fill="#eef4ff" />
+      <text x="662" y="368" fill="#0f66ff" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="800" textAnchor="middle">H</text>
+      <text x="684" y="358" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="700">{copy.humanTitle}</text>
+      <text x="684" y="372" fill="#5a7a96" fontFamily="'Public Sans',sans-serif" fontSize="8.5">{copy.humanSubtitle}</text>
     </svg>
   );
 }
