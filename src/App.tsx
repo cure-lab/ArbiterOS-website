@@ -20,13 +20,50 @@ const en = {
   },
   nav: { introHome: 'Home', home: 'Home', overview: 'Overview', howItWorks: 'How It Works', features: 'Features', extension: 'Observability' },
   hero: {
-    eyebrow: '',
+    eyebrow: 'AI agent execution governance layer',
     title: 'LLMs think.\nArbiterOS enforces.',
     sub: 'Deterministic rules for probabilistic AI.',
     demoBtn: 'Demo',
     howItWorksBtn: 'How it works',
     githubBtn: 'GitHub',
     meta: ['OpenAI-compatible API', 'OpenClaw-ready', 'Local deploy'],
+    diagram: {
+      ariaLabel: 'ArbiterOS governed execution flow',
+      tracesTitle: 'Traces',
+      signals: 'Signals',
+      protected: 'Protected',
+      leftTitle: 'Agent Output',
+      rightTitle: 'Governed Output',
+      blocked: '2 Blocked',
+      safeToExecute: 'Safe to Execute',
+      kernelTitle: 'ArbiterOS Kernel',
+      parse: 'Parse',
+      policy: 'Policy',
+      guard: 'Guard',
+      policyEngineTitle: 'Policy Engine',
+      policyEngineSub: 'JSON + code policies guard every response before execution.',
+      postCall: 'Post-call',
+      failureLoop: 'Failure loop',
+      define: 'Define',
+      defineLine1: 'JSON rules',
+      defineLine2: 'Unary / relational',
+      trigger: 'Trigger',
+      triggerLine1: 'Post-call hook',
+      triggerLine2: 'Latest instructions',
+      enforce: 'Enforce',
+      enforceLine1: 'Block / confirm',
+      enforceLine2: 'Observe-only / tags',
+      refine: 'Refine',
+      refineLine1: 'Failure cases',
+      refineLine2: 'Tune + reload',
+      node: 'NODE',
+      executionSpan: 'EXECUTION SPAN',
+      status: 'STATUS',
+      trace: 'Trace',
+      generation: 'Generation',
+      violation: 'Violation',
+      ok: 'OK',
+    },
   },
   positioning: {
     label: '',
@@ -37,7 +74,7 @@ const en = {
       { title: 'Patchwork Guardrails', short: 'Add checks at isolated steps' },
       { title: 'Content Guardrails', short: 'Filter model inputs and outputs' },
       { title: 'Behavior Monitoring', short: 'Observe after execution starts' },
-      { title: 'ArbiterOS', short: 'Gate actions before they run' },
+      { title: 'ArbiterOS', short: 'Govern action intent and data flow. Turn security rules into a constitution agents cannot violate.' },
     ],
   },
   advantages: {
@@ -357,6 +394,43 @@ const zh: typeof en = {
     howItWorksBtn: '工作原理',
     githubBtn: 'GitHub',
     meta: ['兼容 OpenAI API', '支持 OpenClaw 集成', '支持本地部署'],
+    diagram: {
+      ariaLabel: 'ArbiterOS 执行治理流程图',
+      tracesTitle: '追踪',
+      signals: '信号',
+      protected: '已保护',
+      leftTitle: '原始输出',
+      rightTitle: '治理后输出',
+      blocked: '阻止 2 项',
+      safeToExecute: '可安全执行',
+      kernelTitle: 'ArbiterOS Kernel',
+      parse: '解析',
+      policy: '策略',
+      guard: '防护',
+      policyEngineTitle: '策略引擎',
+      policyEngineSub: '每次响应执行前，都会经过 JSON 与代码策略检查。',
+      postCall: '后调用',
+      failureLoop: '失败回路',
+      define: '定义',
+      defineLine1: 'JSON 规则',
+      defineLine2: '单元 / 关系',
+      trigger: '触发',
+      triggerLine1: '后调用钩子',
+      triggerLine2: '最新指令',
+      enforce: '执行',
+      enforceLine1: '阻止 / 确认',
+      enforceLine2: '仅观察 / 标签',
+      refine: '迭代',
+      refineLine1: '失败样例',
+      refineLine2: '更新并重载',
+      node: '节点',
+      executionSpan: '执行跨度',
+      status: '状态',
+      trace: '追踪',
+      generation: '生成',
+      violation: '违规',
+      ok: '正常',
+    },
   },
   positioning: {
     label: '',
@@ -367,7 +441,7 @@ const zh: typeof en = {
       { title: '打补丁式 Guardrails', short: '在局部环节补检查' },
       { title: '内容 Guardrails', short: '过滤模型输入与输出' },
       { title: '行为监测', short: '执行开始后再观察' },
-      { title: 'ArbiterOS', short: '治理关键动作意图和数据流' },
+      { title: 'ArbiterOS', short: '治理关键动作意图和数据流。将安全规则设定为 Agent 无法违反的宪法。' },
     ],
   },
   advantages: {
@@ -1044,7 +1118,7 @@ function HeroSection({
       </div>
       <div className="hero-panel">
         <div className="hero-visual">
-          <HeroIllustration />
+          <HeroIllustration copy={t.hero.diagram} lang={lang} />
         </div>
       </div>
     </section>
@@ -1543,11 +1617,11 @@ function EcosystemDiagram({ copy }: { copy: SiteCopy['overview']['architecture']
       <text x="578" y="308" fill="#6b93c4" fontFamily="'Manrope',sans-serif" fontSize="8.5" fontWeight="600">{copy.flaggedLabel}</text>
 
       {/* Human Operator (optional, bottom-right) */}
-      <rect x="636" y="336" width="156" height="56" rx="14" fill="rgba(255,255,255,0.6)" stroke="#b5d0f0" strokeWidth="1" strokeDasharray="5 3" />
-      <circle cx="662" cy="364" r="11" fill="#eef4ff" />
-      <text x="662" y="368" fill="#0f66ff" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="800" textAnchor="middle">H</text>
-      <text x="684" y="358" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="700">{copy.humanTitle}</text>
-      <text x="684" y="372" fill="#5a7a96" fontFamily="'Public Sans',sans-serif" fontSize="8.5">{copy.humanSubtitle}</text>
+      <rect x="636" y="336" width="164" height="60" rx="15" fill="rgba(255,255,255,0.6)" stroke="#b5d0f0" strokeWidth="1" strokeDasharray="5 3" />
+      <circle cx="662" cy="366" r="12" fill="#eef4ff" />
+      <text x="662" y="370" fill="#0f66ff" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="800" textAnchor="middle">H</text>
+      <text x="684" y="357" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="700">{copy.humanTitle}</text>
+      <text x="684" y="376" fill="#5a7a96" fontFamily="'Public Sans',sans-serif" fontSize="10.5" fontWeight="500">{copy.humanSubtitle}</text>
     </svg>
   );
 }
@@ -1708,11 +1782,14 @@ function BrandMark() {
    Hero Illustration
    ═══════════════════════════════════════════════ */
 
-function HeroIllustration() {
+function HeroIllustration({ copy, lang }: { copy: SiteCopy['hero']['diagram']; lang: Lang }) {
+  const uiFont = lang === 'zh' ? "'Noto Sans SC','Manrope',sans-serif" : "'Manrope',sans-serif";
+  const bodyFont = lang === 'zh' ? "'Noto Sans SC','Public Sans',sans-serif" : "'Public Sans',sans-serif";
+
   return (
-    <svg viewBox="0 0 520 440" role="img" aria-label="ArbiterOS architecture flow">
+    <svg viewBox="0 0 520 560" role="img" aria-label={copy.ariaLabel}>
       <defs>
-        <linearGradient id="hero-bg" x1="0" y1="0" x2="520" y2="440">
+        <linearGradient id="hero-bg" x1="0" y1="0" x2="520" y2="560">
           <stop offset="0%" stopColor="#f0f7ff" />
           <stop offset="45%" stopColor="#f7faff" />
           <stop offset="100%" stopColor="#eaf3ff" />
@@ -1765,8 +1842,8 @@ function HeroIllustration() {
         <pattern id="hero-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
           <circle cx="2" cy="2" r="0.6" fill="#0f66ff" opacity="0.045" />
         </pattern>
-        <clipPath id="clip-left"><rect x="20" y="50" width="148" height="194" rx="16" /></clipPath>
-        <clipPath id="clip-right"><rect x="352" y="50" width="148" height="194" rx="16" /></clipPath>
+        <clipPath id="clip-left"><rect x="20" y="50" width="148" height="176" rx="16" /></clipPath>
+        <clipPath id="clip-right"><rect x="352" y="50" width="148" height="176" rx="16" /></clipPath>
         <radialGradient id="block-glow-lg" cx="0.5" cy="0.5" r="0.5">
           <stop offset="0%" stopColor="#dc2626" stopOpacity="0.12" />
           <stop offset="100%" stopColor="#dc2626" stopOpacity="0" />
@@ -1779,21 +1856,36 @@ function HeroIllustration() {
           <stop offset="0%" stopColor="#fff5f5" />
           <stop offset="100%" stopColor="#fef2f2" />
         </linearGradient>
+        <linearGradient id="policy-define" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#eef4ff" />
+          <stop offset="100%" stopColor="#dbeafe" />
+        </linearGradient>
+        <linearGradient id="policy-trigger" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#eefcf9" />
+          <stop offset="100%" stopColor="#d1fae5" />
+        </linearGradient>
+        <linearGradient id="policy-enforce" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#fff7ed" />
+          <stop offset="100%" stopColor="#fde68a" />
+        </linearGradient>
+        <linearGradient id="policy-refine" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#f5f3ff" />
+          <stop offset="100%" stopColor="#ddd6fe" />
+        </linearGradient>
       </defs>
 
-      
-
       <circle cx="80" cy="60" r="55" fill="#dbeafe" opacity="0.22" />
-      <circle cx="460" cy="390" r="65" fill="#d1fae5" opacity="0.15" />
+      <circle cx="456" cy="490" r="72" fill="#d1fae5" opacity="0.15" />
       <circle cx="440" cy="40" r="22" fill="#39c0b7" opacity="0.05" />
-      <circle cx="35" cy="360" r="30" fill="#dbeafe" opacity="0.14" />
+      <circle cx="38" cy="470" r="34" fill="#dbeafe" opacity="0.14" />
 
+      <g transform="translate(0 158)">
       <g filter="url(#card-shadow)">
-        <rect x="20" y="50" width="148" height="194" rx="16" fill="#fff" />
-        <rect x="20" y="50" width="148" height="194" rx="16" fill="none" stroke="#dce8f8" strokeWidth="1" />
+        <rect x="20" y="50" width="148" height="176" rx="16" fill="#fff" />
+        <rect x="20" y="50" width="148" height="176" rx="16" fill="none" stroke="#dce8f8" strokeWidth="1" />
       </g>
       <rect x="20" y="50" width="148" height="4" fill="url(#accent-danger)" opacity="0.65" clipPath="url(#clip-left)" />
-      <text x="38" y="76" fill="#2c4a6e" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700">Agent Output</text>
+      <text x="38" y="76" fill="#2c4a6e" fontFamily={uiFont} fontSize="11" fontWeight="700">{copy.leftTitle}</text>
       <circle cx="148" cy="70" r="8" fill="#fef2f2" />
       <text x="148" y="73.5" fill="#dc2626" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="800" textAnchor="middle">!</text>
 
@@ -1807,7 +1899,7 @@ function HeroIllustration() {
       <circle cx="46" cy="138" r="5" fill="#dc2626" opacity="0.15" />
       <text x="46" y="141" fill="#dc2626" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="800" textAnchor="middle">!</text>
       <text x="56" y="134" fill="#64748b" fontFamily="'Manrope',sans-serif" fontSize="6.5" fontWeight="600">send</text>
-      <text x="56" y="145" fill="#991b1b" fontFamily="monospace,sans-serif" fontSize="7" fontWeight="700">{"API_KEY → ext"}</text>
+      <text x="56" y="145" fill="#991b1b" fontFamily="monospace,sans-serif" fontSize="7" fontWeight="700">API_KEY -&gt; ext</text>
 
       <rect x="34" y="158" width="120" height="24" rx="7" fill="#f8faff" stroke="#e2ecfa" strokeWidth="0.8" />
       <circle cx="46" cy="170" r="4" fill="#e2ecfa" />
@@ -1847,13 +1939,13 @@ function HeroIllustration() {
       <path d="M260 108l13 6v11.5c0 8.3-4.5 15.8-13 20.4-8.5-4.6-13-12.1-13-20.4V114l13-6Z" fill="url(#shield-core)" stroke="#66a5ff" strokeWidth="1" opacity="0.96" />
       <path d="M252.5 126l5.4 5.4 10.6-10.6" fill="none" stroke="#0f66ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 
-      <text x="260" y="198" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="12" fontWeight="800" textAnchor="middle">ArbiterOS Kernel</text>
+      <text x="260" y="198" fill="#1e3d5f" fontFamily={uiFont} fontSize="12" fontWeight="800" textAnchor="middle">{copy.kernelTitle}</text>
       <rect x="205" y="206" width="36" height="15" rx="7.5" fill="#eef4ff" stroke="#d0e2f6" strokeWidth="0.5" />
-      <text x="223" y="217" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">Parse</text>
-      <rect x="245" y="206" width="36" height="15" rx="7.5" fill="#eef4ff" stroke="#d0e2f6" strokeWidth="0.5" />
-      <text x="263" y="217" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">Policy</text>
+      <text x="223" y="217" fill="#3b6eb5" fontFamily={uiFont} fontSize="7" fontWeight="600" textAnchor="middle">{copy.parse}</text>
+      <rect x="245" y="206" width="36" height="15" rx="7.5" fill="#dbeafe" stroke="#93c5fd" strokeWidth="0.5" />
+      <text x="263" y="217" fill="#3b6eb5" fontFamily={uiFont} fontSize="7" fontWeight="600" textAnchor="middle">{copy.policy}</text>
       <rect x="285" y="206" width="36" height="15" rx="7.5" fill="#fef2f2" stroke="#fecaca" strokeWidth="0.5" />
-      <text x="303" y="217" fill="#dc2626" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600" textAnchor="middle">Block</text>
+      <text x="303" y="217" fill="#dc2626" fontFamily={uiFont} fontSize="7" fontWeight="600" textAnchor="middle">{copy.guard}</text>
 
       <g>
         <circle cx="232" cy="60" r="22" fill="url(#block-glow-lg)" />
@@ -1881,11 +1973,11 @@ function HeroIllustration() {
       <circle cx="340" cy="145" r="2.6" fill="#0f66ff" opacity="0.15" />
 
       <g filter="url(#card-shadow)">
-        <rect x="352" y="50" width="148" height="194" rx="16" fill="#fff" />
-        <rect x="352" y="50" width="148" height="194" rx="16" fill="none" stroke="#dce8f8" strokeWidth="1" />
+        <rect x="352" y="50" width="148" height="176" rx="16" fill="#fff" />
+        <rect x="352" y="50" width="148" height="176" rx="16" fill="none" stroke="#dce8f8" strokeWidth="1" />
       </g>
       <rect x="352" y="50" width="148" height="4" fill="url(#accent-safe)" opacity="0.65" clipPath="url(#clip-right)" />
-      <text x="372" y="76" fill="#2c4a6e" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700">Governed Output</text>
+      <text x="372" y="76" fill="#2c4a6e" fontFamily={uiFont} fontSize="11" fontWeight="700">{copy.rightTitle}</text>
       <circle cx="478" cy="70" r="10" fill="#ecfdf5" />
       <path d="M473 70l3 3 5-5.5" fill="none" stroke="#16a34a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
 
@@ -1901,70 +1993,130 @@ function HeroIllustration() {
 
       <rect x="368" y="154" width="82" height="22" rx="11" fill="#fef2f2" stroke="#fecaca" strokeWidth="0.8" />
       <path d="M381 163l4 4m0-4l-4 4" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round" />
-      <text x="394" y="168" fill="#991b1b" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="700">2 Blocked</text>
+      <text x="394" y="168" fill="#991b1b" fontFamily={uiFont} fontSize="8" fontWeight="700">{copy.blocked}</text>
 
       <rect x="368" y="184" width="100" height="22" rx="11" fill="#ecfdf5" stroke="#bbf7d0" strokeWidth="0.8" />
       <path d="M381 195l2 2 4-4" fill="none" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="394" y="198" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="600">Safe to Execute</text>
+      <text x="394" y="198" fill="#16a34a" fontFamily={uiFont} fontSize="7.5" fontWeight="600">{copy.safeToExecute}</text>
 
-      <path d="M260 226v24" fill="none" stroke="url(#arrow-v)" strokeWidth="2.2" strokeLinecap="round" />
-      <path d="M260 249l-5-8h10Z" fill="#6ea8ff" opacity="0.85" />
+      <path d="M260 226v18" fill="none" stroke="url(#arrow-v)" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M260 243l-5-8h10Z" fill="#6ea8ff" opacity="0.85" />
       <circle cx="260" cy="229" r="1.8" fill="#0f66ff" opacity="0.35" />
       <circle cx="260" cy="234" r="2.2" fill="#0f66ff" opacity="0.25" />
       <circle cx="260" cy="240" r="2.6" fill="#0f66ff" opacity="0.15" />
-
-      <g filter="url(#card-shadow)">
-        <rect x="50" y="260" width="420" height="164" rx="18" fill="#fff" />
-        <rect x="50" y="260" width="420" height="164" rx="18" fill="none" stroke="#dce8f8" strokeWidth="1" />
       </g>
-      <circle cx="76" cy="282" r="5" fill="#0f66ff" opacity="0.15" />
-      <text x="88" y="286" fill="#2c4a6e" fontFamily="'Manrope',sans-serif" fontSize="11" fontWeight="700">Traces</text>
-      <rect x="310" y="274" width="48" height="14" rx="7" fill="#eef4ff" />
-      <text x="334" y="284" fill="#3b6eb5" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="600" textAnchor="middle">Signals</text>
-      <rect x="364" y="274" width="72" height="14" rx="7" fill="#ecfdf5" />
-      <text x="400" y="284" fill="#1a8a6e" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="600" textAnchor="middle">Protected</text>
 
-      <text x="76" y="306" fill="#8ca0b8" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600">NODE</text>
-      <text x="200" y="306" fill="#8ca0b8" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600">EXECUTION SPAN</text>
-      <text x="420" y="306" fill="#8ca0b8" fontFamily="'Manrope',sans-serif" fontSize="7" fontWeight="600">STATUS</text>
-      <path d="M68 311h390" stroke="#e8f0fc" strokeWidth="0.8" />
+      <g transform="translate(0 150)">
+      <g filter="url(#card-shadow)">
+        <rect x="20" y="258" width="480" height="112" rx="18" fill="#fff" />
+        <rect x="20" y="258" width="480" height="112" rx="18" fill="none" stroke="#dce8f8" strokeWidth="1" />
+      </g>
+      <circle cx="46" cy="280" r="5" fill="#0f66ff" opacity="0.15" />
+      <text x="58" y="284" fill="#2c4a6e" fontFamily={uiFont} fontSize="11" fontWeight="700">{copy.policyEngineTitle}</text>
+      <text x="58" y="301" fill="#7b8fa8" fontFamily={bodyFont} fontSize="7.1">
+        {copy.policyEngineSub}
+      </text>
+      <rect x="356" y="270" width="54" height="14" rx="7" fill="#eef4ff" />
+      <text x="383" y="280" fill="#3b6eb5" fontFamily={uiFont} fontSize="7.2" fontWeight="600" textAnchor="middle">{copy.postCall}</text>
+      <rect x="416" y="270" width="60" height="14" rx="7" fill="#f5f3ff" />
+      <text x="446" y="280" fill="#6d28d9" fontFamily={uiFont} fontSize="7.2" fontWeight="600" textAnchor="middle">{copy.failureLoop}</text>
 
-      <circle cx="80" cy="326" r="5" fill="#0f66ff" />
-      <text x="92" y="329" fill="#374a62" fontFamily="'Manrope',sans-serif" fontSize="8" fontWeight="600">Trace</text>
-      <rect x="200" y="322" width="210" height="8" rx="4" fill="#dbeafe" opacity="0.45" />
-      <rect x="200" y="322" width="210" height="8" rx="4" fill="none" stroke="#c5d9f2" strokeWidth="0.4" />
-      <rect x="420" y="321" width="26" height="12" rx="6" fill="#ecfdf5" />
-      <text x="433" y="330" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="6" fontWeight="700" textAnchor="middle">OK</text>
+      <rect x="44" y="316" width="96" height="36" rx="12" fill="url(#policy-define)" stroke="#bfdbfe" strokeWidth="0.8" />
+      <circle cx="62" cy="334" r="8" fill="#dbeafe" />
+      <text x="62" y="337" fill="#0f66ff" fontFamily={uiFont} fontSize="8" fontWeight="800" textAnchor="middle">1</text>
+      <text x="78" y="329" fill="#1e3d5f" fontFamily={uiFont} fontSize="7.1" fontWeight="700">{copy.define}</text>
+      <text x="78" y="340" fill="#5b7089" fontFamily={bodyFont} fontSize="6.1">{copy.defineLine1}</text>
+      <text x="78" y="348" fill="#5b7089" fontFamily={bodyFont} fontSize="6.1">{copy.defineLine2}</text>
 
-      <path d="M80 331v17h16" stroke="#c8d6e8" strokeWidth="1.2" fill="none" />
-      <circle cx="100" cy="349" r="4.5" fill="#39c0b7" />
-      <text x="110" y="352" fill="#374a62" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="600">Generation</text>
-      <rect x="210" y="345" width="140" height="7" rx="3.5" fill="#99f6e4" opacity="0.4" />
+      <path d="M144 334h12" fill="none" stroke="#b9cde8" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M156 334l-4-3v6Z" fill="#9ab7da" />
 
-      <path d="M100 353v36" stroke="#c8d6e8" strokeWidth="1.2" fill="none" />
-      <path d="M100 369h16" stroke="#c8d6e8" strokeWidth="1.2" fill="none" />
-      <path d="M100 389h16" stroke="#c8d6e8" strokeWidth="1.2" fill="none" />
+      <rect x="156" y="316" width="96" height="36" rx="12" fill="url(#policy-trigger)" stroke="#a7f3d0" strokeWidth="0.8" />
+      <circle cx="174" cy="334" r="8" fill="#ccfbf1" />
+      <text x="174" y="337" fill="#0f766e" fontFamily={uiFont} fontSize="8" fontWeight="800" textAnchor="middle">2</text>
+      <text x="190" y="329" fill="#1e3d5f" fontFamily={uiFont} fontSize="7.1" fontWeight="700">{copy.trigger}</text>
+      <text x="190" y="340" fill="#5b7089" fontFamily={bodyFont} fontSize="6.1">{copy.triggerLine1}</text>
+      <text x="190" y="348" fill="#5b7089" fontFamily={bodyFont} fontSize="6.1">{copy.triggerLine2}</text>
 
-      <circle cx="120" cy="369" r="4.5" fill="#dc2626" />
-      <text x="130" y="372" fill="#991b1b" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="700">{"exec · rm -rf"}</text>
-      <rect x="230" y="365" width="80" height="7" rx="3.5" fill="#fecaca" opacity="0.5" />
-      <rect x="420" y="363" width="32" height="12" rx="6" fill="#fef2f2" />
-      <text x="436" y="372" fill="#dc2626" fontFamily="'Manrope',sans-serif" fontSize="5.5" fontWeight="700" textAnchor="middle">VIOL</text>
+      <path d="M256 334h12" fill="none" stroke="#b9cde8" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M268 334l-4-3v6Z" fill="#9ab7da" />
 
-      <circle cx="120" cy="389" r="4.5" fill="#22c55e" />
-      <text x="130" y="392" fill="#374a62" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="600">{"read · config"}</text>
-      <rect x="260" y="385" width="110" height="7" rx="3.5" fill="#bbf7d0" opacity="0.4" />
-      <rect x="420" y="383" width="26" height="12" rx="6" fill="#ecfdf5" />
-      <text x="433" y="392" fill="#16a34a" fontFamily="'Manrope',sans-serif" fontSize="6" fontWeight="700" textAnchor="middle">OK</text>
+      <rect x="268" y="316" width="96" height="36" rx="12" fill="url(#policy-enforce)" stroke="#fcd34d" strokeWidth="0.8" />
+      <circle cx="286" cy="334" r="8" fill="#fde68a" />
+      <text x="286" y="337" fill="#b45309" fontFamily={uiFont} fontSize="8" fontWeight="800" textAnchor="middle">3</text>
+      <text x="302" y="329" fill="#1e3d5f" fontFamily={uiFont} fontSize="7.1" fontWeight="700">{copy.enforce}</text>
+      <text x="302" y="340" fill="#5b7089" fontFamily={bodyFont} fontSize="6.1">{copy.enforceLine1}</text>
+      <text x="302" y="348" fill="#5b7089" fontFamily={bodyFont} fontSize="6.1">{copy.enforceLine2}</text>
 
-      <circle cx="76" cy="414" r="3.5" fill="#0f66ff" />
-      <text x="84" y="417" fill="#8ca0b8" fontFamily="'Manrope',sans-serif" fontSize="7">Trace</text>
-      <circle cx="118" cy="414" r="3.5" fill="#39c0b7" />
-      <text x="126" y="417" fill="#8ca0b8" fontFamily="'Manrope',sans-serif" fontSize="7">Gen</text>
-      <circle cx="158" cy="414" r="3.5" fill="#dc2626" />
-      <text x="166" y="417" fill="#8ca0b8" fontFamily="'Manrope',sans-serif" fontSize="7">Violation</text>
-      <circle cx="218" cy="414" r="3.5" fill="#22c55e" />
-      <text x="226" y="417" fill="#8ca0b8" fontFamily="'Manrope',sans-serif" fontSize="7">OK</text>
+      <rect x="380" y="316" width="104" height="36" rx="12" fill="url(#policy-refine)" stroke="#c4b5fd" strokeWidth="0.8" />
+      <circle cx="398" cy="334" r="8" fill="#ddd6fe" />
+      <text x="398" y="337" fill="#6d28d9" fontFamily={uiFont} fontSize="8" fontWeight="800" textAnchor="middle">4</text>
+      <text x="414" y="329" fill="#1e3d5f" fontFamily={uiFont} fontSize="7.1" fontWeight="700">{copy.refine}</text>
+      <text x="414" y="340" fill="#5b7089" fontFamily={bodyFont} fontSize="5.9">{copy.refineLine1}</text>
+      <text x="414" y="348" fill="#5b7089" fontFamily={bodyFont} fontSize="5.9">{copy.refineLine2}</text>
+      <path d="M368 334h12" fill="none" stroke="#b9cde8" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M380 334l-4-3v6Z" fill="#9ab7da" />
+      </g>
+
+      <path d="M260 202v-14" fill="none" stroke="url(#arrow-v)" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M260 185l-5 8h10Z" fill="#6ea8ff" opacity="0.85" />
+      <circle cx="260" cy="199" r="1.8" fill="#0f66ff" opacity="0.35" />
+      <circle cx="260" cy="194" r="2.2" fill="#0f66ff" opacity="0.25" />
+
+      <g transform="translate(0 -372)">
+      <g filter="url(#card-shadow)">
+        <rect x="20" y="392" width="480" height="160" rx="18" fill="#fff" />
+        <rect x="20" y="392" width="480" height="160" rx="18" fill="none" stroke="#dce8f8" strokeWidth="1" />
+      </g>
+      <circle cx="46" cy="414" r="5" fill="#0f66ff" opacity="0.15" />
+      <text x="58" y="418" fill="#2c4a6e" fontFamily={uiFont} fontSize="11" fontWeight="700">{copy.tracesTitle}</text>
+      <rect x="340" y="406" width="48" height="14" rx="7" fill="#eef4ff" />
+      <text x="364" y="416" fill="#3b6eb5" fontFamily={uiFont} fontSize="7.5" fontWeight="600" textAnchor="middle">{copy.signals}</text>
+      <rect x="394" y="406" width="72" height="14" rx="7" fill="#ecfdf5" />
+      <text x="430" y="416" fill="#1a8a6e" fontFamily={uiFont} fontSize="7.5" fontWeight="600" textAnchor="middle">{copy.protected}</text>
+
+      <text x="46" y="438" fill="#8ca0b8" fontFamily={uiFont} fontSize="7" fontWeight="600">{copy.node}</text>
+      <text x="214" y="438" fill="#8ca0b8" fontFamily={uiFont} fontSize="7" fontWeight="600">{copy.executionSpan}</text>
+      <text x="448" y="438" fill="#8ca0b8" fontFamily={uiFont} fontSize="7" fontWeight="600">{copy.status}</text>
+      <path d="M38 443h444" stroke="#e8f0fc" strokeWidth="0.8" />
+
+      <circle cx="52" cy="458" r="5" fill="#0f66ff" />
+      <text x="64" y="461" fill="#374a62" fontFamily={uiFont} fontSize="8" fontWeight="600">{copy.trace}</text>
+      <rect x="196" y="454" width="238" height="8" rx="4" fill="#dbeafe" opacity="0.45" />
+      <rect x="196" y="454" width="238" height="8" rx="4" fill="none" stroke="#c5d9f2" strokeWidth="0.4" />
+      <rect x="444" y="453" width="32" height="12" rx="6" fill="#ecfdf5" />
+      <text x="460" y="462" fill="#16a34a" fontFamily={uiFont} fontSize="6" fontWeight="700" textAnchor="middle">{copy.ok}</text>
+
+      <path d="M52 463v17h16" stroke="#c8d6e8" strokeWidth="1.2" fill="none" />
+      <circle cx="72" cy="481" r="4.5" fill="#39c0b7" />
+      <text x="82" y="484" fill="#374a62" fontFamily={uiFont} fontSize="7.5" fontWeight="600">{copy.generation}</text>
+      <rect x="208" y="477" width="166" height="7" rx="3.5" fill="#99f6e4" opacity="0.4" />
+
+      <path d="M72 485v34" stroke="#c8d6e8" strokeWidth="1.2" fill="none" />
+      <path d="M72 499h16" stroke="#c8d6e8" strokeWidth="1.2" fill="none" />
+      <path d="M72 519h16" stroke="#c8d6e8" strokeWidth="1.2" fill="none" />
+
+      <circle cx="92" cy="499" r="4.5" fill="#dc2626" />
+      <text x="102" y="502" fill="#991b1b" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="700">exec · rm -rf</text>
+      <rect x="228" y="495" width="86" height="7" rx="3.5" fill="#fecaca" opacity="0.5" />
+      <rect x="444" y="493" width="32" height="12" rx="6" fill="#fef2f2" />
+      <text x="460" y="502" fill="#dc2626" fontFamily={uiFont} fontSize="5.5" fontWeight="700" textAnchor="middle">{lang === 'zh' ? copy.violation : 'VIOL'}</text>
+
+      <circle cx="92" cy="519" r="4.5" fill="#22c55e" />
+      <text x="102" y="522" fill="#374a62" fontFamily="'Manrope',sans-serif" fontSize="7.5" fontWeight="600">read · config</text>
+      <rect x="250" y="515" width="120" height="7" rx="3.5" fill="#bbf7d0" opacity="0.4" />
+      <rect x="444" y="513" width="32" height="12" rx="6" fill="#ecfdf5" />
+      <text x="460" y="522" fill="#16a34a" fontFamily={uiFont} fontSize="6" fontWeight="700" textAnchor="middle">{copy.ok}</text>
+
+      <circle cx="46" cy="541" r="3.5" fill="#0f66ff" />
+      <text x="54" y="544" fill="#8ca0b8" fontFamily={uiFont} fontSize="7">{copy.trace}</text>
+      <circle cx="86" cy="541" r="3.5" fill="#39c0b7" />
+      <text x="94" y="544" fill="#8ca0b8" fontFamily={uiFont} fontSize="7">{lang === 'zh' ? copy.generation : 'Gen'}</text>
+      <circle cx="124" cy="541" r="3.5" fill="#dc2626" />
+      <text x="132" y="544" fill="#8ca0b8" fontFamily={uiFont} fontSize="7">{copy.violation}</text>
+      <circle cx="182" cy="541" r="3.5" fill="#22c55e" />
+      <text x="190" y="544" fill="#8ca0b8" fontFamily={uiFont} fontSize="7">{copy.ok}</text>
+      </g>
     </svg>
   );
 }
