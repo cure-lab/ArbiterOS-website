@@ -248,9 +248,9 @@ const en = {
       ],
     },
     benchmark: {
-      label: 'Security at a Glance',
-      title: 'Replay benchmarks show ArbiterOS blocks 92\u201394% of attacks that already succeed without it.',
-      desc: 'These samples are not hypothetical prompts. Each trace was first verified to complete a risky action without ArbiterOS. Once the governance kernel is inserted, most attacks are stopped at the critical step while normal workflows continue to pass at a high rate.',
+      label: 'Security Benchmark',
+      title: 'ArbiterOS blocks more than 92% of dangerous attacks.',
+      desc: 'These results are drawn from dangerous behavior traces in AgentDojo and Agent-SafetyBench that were already verified to successfully compromise an agent without ArbiterOS. ArbiterOS still keeps normal workflows usable: 236 of 255 AgentDojo Safe slices pass (92.55%), and 50 of 57 curated real-world workflows pass (87.72%).',
       comparisons: [
         {
           name: 'Agent-SafetyBench',
@@ -275,23 +275,7 @@ const en = {
           withValue: '93.94% blocked \u00b7 6.06% residual',
         },
       ],
-      stats: [
-        {
-          kicker: 'Benchmark Safe Set',
-          value: '92.55%',
-          accent: false,
-          desc: 'Normal task pass rate \u00b7 AgentDojo Safe',
-          sub: '236 of 255 safe-task slices pass cleanly, indicating low false-positive overhead under active governance.',
-        },
-        {
-          kicker: 'Real-World Workflow Set',
-          value: '87.72%',
-          accent: true,
-          desc: 'Normal task pass rate \u00b7 Curated workflows',
-          sub: '50 of 57 curated workflows pass, covering collaboration, calendar, email, browser, file operations, reminders, and DevOps.',
-        },
-      ],
-      footnote: 'Results come from replay evaluation over attack traces that were already shown to succeed without ArbiterOS. The remaining misses cluster around lower-severity read and web-fetch steps rather than destructive side-effecting actions.',
+      footnote: 'In AgentDojo and Agent-SafetyBench, we only count attack traces that already completed a dangerous action before ArbiterOS was inserted. Results come from replay evaluation, and the remaining misses cluster around lower-severity read and web-fetch steps rather than destructive side-effecting actions.',
     },
     comparison: {
       label: '',
@@ -662,9 +646,9 @@ const zh: typeof en = {
       ],
     },
     benchmark: {
-      label: '安全概览',
-      title: '在回放基准中，ArbiterOS 可拦截 92% 到 94% 的已验证成功攻击。',
-      desc: '这里展示的不是潜在风险提示，而是未接入 ArbiterOS 时已被验证能够完成危险动作的攻击轨迹。接入治理内核后，大多数攻击会在关键步骤被切断，同时正常流程仍保持较高通过率。',
+      label: '安全基准测试',
+      title: 'ArbiterOS 可拦截超过 92% 的危险攻击',
+      desc: '这里展示的是在 AgentDojo 与 Agent-SafetyBench 中已经验证能够成功攻击 agent 的危险行为轨迹。同时，ArbiterOS 仍保持较高的正常任务通过率：AgentDojo Safe 的 255 个安全任务切片中有 236 个通过（92.55%），57 个人工构造真实工作流样本中有 50 个通过（87.72%）。',
       comparisons: [
         {
           name: 'Agent-SafetyBench',
@@ -689,23 +673,7 @@ const zh: typeof en = {
           withValue: '93.94% 被拦截 \u00b7 6.06% 未拦截',
         },
       ],
-      stats: [
-        {
-          kicker: '基准安全集',
-          value: '92.55%',
-          accent: false,
-          desc: 'AgentDojo Safe 正常任务通过率',
-          sub: '255 个安全任务切片中有 236 个顺利通过，说明在启用治理后误拦截开销仍较低。',
-        },
-        {
-          kicker: '真实流程集',
-          value: '87.72%',
-          accent: true,
-          desc: '人工构造工作流通过率',
-          sub: '57 个人工构造的真实工作流样本中有 50 个顺利通过，覆盖协作、日历、邮件、浏览器、文件操作、提醒和 DevOps 场景。',
-        },
-      ],
-      footnote: '结果基于回放评测：样本均为未接入 ArbiterOS 时已验证成功的攻击轨迹。剩余未拦截案例主要集中在低风险的读取和网页抓取步骤，而非高破坏性的副作用动作。',
+      footnote: '在 AgentDojo 与 Agent-SafetyBench 中，我们只统计未接入 ArbiterOS 时已经成功完成危险动作的攻击轨迹。结果基于回放评测，剩余未拦截案例主要集中在低风险的读取和网页抓取步骤，而非高破坏性的副作用动作。',
     },
     comparison: {
       label: '',
@@ -1137,6 +1105,7 @@ export default function App() {
               lang={lang}
               onHowItWorksClick={(event) => handleNavigate(event, 'how-it-works')}
             />
+            <BenchmarkSection t={t} />
             <PositioningSection t={t} />
             <AdvantagesSection t={t} onSelect={setActiveAdvantage} />
             <QuickStartSection t={t} />
@@ -1435,47 +1404,10 @@ chmod +x install.sh
   );
 }
 
-function OverviewSection({ t }: { t: SiteCopy }) {
+function BenchmarkSection({ t }: { t: SiteCopy }) {
   return (
-    <section className="container section" id="overview">
-      <div className="section-header section-header-wide">
-        <span className="section-label">{t.overview.label}</span>
-        <h2>{t.overview.title}</h2>
-        <p className="section-desc">{t.overview.desc}</p>
-      </div>
-
-      <div className="overview-card">
-        <div className="overview-card-header">
-          <span className="section-label">{t.overview.architecture.label}</span>
-          <h3>{t.overview.architecture.title}</h3>
-        </div>
-        <EcosystemDiagram copy={t.overview.architecture.diagram} />
-      </div>
-
-      <div className="overview-card">
-        <div className="overview-card-header">
-          <span className="section-label">{t.overview.dataflow.label}</span>
-          <h3>{t.overview.dataflow.title}</h3>
-        </div>
-        <div className="dataflow-pipeline">
-          {t.overview.dataflow.stages.flatMap((stage, i) => {
-            const items = [];
-            if (i > 0) {
-              items.push(<div className="dataflow-arrow" key={`arrow-${i}`}>{'\u2192'}</div>);
-            }
-            items.push(
-              <div className="dataflow-stage" key={stage.num}>
-                <span className="dataflow-num">{stage.num}</span>
-                <h4>{stage.title}</h4>
-                <p>{stage.desc}</p>
-              </div>,
-            );
-            return items;
-          })}
-        </div>
-      </div>
-
-      <div className="overview-card">
+    <section className="container section benchmark-section" id="benchmark">
+      <div className="overview-card benchmark-home-card">
         <div className="overview-card-header">
           <span className="section-label">{t.overview.benchmark.label}</span>
           <h3>{t.overview.benchmark.title}</h3>
@@ -1517,20 +1449,50 @@ function OverviewSection({ t }: { t: SiteCopy }) {
           ))}
         </div>
 
-        <div className="bench-stats">
-          {t.overview.benchmark.stats.map((s) => (
-            <div className="bench-stat" key={s.kicker}>
-              <div>
-                <div className="bench-stat-kicker">{s.kicker}</div>
-                <div className={`bench-stat-number${s.accent ? ' is-accent' : ''}`}>{s.value}</div>
-                <p className="bench-stat-desc">{s.desc}</p>
-              </div>
-              <p className="bench-stat-sub">{s.sub}</p>
-            </div>
-          ))}
-        </div>
-
         <p className="bench-footnote">{t.overview.benchmark.footnote}</p>
+      </div>
+    </section>
+  );
+}
+
+function OverviewSection({ t }: { t: SiteCopy }) {
+  return (
+    <section className="container section" id="overview">
+      <div className="section-header section-header-wide">
+        <span className="section-label">{t.overview.label}</span>
+        <h2>{t.overview.title}</h2>
+        <p className="section-desc">{t.overview.desc}</p>
+      </div>
+
+      <div className="overview-card">
+        <div className="overview-card-header">
+          <span className="section-label">{t.overview.architecture.label}</span>
+          <h3>{t.overview.architecture.title}</h3>
+        </div>
+        <EcosystemDiagram copy={t.overview.architecture.diagram} />
+      </div>
+
+      <div className="overview-card">
+        <div className="overview-card-header">
+          <span className="section-label">{t.overview.dataflow.label}</span>
+          <h3>{t.overview.dataflow.title}</h3>
+        </div>
+        <div className="dataflow-pipeline">
+          {t.overview.dataflow.stages.flatMap((stage, i) => {
+            const items = [];
+            if (i > 0) {
+              items.push(<div className="dataflow-arrow" key={`arrow-${i}`}>{'\u2192'}</div>);
+            }
+            items.push(
+              <div className="dataflow-stage" key={stage.num}>
+                <span className="dataflow-num">{stage.num}</span>
+                <h4>{stage.title}</h4>
+                <p>{stage.desc}</p>
+              </div>,
+            );
+            return items;
+          })}
+        </div>
       </div>
 
       <div className="overview-card">

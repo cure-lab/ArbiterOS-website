@@ -1870,6 +1870,14 @@ img, svg { display: block; }
 
 /* ── Benchmark Section ── */
 
+.section.benchmark-section {
+  padding-top: 28px;
+}
+
+.benchmark-home-card {
+  margin-top: 0;
+}
+
 .bench-metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
