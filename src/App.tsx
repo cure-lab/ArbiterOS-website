@@ -247,6 +247,57 @@ const en = {
         { num: '5', title: 'Record Trace', desc: 'Write per-trace instruction files \u00b7 Keep request logs \u00b7 Emit Langfuse traces when configured' },
       ],
     },
+    benchmark: {
+      label: 'Security at a Glance',
+      title: 'Replay benchmarks show ArbiterOS blocks 92\u201394% of attacks that already succeed without it.',
+      desc: 'These samples are not hypothetical prompts. Each trace was first verified to complete a risky action without ArbiterOS. Once the governance kernel is inserted, most attacks are stopped at the critical step while normal workflows continue to pass at a high rate.',
+      metrics: [
+        { value: '94.25%', label: 'Highest block rate \u00b7 Agent-SafetyBench' },
+        { value: '93.94%', label: 'Highest block rate \u00b7 AgentDojo' },
+        { value: '1,914', label: 'Verified successful attack traces' },
+      ],
+      comparisons: [
+        {
+          name: 'Agent-SafetyBench',
+          caption: 'Claude Sonnet 4 \u00b7 574 verified successful attack traces',
+          blockPct: 94.25,
+          residualPct: 5.75,
+          delta: '94.25% blocked',
+          withoutLabel: 'Without ArbiterOS',
+          withoutValue: '100% succeeded',
+          withLabel: 'With ArbiterOS',
+          withValue: '94.25% blocked \u00b7 5.75% residual',
+        },
+        {
+          name: 'AgentDojo',
+          caption: 'GPT-4o \u00b7 297 verified successful attack traces',
+          blockPct: 93.94,
+          residualPct: 6.06,
+          delta: '93.94% blocked',
+          withoutLabel: 'Without ArbiterOS',
+          withoutValue: '100% succeeded',
+          withLabel: 'With ArbiterOS',
+          withValue: '93.94% blocked \u00b7 6.06% residual',
+        },
+      ],
+      stats: [
+        {
+          kicker: 'Benchmark Safe Set',
+          value: '92.55%',
+          accent: false,
+          desc: 'Normal task pass rate \u00b7 AgentDojo Safe',
+          sub: '236 of 255 safe-task slices pass cleanly, indicating low false-positive overhead under active governance.',
+        },
+        {
+          kicker: 'Real-World Workflow Set',
+          value: '87.72%',
+          accent: true,
+          desc: 'Normal task pass rate \u00b7 Curated workflows',
+          sub: '50 of 57 curated workflows pass, covering collaboration, calendar, email, browser, file operations, reminders, and DevOps.',
+        },
+      ],
+      footnote: 'Results come from replay evaluation over attack traces that were already shown to succeed without ArbiterOS. The remaining misses cluster around lower-severity read and web-fetch steps rather than destructive side-effecting actions.',
+    },
     comparison: {
       label: '',
       title: 'Isolation, runtime checks, and ArbiterOS: what each layer does',
@@ -614,6 +665,57 @@ const zh: typeof en = {
         { num: '4', title: '执行策略检查', desc: '运行已配置的检查 \u00b7 放行、调整或暂缓动作 \u00b7 需要时请求是/否确认' },
         { num: '5', title: '记录追踪', desc: '写入逐追踪指令文件 \u00b7 保留请求日志 \u00b7 在配置后输出 Langfuse 追踪' },
       ],
+    },
+    benchmark: {
+      label: '安全概览',
+      title: '在回放基准中，ArbiterOS 可拦截 92% 到 94% 的已验证成功攻击。',
+      desc: '这里展示的不是潜在风险提示，而是未接入 ArbiterOS 时已被验证能够完成危险动作的攻击轨迹。接入治理内核后，大多数攻击会在关键步骤被切断，同时正常流程仍保持较高通过率。',
+      metrics: [
+        { value: '94.25%', label: 'Agent-SafetyBench 最高拦截率' },
+        { value: '93.94%', label: 'AgentDojo 最高拦截率' },
+        { value: '1,914', label: '已验证成功攻击轨迹' },
+      ],
+      comparisons: [
+        {
+          name: 'Agent-SafetyBench',
+          caption: 'Claude Sonnet 4 \u00b7 574 条已验证成功的攻击轨迹',
+          blockPct: 94.25,
+          residualPct: 5.75,
+          delta: '拦截率 94.25%',
+          withoutLabel: '未接入 ArbiterOS',
+          withoutValue: '100% 攻击成功',
+          withLabel: '接入 ArbiterOS 后',
+          withValue: '94.25% 被拦截 \u00b7 5.75% 未拦截',
+        },
+        {
+          name: 'AgentDojo',
+          caption: 'GPT-4o \u00b7 297 条已验证成功的攻击轨迹',
+          blockPct: 93.94,
+          residualPct: 6.06,
+          delta: '拦截率 93.94%',
+          withoutLabel: '未接入 ArbiterOS',
+          withoutValue: '100% 攻击成功',
+          withLabel: '接入 ArbiterOS 后',
+          withValue: '93.94% 被拦截 \u00b7 6.06% 未拦截',
+        },
+      ],
+      stats: [
+        {
+          kicker: '基准安全集',
+          value: '92.55%',
+          accent: false,
+          desc: 'AgentDojo Safe 正常任务通过率',
+          sub: '255 个安全任务切片中有 236 个顺利通过，说明在启用治理后误拦截开销仍较低。',
+        },
+        {
+          kicker: '真实流程集',
+          value: '87.72%',
+          accent: true,
+          desc: '人工构造工作流通过率',
+          sub: '57 个人工构造的真实工作流样本中有 50 个顺利通过，覆盖协作、日历、邮件、浏览器、文件操作、提醒和 DevOps 场景。',
+        },
+      ],
+      footnote: '结果基于回放评测：样本均为未接入 ArbiterOS 时已验证成功的攻击轨迹。剩余未拦截案例主要集中在低风险的读取和网页抓取步骤，而非高破坏性的副作用动作。',
     },
     comparison: {
       label: '',
@@ -1381,6 +1483,73 @@ function OverviewSection({ t }: { t: SiteCopy }) {
             return items;
           })}
         </div>
+      </div>
+
+      <div className="overview-card">
+        <div className="overview-card-header">
+          <span className="section-label">{t.overview.benchmark.label}</span>
+          <h3>{t.overview.benchmark.title}</h3>
+          <p className="section-desc">{t.overview.benchmark.desc}</p>
+        </div>
+
+        <div className="bench-metrics">
+          {t.overview.benchmark.metrics.map((m) => (
+            <div className="bench-metric" key={m.label}>
+              <p className="bench-metric-value">{m.value}</p>
+              <p className="bench-metric-label">{m.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="bench-compare-grid">
+          {t.overview.benchmark.comparisons.map((c) => (
+            <div className="bench-compare-item" key={c.name}>
+              <div className="bench-compare-top">
+                <div>
+                  <p className="bench-name">{c.name}</p>
+                  <p className="bench-caption">{c.caption}</p>
+                </div>
+                <span className="bench-delta">{c.delta}</span>
+              </div>
+              <div className="bench-bars">
+                <div>
+                  <div className="bench-bar-label">
+                    <span>{c.withoutLabel}</span>
+                    <strong>{c.withoutValue}</strong>
+                  </div>
+                  <div className="bench-track">
+                    <div className="bench-seg bench-seg-baseline" />
+                  </div>
+                </div>
+                <div>
+                  <div className="bench-bar-label">
+                    <span>{c.withLabel}</span>
+                    <strong>{c.withValue}</strong>
+                  </div>
+                  <div className="bench-track">
+                    <div className="bench-seg bench-seg-blocked" style={{ width: `${c.blockPct}%` }} />
+                    <div className="bench-seg bench-seg-residual" style={{ width: `${c.residualPct}%` }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bench-stats">
+          {t.overview.benchmark.stats.map((s) => (
+            <div className="bench-stat" key={s.kicker}>
+              <div>
+                <div className="bench-stat-kicker">{s.kicker}</div>
+                <div className={`bench-stat-number${s.accent ? ' is-accent' : ''}`}>{s.value}</div>
+                <p className="bench-stat-desc">{s.desc}</p>
+              </div>
+              <p className="bench-stat-sub">{s.sub}</p>
+            </div>
+          ))}
+        </div>
+
+        <p className="bench-footnote">{t.overview.benchmark.footnote}</p>
       </div>
 
       <div className="overview-card">
