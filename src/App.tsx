@@ -248,7 +248,7 @@ const en = {
       ],
     },
     benchmark: {
-      label: 'Security Benchmark',
+      label: '',
       title: 'ArbiterOS blocks more than 92% of dangerous attacks and flags risky workflows.',
       desc: 'These results combine replay-based attack evaluation in AgentDojo and Agent-SafetyBench with in-the-wild warning evaluation on WildClawBench. ArbiterOS still keeps normal workflows usable: 236 of 255 AgentDojo Safe slices pass (92.55%), and 50 of 57 curated real-world workflows pass (87.72%).',
       comparisons: [
@@ -672,9 +672,9 @@ const zh: typeof en = {
       ],
     },
     benchmark: {
-      label: '安全基准测试',
-      title: 'ArbiterOS 可拦截超过 92% 的危险攻击，并对高风险工作流及时预警',
-      desc: '这里展示的是 AgentDojo、Agent-SafetyBench 的回放攻击评测，以及 WildClawBench 的真实世界高风险工作流 warning 评测。同时，ArbiterOS 仍保持较高的正常任务通过率：AgentDojo Safe 的 255 个安全任务切片中有 236 个通过（92.55%），57 个人工构造真实工作流样本中有 50 个通过（87.72%）。',
+      label: '',
+      title: 'ArbiterOS 可拦截超过 92% 的危险攻击',
+      desc: '这里展示的是 AgentDojo、Agent-SafetyBench 的回放攻击评测，以及 WildClawBench 的真实世界高风险工作流 warning 评测。ArbiterOS 可以及时预警高风险工作流，同时仍保持较高的正常任务通过率：AgentDojo Safe 的 255 个安全的任务测试中有 236 个通过（92.55%），另外57 个人工构造的真实工作流样本中有 50 个通过（87.72%）。',
       comparisons: [
         {
           name: 'Agent-SafetyBench',
