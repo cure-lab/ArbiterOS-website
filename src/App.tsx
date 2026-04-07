@@ -26,7 +26,7 @@ const en = {
     demoBtn: 'Demo',
     howItWorksBtn: 'How it works',
     githubBtn: 'GitHub',
-    meta: ['OpenAI-compatible API', 'OpenClaw-ready', 'Local deploy'],
+    meta: ['OpenAI-compatible API', 'OpenClaw + Nanobot ready', 'Local deploy'],
     diagram: {
       ariaLabel: 'ArbiterOS governed execution flow',
       tracesTitle: 'Traces',
@@ -119,7 +119,7 @@ const en = {
     steps: [
       { step: '1', title: 'Install & Start Kernel', description: 'Run the install script or Docker Compose to start ArbiterOS Kernel (default port:4000).' },
       { step: '2', title: 'Configure Models & Policies', description: 'Configure models, API keys, optional skill trust scanning, and policy rules in litellm_config.yaml.' },
-      { step: '3', title: 'Connect OpenClaw / Your Agent', description: 'Point your model provider to http://127.0.0.1:4000/v1 for instant governance, audit, and observability.' },
+      { step: '3', title: 'Connect OpenClaw / Nanobot / Your Agent', description: 'Point your model provider to http://127.0.0.1:4000/v1 for instant governance, audit, and observability.' },
     ],
     commandsLabel: 'Install commands',
     copyLabel: 'Copy',
@@ -249,13 +249,15 @@ const en = {
     },
     benchmark: {
       label: 'Security Benchmark',
-      title: 'ArbiterOS blocks more than 92% of dangerous attacks.',
-      desc: 'These results are drawn from dangerous behavior traces in AgentDojo and Agent-SafetyBench that were already verified to successfully compromise an agent without ArbiterOS. ArbiterOS still keeps normal workflows usable: 236 of 255 AgentDojo Safe slices pass (92.55%), and 50 of 57 curated real-world workflows pass (87.72%).',
+      title: 'ArbiterOS blocks more than 92% of dangerous attacks and flags risky workflows.',
+      desc: 'These results combine replay-based attack evaluation in AgentDojo and Agent-SafetyBench with in-the-wild warning evaluation on WildClawBench. ArbiterOS still keeps normal workflows usable: 236 of 255 AgentDojo Safe slices pass (92.55%), and 50 of 57 curated real-world workflows pass (87.72%).',
       comparisons: [
         {
           name: 'Agent-SafetyBench',
+          footnoteMark: '*',
           caption: 'Claude Sonnet 4 \u00b7 574 verified successful attack traces',
-          blockPct: 94.25,
+          baselinePct: 100,
+          primaryPct: 94.25,
           residualPct: 5.75,
           delta: '94.25% blocked',
           withoutLabel: 'Without ArbiterOS',
@@ -265,8 +267,10 @@ const en = {
         },
         {
           name: 'AgentDojo',
+          footnoteMark: '*',
           caption: 'GPT-4o \u00b7 297 verified successful attack traces',
-          blockPct: 93.94,
+          baselinePct: 100,
+          primaryPct: 93.94,
           residualPct: 6.06,
           delta: '93.94% blocked',
           withoutLabel: 'Without ArbiterOS',
@@ -274,8 +278,30 @@ const en = {
           withLabel: 'With ArbiterOS',
           withValue: '93.94% blocked \u00b7 6.06% residual',
         },
+        {
+          name: 'WildClawBench',
+          footnoteMark: '**',
+          caption: 'GPT-5.2 \u00b7 in-the-wild risky workflow evaluation',
+          baselinePct: 55,
+          primaryPct: 100,
+          residualPct: 0,
+          delta: '100% warned',
+          withoutLabel: 'Original benchmark score',
+          withoutValue: '55% with GPT-5.2',
+          withLabel: 'With ArbiterOS',
+          withValue: '100% proper warnings',
+        },
       ],
-      footnote: 'In AgentDojo and Agent-SafetyBench, we only count attack traces that already completed a dangerous action before ArbiterOS was inserted. Results come from replay evaluation, and the remaining misses cluster around lower-severity read and web-fetch steps rather than destructive side-effecting actions.',
+      footnotes: [
+        {
+          marker: '*',
+          text: 'AgentDojo and Agent-SafetyBench only count attack traces that already completed a dangerous action before ArbiterOS was inserted; results come from replay evaluation, and the remaining misses cluster around lower-severity read and web-fetch steps rather than destructive side-effecting actions.',
+        },
+        {
+          marker: '**',
+          text: 'WildClawBench uses a different, safety-oriented metric: the 100% figure measures whether ArbiterOS emitted a timely warning before the risky step so a human can intervene, rather than the benchmark\'s original task-score definition.',
+        },
+      ],
     },
     comparison: {
       label: '',
@@ -423,7 +449,7 @@ const zh: typeof en = {
     demoBtn: 'Demo',
     howItWorksBtn: '工作原理',
     githubBtn: 'GitHub',
-    meta: ['兼容 OpenAI API', '支持 OpenClaw 集成', '支持本地部署'],
+    meta: ['兼容 OpenAI API', '支持 OpenClaw / Nanobot 集成', '支持本地部署'],
     diagram: {
       ariaLabel: 'ArbiterOS 执行治理流程图',
       tracesTitle: '追踪',
@@ -516,7 +542,7 @@ const zh: typeof en = {
     steps: [
       { step: '1', title: '安装并启动内核', description: '一条命令安装或使用 Docker Compose，启动 ArbiterOS 内核 (默认端口：4000)' },
       { step: '2', title: '配置模型与策略', description: '在 ArbiterOS 的配置文件中配置模型、API、技能信任目录，以及策略规则' },
-      { step: '3', title: '连接 OpenClaw 或其他智能体', description: '将模型提供方指向 http://127.0.0.1:4000/v1，即可获得治理、审计与可观测能力。' },
+      { step: '3', title: '连接 OpenClaw、Nanobot 或其他智能体', description: '将模型提供方指向 http://127.0.0.1:4000/v1，即可获得治理、审计与可观测能力。' },
     ],
     commandsLabel: '安装命令',
     copyLabel: '复制',
@@ -647,13 +673,15 @@ const zh: typeof en = {
     },
     benchmark: {
       label: '安全基准测试',
-      title: 'ArbiterOS 可拦截超过 92% 的危险攻击',
-      desc: '这里展示的是在 AgentDojo 与 Agent-SafetyBench 中已经验证能够成功攻击 agent 的危险行为轨迹。同时，ArbiterOS 仍保持较高的正常任务通过率：AgentDojo Safe 的 255 个安全任务切片中有 236 个通过（92.55%），57 个人工构造真实工作流样本中有 50 个通过（87.72%）。',
+      title: 'ArbiterOS 可拦截超过 92% 的危险攻击，并对高风险工作流及时预警',
+      desc: '这里展示的是 AgentDojo、Agent-SafetyBench 的回放攻击评测，以及 WildClawBench 的真实世界高风险工作流 warning 评测。同时，ArbiterOS 仍保持较高的正常任务通过率：AgentDojo Safe 的 255 个安全任务切片中有 236 个通过（92.55%），57 个人工构造真实工作流样本中有 50 个通过（87.72%）。',
       comparisons: [
         {
           name: 'Agent-SafetyBench',
+          footnoteMark: '*',
           caption: 'Claude Sonnet 4 \u00b7 574 条已验证成功的攻击轨迹',
-          blockPct: 94.25,
+          baselinePct: 100,
+          primaryPct: 94.25,
           residualPct: 5.75,
           delta: '拦截率 94.25%',
           withoutLabel: '未接入 ArbiterOS',
@@ -663,8 +691,10 @@ const zh: typeof en = {
         },
         {
           name: 'AgentDojo',
+          footnoteMark: '*',
           caption: 'GPT-4o \u00b7 297 条已验证成功的攻击轨迹',
-          blockPct: 93.94,
+          baselinePct: 100,
+          primaryPct: 93.94,
           residualPct: 6.06,
           delta: '拦截率 93.94%',
           withoutLabel: '未接入 ArbiterOS',
@@ -672,8 +702,30 @@ const zh: typeof en = {
           withLabel: '接入 ArbiterOS 后',
           withValue: '93.94% 被拦截 \u00b7 6.06% 未拦截',
         },
+        {
+          name: 'WildClawBench',
+          footnoteMark: '**',
+          caption: 'GPT-5.2 \u00b7 真实世界高风险工作流评测',
+          baselinePct: 55,
+          primaryPct: 100,
+          residualPct: 0,
+          delta: '100% 发出 warning',
+          withoutLabel: '原始 benchmark 得分',
+          withoutValue: 'GPT-5.2 得分 55%',
+          withLabel: '接入 ArbiterOS 后',
+          withValue: '100% 发出恰当 warning',
+        },
       ],
-      footnote: '在 AgentDojo 与 Agent-SafetyBench 中，我们只统计未接入 ArbiterOS 时已经成功完成危险动作的攻击轨迹。结果基于回放评测，剩余未拦截案例主要集中在低风险的读取和网页抓取步骤，而非高破坏性的副作用动作。',
+      footnotes: [
+        {
+          marker: '*',
+          text: '在 AgentDojo 与 Agent-SafetyBench 中，我们只统计未接入 ArbiterOS 时已经成功完成危险动作的攻击轨迹。结果基于回放评测，剩余未拦截案例主要集中在低风险的读取和网页抓取步骤，而非高破坏性的副作用动作。',
+        },
+        {
+          marker: '**',
+          text: 'WildClawBench 采用的是不同的安全导向评估口径：这里的 100% 指 ArbiterOS 是否能在高风险步骤发生前及时给出有效 warning，便于人工介入，而不是直接沿用该 benchmark 原始的任务得分定义。',
+        },
+      ],
     },
     comparison: {
       label: '',
@@ -1419,7 +1471,10 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
             <div className="bench-compare-item" key={c.name}>
               <div className="bench-compare-top">
                 <div>
-                  <p className="bench-name">{c.name}</p>
+                  <p className="bench-name">
+                    {c.name}
+                    <span className="bench-footnote-mark" aria-hidden="true">{c.footnoteMark}</span>
+                  </p>
                   <p className="bench-caption">{c.caption}</p>
                 </div>
                 <span className="bench-delta">{c.delta}</span>
@@ -1431,7 +1486,7 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
                     <strong>{c.withoutValue}</strong>
                   </div>
                   <div className="bench-track">
-                    <div className="bench-seg bench-seg-baseline" />
+                    <div className="bench-seg bench-seg-baseline" style={{ width: `${c.baselinePct}%` }} />
                   </div>
                 </div>
                 <div>
@@ -1440,7 +1495,7 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
                     <strong>{c.withValue}</strong>
                   </div>
                   <div className="bench-track">
-                    <div className="bench-seg bench-seg-blocked" style={{ width: `${c.blockPct}%` }} />
+                    <div className="bench-seg bench-seg-blocked" style={{ width: `${c.primaryPct}%` }} />
                     <div className="bench-seg bench-seg-residual" style={{ width: `${c.residualPct}%` }} />
                   </div>
                 </div>
@@ -1449,7 +1504,13 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
           ))}
         </div>
 
-        <p className="bench-footnote">{t.overview.benchmark.footnote}</p>
+        <div className="bench-footnotes">
+          {t.overview.benchmark.footnotes.map((note) => (
+            <p className="bench-footnote" key={note.marker}>
+              <span className="bench-footnote-mark bench-footnote-mark-inline" aria-hidden="true">{note.marker}</span> {note.text}
+            </p>
+          ))}
+        </div>
       </div>
     </section>
   );

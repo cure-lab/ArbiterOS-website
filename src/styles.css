@@ -1931,7 +1931,7 @@ img, svg { display: block; }
 
 .bench-compare-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
   margin-top: 20px;
 }
@@ -1959,6 +1959,14 @@ img, svg { display: block; }
   letter-spacing: -0.03em;
   color: var(--heading);
   font-family: 'Manrope', sans-serif;
+}
+
+.bench-footnote-mark {
+  margin-left: 0.16em;
+  color: rgba(86, 107, 133, 0.68);
+  font-size: 0.72em;
+  font-weight: 600;
+  vertical-align: super;
 }
 
 .bench-caption {
@@ -2083,13 +2091,27 @@ img, svg { display: block; }
   line-height: 1.6;
 }
 
-.bench-footnote {
+.bench-footnotes {
   margin-top: 16px;
   padding-top: 16px;
   border-top: 1px solid var(--border);
+  display: grid;
+  gap: 8px;
+}
+
+.bench-footnote {
   color: var(--muted);
   font-size: 0.81rem;
   line-height: 1.65;
+}
+
+.bench-footnote-mark-inline {
+  margin-left: 0;
+  margin-right: 0.18em;
+  color: rgba(86, 107, 133, 0.82);
+  font-size: 0.92em;
+  font-weight: 700;
+  vertical-align: baseline;
 }
 
 /* ── Kernel Edge Grid ── */
