@@ -2135,8 +2135,8 @@ img, svg { display: block; }
 
 .bench-footnote {
   color: var(--muted);
-  font-size: 0.81rem;
-  line-height: 1.65;
+  font-size: 0.54rem;
+  line-height: 1.15;
 }
 
 .bench-footnote-mark-inline {
@@ -2146,6 +2146,125 @@ img, svg { display: block; }
   font-size: 0.92em;
   font-weight: 700;
   vertical-align: baseline;
+}
+
+.bench-failure-analysis {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.bench-failure-head h4 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--heading);
+}
+
+.bench-failure-head p {
+  margin-top: 8px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.bench-failure-toggle {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--blue-deep);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+
+.bench-failure-toggle:hover {
+  border-color: rgba(15, 102, 255, 0.24);
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+
+.bench-failure-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.bench-failure-col {
+  display: grid;
+  gap: 10px;
+}
+
+.bench-failure-col + .bench-failure-col {
+  border-left: 1px solid var(--border);
+  padding-left: 14px;
+}
+
+.bench-failure-col-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.bench-failure-col h5 {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-deep);
+}
+
+.bench-failure-intro {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.bench-failure-item {
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.bench-failure-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.bench-failure-meta span {
+  color: var(--blue);
+}
+
+.bench-failure-pattern {
+  margin-top: 7px;
+  font-size: 0.79rem;
+  line-height: 1.55;
+  color: var(--muted);
+  white-space: pre-line;
+}
+
+.bench-failure-examples {
+  margin-top: 7px;
+  font-size: 0.73rem;
+  line-height: 1.5;
+  color: rgba(26, 43, 66, 0.74);
+  word-break: break-word;
 }
 
 /* ── Kernel Edge Grid ── */
@@ -2219,6 +2338,11 @@ img, svg { display: block; }
   .bench-compare-grid { grid-template-columns: 1fr; }
   .bench-stats { grid-template-columns: 1fr; }
   .bench-metrics { grid-template-columns: 1fr; }
+  .bench-failure-grid { grid-template-columns: 1fr; }
+  .bench-failure-col + .bench-failure-col {
+    border-left: none;
+    padding-left: 0;
+  }
   .comparison-grid { grid-template-columns: 1fr; gap: 16px; }
   .comparison-col { grid-row: auto !important; grid-template-rows: auto; }
   .kernel-edge-grid { grid-template-columns: 1fr; }
