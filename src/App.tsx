@@ -1470,14 +1470,14 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
           {t.overview.benchmark.comparisons.map((c) => (
             <div className="bench-compare-item" key={c.name}>
               <div className="bench-compare-top">
-                <div>
+                <div className="bench-compare-heading">
                   <p className="bench-name">
                     {c.name}
                     <span className="bench-footnote-mark" aria-hidden="true">{c.footnoteMark}</span>
                   </p>
-                  <p className="bench-caption">{c.caption}</p>
                 </div>
                 <span className="bench-delta">{c.delta}</span>
+                <p className="bench-caption">{c.caption}</p>
               </div>
               <div className="bench-bars">
                 <div>

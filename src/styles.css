@@ -1937,6 +1937,8 @@ img, svg { display: block; }
 }
 
 .bench-compare-item {
+  display: grid;
+  grid-template-rows: auto 1fr;
   padding: 22px;
   border-radius: var(--radius-md);
   background:
@@ -1946,42 +1948,63 @@ img, svg { display: block; }
 }
 
 .bench-compare-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 8px;
   align-items: start;
 }
 
+.bench-compare-heading {
+  min-width: 0;
+  min-height: 1.35em;
+  padding-right: 112px;
+}
+
 .bench-name {
+  display: inline-flex;
+  align-items: flex-start;
+  min-height: 0;
   margin: 0;
-  font-size: 1.22rem;
+  white-space: nowrap;
+  font-size: 1.08rem;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
   color: var(--heading);
   font-family: 'Manrope', sans-serif;
 }
 
 .bench-footnote-mark {
-  margin-left: 0.16em;
+  margin-left: 0.12em;
   color: rgba(86, 107, 133, 0.68);
   font-size: 0.72em;
   font-weight: 600;
-  vertical-align: super;
+  line-height: 1;
+  transform: translateY(0.08em);
 }
 
 .bench-caption {
-  margin: 4px 0 0;
+  grid-column: 1 / -1;
+  width: 100%;
+  /* Reserve two lines so cards with a one-line caption still line up with a two-line caption. */
+  min-height: calc(0.81rem * 1.55 * 2);
+  margin: 0;
   color: var(--muted);
   font-size: 0.81rem;
+  line-height: 1.55;
 }
 
 .bench-delta {
+  position: absolute;
+  top: 0;
+  right: 0;
   white-space: nowrap;
-  padding: 8px 10px;
+  padding: 7px 9px;
   border-radius: 14px;
   background: rgba(15, 102, 255, 0.1);
   color: var(--blue);
-  font-size: 0.75rem;
+  font-size: 0.71rem;
   font-weight: 700;
   font-family: 'Manrope', sans-serif;
   flex-shrink: 0;
@@ -1996,15 +2019,26 @@ img, svg { display: block; }
 .bench-bar-label {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 6px;
-  font-size: 0.81rem;
+  font-size: 0.77rem;
   color: var(--muted);
 }
 
+.bench-bar-label span {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 .bench-bar-label strong {
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-align: right;
   color: var(--heading);
   font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: -0.02em;
 }
 
 .bench-track {
