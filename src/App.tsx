@@ -501,7 +501,7 @@ const zh: typeof en = {
   },
   nav: { introHome: '介绍首页', home: '首页', overview: '系统总览', howItWorks: '工作原理', features: '核心能力', extension: '可观测性' },
   hero: {
-    eyebrow: '智能体执行治理层',
+    eyebrow: '',
     title: '大模型负责思考，\nArbiterOS 治理执行。',
     sub: '用确定性的规则，约束不确定的硅基智能。',
     demoBtn: 'Demo',
