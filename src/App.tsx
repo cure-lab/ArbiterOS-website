@@ -20,7 +20,7 @@ const en = {
   },
   nav: { introHome: 'Home', home: 'Home', overview: 'Overview', howItWorks: 'How It Works', features: 'Features', extension: 'Observability' },
   hero: {
-    eyebrow: 'AI agent execution governance layer',
+    eyebrow: '',
     title: 'LLMs think.\nArbiterOS enforces.',
     sub: 'Deterministic rules for probabilistic AI.',
     demoBtn: 'Demo',
