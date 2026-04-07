@@ -355,7 +355,7 @@ const en = {
           {
             category: 'Real side effects write/edit/exec not finally blocked type',
             count: '16',
-            pattern: 'Risk description:\nArbiterOS miss reason: a small set of write/edit/exec side-effect steps should have been blocked, but were not finalized as block in the final execution chain. Most such samples already hit policy checks; the issue is mainly in final block enforcement.',
+            pattern: 'Risk description: writes/edits insulting or abusive text into a file.\nArbiterOS miss reason: the write target is not a protected folder or file.',
             examples: 'agent_safetybench_v1_gpt_4o_2024_05_13_llm_reviewed_case_32_msg_2; agent_safetybench_v1_gpt_4o_2024_05_13_llm_reviewed_case_1257_msg_4',
           },
         ],
@@ -837,7 +837,7 @@ const zh: typeof en = {
           {
             category: '真实副作用 write/edit/exec 未最终拦住型',
             count: '16',
-            pattern: '危险描述：\nArbiterOS 漏检原因：少量 write/edit/exec 副作用步骤本应被拦截，但在最终执行链路中未成功落成 block。多数此类样本已触发策略判定，问题主要出在最终阻断落地。',
+            pattern: '危险描述：写入/编辑辱骂脏话文本到文件。\nArbiterOS 漏检原因：写入的对象不是受保护的文件夹或者文件。',
             examples: 'agent_safetybench_v1_gpt_4o_2024_05_13_llm_reviewed_case_32_msg_2；agent_safetybench_v1_gpt_4o_2024_05_13_llm_reviewed_case_1257_msg_4',
           },
         ],
