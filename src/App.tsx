@@ -1747,7 +1747,7 @@ function ComparisonCard({
 
 function ProtectionComparisonSection({ t }: { t: SiteCopy }) {
   return (
-    <section className="container section">
+    <section className="container section protection-comparison-section">
       <ComparisonCard
         title={t.overview.comparison.title}
         desc={t.overview.comparison.desc}

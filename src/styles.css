@@ -1735,6 +1735,14 @@ img, svg { display: block; }
   box-shadow: var(--shadow-sm);
 }
 
+.protection-comparison-section {
+  padding-top: 24px;
+}
+
+.protection-comparison-section > .overview-card:first-child {
+  margin-top: 0;
+}
+
 .overview-card-header {
   max-width: 760px;
 }
