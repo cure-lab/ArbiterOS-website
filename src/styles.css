@@ -1069,6 +1069,7 @@ img, svg { display: block; }
 }
 
 .section-header .section-label:empty + h2,
+.section-header .section-label:empty + h3.how-features-title,
 .overview-card-header .section-label:empty + h3,
 .advantages-header .section-label:empty + h2,
 .quickstart-header .section-label:empty + h2,
@@ -1085,6 +1086,19 @@ img, svg { display: block; }
   font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   font-weight: 800;
   line-height: 1.1;
+  color: var(--heading);
+}
+
+.how-features {
+  margin-top: 72px;
+}
+
+.section-header h3.how-features-title {
+  margin-top: 10px;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.45rem, 2.8vw, 2.05rem);
+  font-weight: 800;
+  line-height: 1.15;
   color: var(--heading);
 }
 

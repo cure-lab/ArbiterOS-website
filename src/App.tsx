@@ -18,13 +18,13 @@ const en = {
     closeLabel: 'Close',
     footerLabel: '\u00a9 2026 ArbiterOS Team',
   },
-  nav: { introHome: 'Home', home: 'Home', overview: 'Overview', howItWorks: 'How It Works', features: 'Features', extension: 'Observability' },
+  nav: { introHome: 'Home', home: 'Home', overview: 'Overview', howItWorks: 'How It Works', extension: 'Observability' },
   hero: {
     eyebrow: 'AI agent execution governance layer',
     title: 'LLMs think.\nArbiterOS enforces.',
     sub: 'Deterministic rules for probabilistic AI.',
     demoBtn: 'Demo',
-    howItWorksBtn: 'How it works',
+    howItWorksBtn: 'Overview',
     githubBtn: 'GitHub',
     meta: ['OpenAI-compatible API', 'OpenClaw + Nanobot ready', 'Local deploy'],
     diagram: {
@@ -441,13 +441,13 @@ const zh: typeof en = {
     closeLabel: '关闭',
     footerLabel: '\u00a9 2026 ArbiterOS 团队',
   },
-  nav: { introHome: '介绍首页', home: '首页', overview: '系统总览', howItWorks: '工作原理', features: '核心能力', extension: '可观测性' },
+  nav: { introHome: '介绍首页', home: '首页', overview: '系统总览', howItWorks: '工作原理', extension: '可观测性' },
   hero: {
     eyebrow: '智能体执行治理层',
     title: '大模型负责思考，\nArbiterOS 治理执行。',
     sub: '用确定性的规则，约束不确定的硅基智能。',
     demoBtn: 'Demo',
-    howItWorksBtn: '工作原理',
+    howItWorksBtn: '系统总览',
     githubBtn: 'GitHub',
     meta: ['兼容 OpenAI API', '支持 OpenClaw / Nanobot 集成', '支持本地部署'],
     diagram: {
@@ -859,7 +859,7 @@ const extensionVisuals = [
 ];
 
 type SiteCopy = typeof en;
-type PageKey = 'home' | 'overview' | 'how-it-works' | 'features' | 'extension';
+type PageKey = 'home' | 'overview' | 'extension';
 type NavPageKey = Exclude<PageKey, 'home'>;
 
 const appBasePath = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -868,15 +868,11 @@ const langStorageKey = 'arbiteros-site-lang';
 const pagePaths: Record<PageKey, string> = {
   home: withBasePath('/'),
   overview: withBasePath('/overview'),
-  'how-it-works': withBasePath('/how-it-works'),
-  features: withBasePath('/features'),
   extension: withBasePath('/extension'),
 };
 
 const navItems: Array<{ page: NavPageKey; label: (copy: SiteCopy) => string }> = [
   { page: 'overview', label: (copy) => copy.nav.overview },
-  { page: 'how-it-works', label: (copy) => copy.nav.howItWorks },
-  { page: 'features', label: (copy) => copy.nav.features },
   { page: 'extension', label: (copy) => copy.nav.extension },
 ];
 
@@ -936,9 +932,8 @@ function getPageFromPath(pathname: string): PageKey {
     case '/overview':
       return 'overview';
     case '/how-it-works':
-      return 'how-it-works';
     case '/features':
-      return 'features';
+      return 'overview';
     case '/extension':
       return 'extension';
     default:
@@ -950,10 +945,6 @@ function getPageTitle(page: PageKey, copy: SiteCopy): string {
   switch (page) {
     case 'overview':
       return copy.nav.overview;
-    case 'how-it-works':
-      return copy.nav.howItWorks;
-    case 'features':
-      return copy.nav.features;
     case 'extension':
       return copy.nav.extension;
     default:
@@ -1025,6 +1016,13 @@ export default function App() {
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  useEffect(() => {
+    const rel = normalizePathname(toRelativePathname(window.location.pathname));
+    if (rel === '/features' || rel === '/how-it-works') {
+      window.history.replaceState(null, '', pagePaths.overview);
+    }
   }, []);
 
   const handleNavigate = (event: MouseEvent<HTMLAnchorElement>, nextPage: PageKey) => {
@@ -1155,18 +1153,17 @@ export default function App() {
             <HeroSection
               t={t}
               lang={lang}
-              onHowItWorksClick={(event) => handleNavigate(event, 'how-it-works')}
+              onOverviewClick={(event) => handleNavigate(event, 'overview')}
             />
             <BenchmarkSection t={t} />
             <PositioningSection t={t} />
+            <ProtectionComparisonSection t={t} />
             <AdvantagesSection t={t} onSelect={setActiveAdvantage} />
             <QuickStartSection t={t} />
             <CtaSection t={t} />
           </>
         )}
         {page === 'overview' && <OverviewSection t={t} />}
-        {page === 'how-it-works' && <HowItWorksSection t={t} />}
-        {page === 'features' && <FeaturesSection t={t} />}
         {page === 'extension' && <ExtensionSection t={t} />}
       </main>
 
@@ -1191,11 +1188,11 @@ export default function App() {
 function HeroSection({
   t,
   lang,
-  onHowItWorksClick,
+  onOverviewClick,
 }: {
   t: SiteCopy;
   lang: Lang;
-  onHowItWorksClick: (event: MouseEvent<HTMLAnchorElement>) => void;
+  onOverviewClick: (event: MouseEvent<HTMLAnchorElement>) => void;
 }) {
   return (
     <section className="hero container">
@@ -1209,8 +1206,8 @@ function HeroSection({
           </a>
           <a
             className="btn btn-secondary"
-            href={pagePaths['how-it-works']}
-            onClick={onHowItWorksClick}
+            href={pagePaths.overview}
+            onClick={onOverviewClick}
           >
             {t.hero.howItWorksBtn}
           </a>
@@ -1516,6 +1513,62 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
   );
 }
 
+function ComparisonCard({
+  title,
+  desc,
+  columns,
+  rows,
+}: {
+  title: string;
+  desc: string;
+  columns: SiteCopy['overview']['comparison']['columns'];
+  rows: string[];
+}) {
+  return (
+    <div className="overview-card">
+      <div className="overview-card-header">
+        <h3>{title}</h3>
+        {desc ? <p className="section-desc">{desc}</p> : null}
+      </div>
+      <div className="comparison-grid">
+        {columns.map((col, colIdx) => (
+          <div className={`comparison-col${colIdx === 2 ? ' comparison-col-highlight' : ''}`} key={col.name} style={{ gridRow: `span ${rows.length + 1}` }}>
+            <div className="comparison-head">
+              <h4>{col.name}</h4>
+              <span className="comparison-tag">{col.tag}</span>
+            </div>
+            {col.items.map((value, rowIdx) => (
+              <div className="comparison-cell" key={rowIdx}>
+                <span className="comparison-cell-label">{rows[rowIdx]}</span>
+                <span className="comparison-cell-value">{value}</span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ProtectionComparisonSection({ t }: { t: SiteCopy }) {
+  return (
+    <section className="container section">
+      <ComparisonCard
+        title={t.overview.comparison.title}
+        desc={t.overview.comparison.desc}
+        columns={t.overview.comparison.columns}
+        rows={t.overview.comparison.rows}
+      />
+      <ComparisonCard
+        title={t.overview.addOnComparison.title}
+        desc={t.overview.addOnComparison.desc}
+        columns={t.overview.addOnComparison.columns}
+        rows={t.overview.addOnComparison.rows}
+      />
+    </section>
+  );
+}
+
 function OverviewSection({ t }: { t: SiteCopy }) {
   return (
     <section className="container section" id="overview">
@@ -1558,49 +1611,65 @@ function OverviewSection({ t }: { t: SiteCopy }) {
 
       <div className="overview-card">
         <div className="overview-card-header">
-          <span className="section-label">{t.overview.comparison.label}</span>
-          <h3>{t.overview.comparison.title}</h3>
-          <p className="section-desc">{t.overview.comparison.desc}</p>
+          <span className="section-label">{t.howItWorks.label}</span>
+          <h3>{t.howItWorks.title}</h3>
+          <p className="how-lead">{t.howItWorks.statement}</p>
+          <div className="how-outcomes">
+            {t.howItWorks.outcomes.map((outcome) => (
+              <span key={outcome}>{outcome}</span>
+            ))}
+          </div>
         </div>
-        <div className="comparison-grid">
-          {t.overview.comparison.columns.map((col, colIdx) => (
-            <div className={`comparison-col${colIdx === 2 ? ' comparison-col-highlight' : ''}`} key={col.name} style={{ gridRow: `span ${t.overview.comparison.rows.length + 1}` }}>
-              <div className="comparison-head">
-                <h4>{col.name}</h4>
-                <span className="comparison-tag">{col.tag}</span>
-              </div>
-              {col.items.map((value, rowIdx) => (
-                <div className="comparison-cell" key={rowIdx}>
-                  <span className="comparison-cell-label">{t.overview.comparison.rows[rowIdx]}</span>
-                  <span className="comparison-cell-value">{value}</span>
-                </div>
-              ))}
-            </div>
+        <div className="steps-grid">
+          {t.howItWorks.steps.map((step) => (
+            <article className="step-card" key={step.step}>
+              <span className="step-num">{step.step}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </article>
           ))}
         </div>
       </div>
 
       <div className="overview-card">
         <div className="overview-card-header">
-          <span className="section-label">{t.overview.addOnComparison.label}</span>
-          <h3>{t.overview.addOnComparison.title}</h3>
-          <p className="section-desc">{t.overview.addOnComparison.desc}</p>
+          <span className="section-label">{t.architecture.label}</span>
+          <h3>{t.architecture.title}</h3>
         </div>
-        <div className="comparison-grid">
-          {t.overview.addOnComparison.columns.map((col, colIdx) => (
-            <div className={`comparison-col${colIdx === 2 ? ' comparison-col-highlight' : ''}`} key={col.name} style={{ gridRow: `span ${t.overview.addOnComparison.rows.length + 1}` }}>
-              <div className="comparison-head">
-                <h4>{col.name}</h4>
-                <span className="comparison-tag">{col.tag}</span>
-              </div>
-              {col.items.map((value, rowIdx) => (
-                <div className="comparison-cell" key={rowIdx}>
-                  <span className="comparison-cell-label">{t.overview.addOnComparison.rows[rowIdx]}</span>
-                  <span className="comparison-cell-value">{value}</span>
-                </div>
-              ))}
-            </div>
-          ))}
+        <div className="arch-flow">
+          {t.architecture.nodes.flatMap((node, i) => {
+            const items = [];
+            if (i > 0) {
+              items.push(<div className="flow-arrow" key={`arrow-${i}`}>→</div>);
+            }
+            items.push(
+              <div className="flow-node" key={node.main}>
+                {node.main}
+                <span>{node.sub}</span>
+              </div>,
+            );
+            return items;
+          })}
+        </div>
+      </div>
+
+      <div className="overview-card">
+        <div className="overview-card-header">
+          <span className="section-label">{t.features.label}</span>
+          <h3>{t.features.title}</h3>
+          {t.features.desc ? <p className="section-desc">{t.features.desc}</p> : null}
+        </div>
+        <div className="features-grid">
+          {t.features.items.map((feature, i) => {
+            const Icon = featureIcons[i];
+            return (
+              <article className="feature-card" key={feature.title}>
+                <div className="feature-icon"><Icon /></div>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
+              </article>
+            );
+          })}
         </div>
       </div>
 
@@ -1796,109 +1865,6 @@ function EcosystemDiagram({ copy }: { copy: SiteCopy['overview']['architecture']
       <text x="684" y="357" fill="#1e3d5f" fontFamily="'Manrope',sans-serif" fontSize="10" fontWeight="700">{copy.humanTitle}</text>
       <text x="684" y="376" fill="#5a7a96" fontFamily="'Public Sans',sans-serif" fontSize="10.5" fontWeight="500">{copy.humanSubtitle}</text>
     </svg>
-  );
-}
-
-function HowItWorksSection({
-  t,
-  variant = 'page',
-}: {
-  t: SiteCopy;
-  variant?: 'home' | 'page';
-}) {
-  const isHome = variant === 'home';
-  return (
-    <section className={`container section${isHome ? ' how-home-section' : ''}`} id="how-it-works">
-      {isHome ? (
-        <div className="how-home-card">
-          <div className="how-home-header">
-            <span className="section-label">{t.howItWorks.label}</span>
-            <h2>{t.howItWorks.title}</h2>
-          </div>
-          <div className="steps-grid">
-            {t.howItWorks.steps.map((step) => (
-              <article className="step-card" key={step.step}>
-                <span className="step-num">{step.step}</span>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <>
-          <div className="section-header section-header-wide">
-            <span className="section-label">{t.howItWorks.label}</span>
-            <h2>{t.howItWorks.title}</h2>
-            <p className="how-lead">{t.howItWorks.statement}</p>
-            <div className="how-outcomes">
-              {t.howItWorks.outcomes.map((outcome) => (
-                <span key={outcome}>{outcome}</span>
-              ))}
-            </div>
-          </div>
-          <div className="steps-grid">
-            {t.howItWorks.steps.map((step) => (
-              <article className="step-card" key={step.step}>
-                <span className="step-num">{step.step}</span>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </article>
-            ))}
-          </div>
-          <div className="how-architecture">
-            <div className="how-architecture-header">
-              <span className="section-label">{t.architecture.label}</span>
-              <h3>{t.architecture.title}</h3>
-            </div>
-            <div className="arch-flow">
-              {t.architecture.nodes.flatMap((node, i) => {
-                const items = [];
-
-                if (i > 0) {
-                  items.push(
-                    <div className="flow-arrow" key={`arrow-${i}`}>→</div>,
-                  );
-                }
-
-                items.push(
-                  <div className="flow-node" key={node.main}>
-                    {node.main}
-                    <span>{node.sub}</span>
-                  </div>,
-                );
-
-                return items;
-              })}
-            </div>
-          </div>
-        </>
-      )}
-    </section>
-  );
-}
-
-function FeaturesSection({ t }: { t: SiteCopy }) {
-  return (
-    <section className="container section" id="features">
-      <div className="section-header">
-        <span className="section-label">{t.features.label}</span>
-        <h2>{t.features.title}</h2>
-        <p className="section-desc">{t.features.desc}</p>
-      </div>
-      <div className="features-grid">
-        {t.features.items.map((feature, i) => {
-          const Icon = featureIcons[i];
-          return (
-            <article className="feature-card" key={feature.title}>
-              <div className="feature-icon"><Icon /></div>
-              <h3>{feature.title}</h3>
-              <p>{feature.description}</p>
-            </article>
-          );
-        })}
-      </div>
-    </section>
   );
 }
 
@@ -2678,23 +2644,6 @@ function MobileNavPageIcon({ page }: { page: NavPageKey }) {
         <rect x="11" y="3" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
         <rect x="3" y="11" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
         <rect x="11" y="11" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    );
-  }
-  if (page === 'how-it-works') {
-    return (
-      <svg viewBox="0 0 20 20" fill="none" width="18" height="18" className="mobile-nav-icon">
-        <path d="M10 2a5 5 0 0 0-5 5c0 1.8.9 3.3 2.3 4.2.4.3.7.8.7 1.3V13h4v-.5c0-.5.3-1 .7-1.3A5 5 0 0 0 10 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M8 15h4M8.5 17h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="10" cy="8" r="1" fill="currentColor" opacity="0.5" />
-      </svg>
-    );
-  }
-  if (page === 'features') {
-    return (
-      <svg viewBox="0 0 20 20" fill="none" width="18" height="18" className="mobile-nav-icon">
-        <path d="M6 3.5h8a1.2 1.2 0 0 1 1.2 1.2v11.1a.5.5 0 0 1-.75.43L10 13.7l-4.45 2.56a.5.5 0 0 1-.75-.43V4.7A1.2 1.2 0 0 1 6 3.5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="m10 6.2.95 1.92 2.12.31-1.53 1.49.36 2.1L10 11.02l-1.9 1 .36-2.1-1.53-1.49 2.12-.31L10 6.2z" fill="currentColor" opacity="0.55" />
       </svg>
     );
   }
