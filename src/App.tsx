@@ -1275,7 +1275,7 @@ export default function App() {
             <PositioningSection t={t} />
             <ProtectionComparisonSection t={t} />
             <AdvantagesSection t={t} onSelect={setActiveAdvantage} />
-            <QuickStartSection t={t} />
+            <QuickStartSection t={t} lang={lang} />
             <CtaSection t={t} />
           </>
         )}
@@ -1488,9 +1488,12 @@ function AdvantageModal({
   );
 }
 
-function QuickStartSection({ t }: { t: SiteCopy }) {
+function QuickStartSection({ t, lang }: { t: SiteCopy; lang: Lang }) {
   const [copiedCommands, setCopiedCommands] = useState(false);
-  const demoHref = withBasePath('/demo/selected-cases/index.html');
+  const demoHref =
+    lang === 'en'
+      ? withBasePath('/demo/selected-cases/index.html?demoLang=en')
+      : withBasePath('/demo/selected-cases/index.html');
   const installCommands = `git clone https://github.com/cure-lab/ArbiterOS.git
 cd ArbiterOS
 chmod +x install.sh
@@ -1557,6 +1560,7 @@ chmod +x install.sh
           <p>{t.quickStart.demo.description}</p>
           <div className="quickstart-demo-frame-wrap">
             <iframe
+              key={lang}
               title={t.quickStart.demo.iframeTitle}
               src={demoHref}
               className="quickstart-demo-frame"
