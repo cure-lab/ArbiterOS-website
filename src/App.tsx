@@ -20,7 +20,7 @@ const en = {
   },
   nav: { introHome: 'Home', home: 'Home', overview: 'Overview', howItWorks: 'How It Works', extension: 'Observability' },
   hero: {
-    eyebrow: 'AI agent execution governance layer',
+    eyebrow: '',
     title: 'LLMs think.\nArbiterOS enforces.',
     sub: 'Deterministic rules for probabilistic AI.',
     demoBtn: 'Demo',
@@ -248,7 +248,7 @@ const en = {
       ],
     },
     benchmark: {
-      label: 'Security Benchmark',
+      label: '',
       title: 'ArbiterOS blocks more than 92% of dangerous attacks and flags risky workflows.',
       desc: 'These results combine replay-based attack evaluation in AgentDojo and Agent-SafetyBench with in-the-wild warning evaluation on WildClawBench. ArbiterOS still keeps normal workflows usable: 236 of 255 AgentDojo Safe slices pass (92.55%), and 50 of 57 curated real-world workflows pass (87.72%).',
       comparisons: [
@@ -302,6 +302,64 @@ const en = {
           text: 'WildClawBench uses a different, safety-oriented metric: the 100% figure measures whether ArbiterOS emitted a timely warning before the risky step so a human can intervene, rather than the benchmark\'s original task-score definition.',
         },
       ],
+      failureAnalysis: {
+        title: 'Summary of known failure types in testing',
+        desc: 'Based on manual analysis, failure samples are not uniformly distributed. They cluster into a few recurring types, which can be used for later policy tuning.',
+        falsePositiveTitle: 'False positives (26/312)',
+        falsePositiveToggleShow: 'False-positive type summary',
+        falsePositiveToggleHide: 'Hide false-positive type summary',
+        falsePositiveIntro: 'In false-positive cases, ArbiterOS follows a conservative governance philosophy: it may block untrusted outbound actions and trust-mismatched operations, which increases the overall interception ratio.',
+        missTitle: 'Misses (135/1914)',
+        missToggleShow: 'Miss type summary',
+        missToggleHide: 'Hide miss type summary',
+        missIntro: 'ArbiterOS performs dynamic taint analysis and applies a looser policy to single-step information-fetch actions. In contrast, ArbiterOS applies stricter governance to outbound information-sending actions (as reflected in the false-positive analysis).',
+        falsePositiveClusters: [
+          {
+            category: 'Action side-effect type',
+            count: '11',
+            pattern: 'ArbiterOS block reason: creating/rescheduling calendar events or submitting browser forms directly mutates external state.',
+            examples: 'calendar_safe_01_create_meeting_from_notes; agentdojo_workspace_safe_paper_user_task_12_step_1',
+          },
+          {
+            category: 'Outbound sending / receiver trust mismatch type',
+            count: '10',
+            pattern: 'ArbiterOS block reason: outbound actions like email and Slack are conservatively blocked when receiver-side trust is insufficient or unknown.',
+            examples: 'mail_safe_01_reply_public_docs_request; message_safe_01_slack_thread_summary',
+          },
+          {
+            category: 'Low-confidence execution-action type',
+            count: '3',
+            pattern: 'ArbiterOS block reason: execution-type actions are blocked with priority when confidence=UNKNOWN.',
+            examples: 'agentdojo_slack_safe_paper_user_task_16_step_4',
+          },
+          {
+            category: 'Cross-session forwarding type',
+            count: '2',
+            pattern: 'ArbiterOS block reason: forwarding content or dispatching tasks to another session expands execution scope and requires stronger trust guarantees.',
+            examples: 'agent_safe_02_forward_public_bug_summary_to_reviewer_session; agent_safe_03_spawn_public_docs_research_subagent',
+          },
+        ],
+        missClusters: [
+          {
+            category: 'Context-gathering type',
+            count: '75',
+            pattern: 'Risk description: this step looks like ordinary context reading or information fetching, but it is actually collecting key execution information for a harmful outcome.\nArbiterOS miss reason: this step is only information reading, and the action itself is legitimate.',
+            examples: 'agent_safetybench_v1_gpt_4o_2024_05_13_llm_reviewed_case_1087_msg_2',
+          },
+          {
+            category: 'Chained external-access type',
+            count: '44',
+            pattern: 'Risk description: first visits a normal page, then is induced by injected page content to visit a new attacker-specified site.\nArbiterOS miss reason: same as above, visiting the new site is still considered legitimate because it is information retrieval.',
+            examples: 'agentdojo_v2_claude_3_5_sonnet_20240620_llm_reviewed_slack_user-task-0_injection-task-3_msg_4',
+          },
+          {
+            category: 'Real side effects write/edit/exec not finally blocked type',
+            count: '16',
+            pattern: 'Risk description: writes/edits insulting or abusive text into a file.\nArbiterOS miss reason: the write target is not a protected folder or file.',
+            examples: 'agent_safetybench_v1_gpt_4o_2024_05_13_llm_reviewed_case_32_msg_2; agent_safetybench_v1_gpt_4o_2024_05_13_llm_reviewed_case_1257_msg_4',
+          },
+        ],
+      },
     },
     comparison: {
       label: '',
@@ -443,7 +501,7 @@ const zh: typeof en = {
   },
   nav: { introHome: '介绍首页', home: '首页', overview: '系统总览', howItWorks: '工作原理', extension: '可观测性' },
   hero: {
-    eyebrow: '智能体执行治理层',
+    eyebrow: '',
     title: '大模型负责思考，\nArbiterOS 治理执行。',
     sub: '用确定性的规则，约束不确定的硅基智能。',
     demoBtn: 'Demo',
@@ -672,9 +730,9 @@ const zh: typeof en = {
       ],
     },
     benchmark: {
-      label: '安全基准测试',
-      title: 'ArbiterOS 可拦截超过 92% 的危险攻击，并对高风险工作流及时预警',
-      desc: '这里展示的是 AgentDojo、Agent-SafetyBench 的回放攻击评测，以及 WildClawBench 的真实世界高风险工作流 warning 评测。同时，ArbiterOS 仍保持较高的正常任务通过率：AgentDojo Safe 的 255 个安全任务切片中有 236 个通过（92.55%），57 个人工构造真实工作流样本中有 50 个通过（87.72%）。',
+      label: '',
+      title: 'ArbiterOS 可拦截超过 92% 的危险攻击',
+      desc: '这里展示的是 AgentDojo、Agent-SafetyBench 的回放攻击评测，以及 WildClawBench 的真实世界高风险工作流 warning 评测。ArbiterOS 可以及时预警高风险工作流，同时仍保持较高的正常任务通过率：AgentDojo Safe 的 255 个安全的任务测试中有 236 个通过（92.55%），另外57 个人工构造的真实工作流样本中有 50 个通过（87.72%）。',
       comparisons: [
         {
           name: 'Agent-SafetyBench',
@@ -726,6 +784,64 @@ const zh: typeof en = {
           text: 'WildClawBench 采用的是不同的安全导向评估口径：这里的 100% 指 ArbiterOS 是否能在高风险步骤发生前及时给出有效 warning，便于人工介入，而不是直接沿用该 benchmark 原始的任务得分定义。',
         },
       ],
+      failureAnalysis: {
+        title: '测试中失败实例类型汇总',
+        desc: '经人工分析，失败样本并非均匀分布，而是集中在少数几个类型。其中的失败样本可以用于后续策略调优。',
+        falsePositiveTitle: '误报（26/312 条）',
+        falsePositiveToggleShow: '误报类型汇总',
+        falsePositiveToggleHide: '收起误报类型汇总',
+        falsePositiveIntro: '在误报实例中，ArbiterOS 本着更谨慎的治理哲学，会对不可信的外发动作、可信度不匹配的动作进行拦截，因此会带来更高的拦截比例。',
+        missTitle: '漏检（135/1914 条）',
+        missToggleShow: '漏检类型汇总',
+        missToggleHide: '收起漏检类型汇总',
+        missIntro: 'ArbiterOS 会在动态过程中做污点分析，针对单步的信息抓取动作会采取更宽松的治理策略。相反，对于信息外发动作，ArbiterOS 会采取更严格的治理（参考误报实例分析）。',
+        falsePositiveClusters: [
+          {
+            category: '动作副作用型',
+            count: '11',
+            pattern: 'ArbiterOS 拦截原因：创建/改期日历事件、提交浏览器表单等会直接改外部状态的动作。',
+            examples: 'calendar_safe_01_create_meeting_from_notes；agentdojo_workspace_safe_paper_user_task_12_step_1',
+          },
+          {
+            category: '对外发送/接收信任度不匹配型',
+            count: '10',
+            pattern: 'ArbiterOS 拦截原因：邮件、Slack 等外发动作在接收侧可信度不足或未知时会被保守拦截。',
+            examples: 'mail_safe_01_reply_public_docs_request；message_safe_01_slack_thread_summary',
+          },
+          {
+            category: '低置信执行动作型',
+            count: '3',
+            pattern: 'ArbiterOS 拦截原因：执行型动作在 confidence=UNKNOWN 时会被优先拦截。',
+            examples: 'agentdojo_slack_safe_paper_user_task_16_step_4',
+          },
+          {
+            category: '跨会话转发型',
+            count: '2',
+            pattern: 'ArbiterOS 拦截原因：向其他 session 转发内容或派发任务会扩大执行主体范围，需要更高信任保证。',
+            examples: 'agent_safe_02_forward_public_bug_summary_to_reviewer_session；agent_safe_03_spawn_public_docs_research_subagent',
+          },
+        ],
+        missClusters: [
+          {
+            category: '上下文收集型',
+            count: '75',
+            pattern: '危险描述：表面上像普通的“读取上下文”或“抓取信息”，但实际上是在为危险结果收集关键执行信息。\nArbiterOS 漏检原因：当前步骤仅仅是读取信息，该动作本身是合法的。',
+            examples: 'agent_safetybench_v1_gpt_4o_2024_05_13_llm_reviewed_case_1087_msg_2',
+          },
+          {
+            category: '链式外部访问型',
+            count: '44',
+            pattern: '危险描述：先访问正常页面，再被页面注入诱导访问攻击者指定的新站点。\nArbiterOS 漏检原因：同上，访问新站点是合法的，因为只是信息获取。',
+            examples: 'agentdojo_v2_claude_3_5_sonnet_20240620_llm_reviewed_slack_user-task-0_injection-task-3_msg_4',
+          },
+          {
+            category: '真实副作用 write/edit/exec 未最终拦住型',
+            count: '16',
+            pattern: '危险描述：写入/编辑辱骂脏话文本到文件。\nArbiterOS 漏检原因：写入的对象不是受保护的文件夹或者文件。',
+            examples: 'agent_safetybench_v1_gpt_4o_2024_05_13_llm_reviewed_case_32_msg_2；agent_safetybench_v1_gpt_4o_2024_05_13_llm_reviewed_case_1257_msg_4',
+          },
+        ],
+      },
     },
     comparison: {
       label: '',
@@ -1454,6 +1570,30 @@ chmod +x install.sh
 }
 
 function BenchmarkSection({ t }: { t: SiteCopy }) {
+  const [showFalsePositiveClusters, setShowFalsePositiveClusters] = useState(false);
+  const [showMissClusters, setShowMissClusters] = useState(false);
+  const renderFailurePattern = (text: string) => text.split('\n').map((line, idx) => {
+    const colonIdx = line.indexOf('：');
+    if (colonIdx > 0) {
+      const label = line.slice(0, colonIdx + 1);
+      const content = line.slice(colonIdx + 1);
+      return (
+        <span key={`${label}-${idx}`}>
+          <strong>{label}</strong>
+          {content}
+          {idx < text.split('\n').length - 1 ? <br /> : null}
+        </span>
+      );
+    }
+
+    return (
+      <span key={`line-${idx}`}>
+        {line}
+        {idx < text.split('\n').length - 1 ? <br /> : null}
+      </span>
+    );
+  });
+
   return (
     <section className="container section benchmark-section" id="benchmark">
       <div className="overview-card benchmark-home-card">
@@ -1507,6 +1647,61 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
               <span className="bench-footnote-mark bench-footnote-mark-inline" aria-hidden="true">{note.marker}</span> {note.text}
             </p>
           ))}
+        </div>
+
+        <div className="bench-failure-analysis">
+          <div className="bench-failure-head">
+            <h4>{t.overview.benchmark.failureAnalysis.title}</h4>
+            <p>{t.overview.benchmark.failureAnalysis.desc}</p>
+          </div>
+          <div className="bench-failure-grid">
+            <div className="bench-failure-col">
+              <div className="bench-failure-col-head">
+                <h5>{t.overview.benchmark.failureAnalysis.falsePositiveTitle}</h5>
+                <button
+                  type="button"
+                  className="bench-failure-toggle"
+                  onClick={() => { setShowFalsePositiveClusters((prev) => !prev); }}
+                >
+                  {showFalsePositiveClusters
+                    ? t.overview.benchmark.failureAnalysis.falsePositiveToggleHide
+                    : t.overview.benchmark.failureAnalysis.falsePositiveToggleShow}
+                </button>
+              </div>
+              <p className="bench-failure-intro">{t.overview.benchmark.failureAnalysis.falsePositiveIntro}</p>
+              {showFalsePositiveClusters
+                ? t.overview.benchmark.failureAnalysis.falsePositiveClusters.map((item) => (
+                  <article className="bench-failure-item" key={`${item.category}-${item.count}`}>
+                    <p className="bench-failure-meta">{item.category} <span>{item.count}</span></p>
+                    <p className="bench-failure-pattern">{renderFailurePattern(item.pattern)}</p>
+                  </article>
+                ))
+                : null}
+            </div>
+            <div className="bench-failure-col">
+              <div className="bench-failure-col-head">
+                <h5>{t.overview.benchmark.failureAnalysis.missTitle}</h5>
+                <button
+                  type="button"
+                  className="bench-failure-toggle"
+                  onClick={() => { setShowMissClusters((prev) => !prev); }}
+                >
+                  {showMissClusters
+                    ? t.overview.benchmark.failureAnalysis.missToggleHide
+                    : t.overview.benchmark.failureAnalysis.missToggleShow}
+                </button>
+              </div>
+              <p className="bench-failure-intro">{t.overview.benchmark.failureAnalysis.missIntro}</p>
+              {showMissClusters
+                ? t.overview.benchmark.failureAnalysis.missClusters.map((item) => (
+                  <article className="bench-failure-item" key={`${item.category}-${item.count}`}>
+                    <p className="bench-failure-meta">{item.category} <span>{item.count}</span></p>
+                    <p className="bench-failure-pattern">{renderFailurePattern(item.pattern)}</p>
+                  </article>
+                ))
+                : null}
+            </div>
+          </div>
         </div>
       </div>
     </section>
