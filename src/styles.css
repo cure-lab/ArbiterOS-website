@@ -680,9 +680,9 @@ img, svg { display: block; }
 .advantages-header h2 {
   margin-top: 10px;
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   color: var(--heading);
 }
 
@@ -906,7 +906,7 @@ img, svg { display: block; }
 .quickstart-header h2 {
   margin-top: 10px;
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
   font-weight: 800;
   line-height: 1.15;
   color: var(--heading);
@@ -1091,9 +1091,9 @@ img, svg { display: block; }
 .section-header h2 {
   margin-top: 10px;
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   color: var(--heading);
 }
 
@@ -1176,9 +1176,9 @@ img, svg { display: block; }
 .how-home-header h2 {
   margin-top: 10px;
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   color: var(--heading);
 }
 
@@ -1401,7 +1401,7 @@ img, svg { display: block; }
 .cta-content h2 {
   margin-top: 12px;
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
   font-weight: 800;
   line-height: 1.15;
   color: var(--heading);
@@ -1623,9 +1623,9 @@ img, svg { display: block; }
 .positioning-header h2 {
   margin-top: 10px;
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
   font-weight: 800;
-  line-height: 1.12;
+  line-height: 1.15;
   color: var(--heading);
 }
 
@@ -1756,6 +1756,68 @@ img, svg { display: block; }
   font-weight: 800;
   line-height: 1.15;
   color: var(--heading);
+}
+
+.comparison-toggle {
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--blue-deep);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'Manrope', sans-serif;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+
+.comparison-toggle:hover {
+  border-color: rgba(15, 102, 255, 0.24);
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+
+.comparison-summary {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.comparison-summary-box {
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+}
+
+.comparison-summary-box-danger {
+  background: rgba(211, 74, 52, 0.08);
+  border-color: rgba(211, 74, 52, 0.2);
+}
+
+.comparison-summary-box-safe {
+  background: rgba(57, 192, 183, 0.1);
+  border-color: rgba(57, 192, 183, 0.25);
+}
+
+.comparison-summary-title {
+  margin: 0 0 6px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--heading);
+}
+
+.comparison-summary-box ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.comparison-summary-box li {
+  color: var(--muted);
+  font-size: 0.79rem;
+  line-height: 1.45;
 }
 
 .eco-svg {

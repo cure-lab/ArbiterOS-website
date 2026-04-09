@@ -67,7 +67,7 @@ const en = {
   },
   positioning: {
     label: '',
-    title: 'Govern actions before they run',
+    title: 'ArbiterOS Provides the Constitution',
     // ArbiterOS intercepts model outputs, turns tool intent into structured instructions, and applies policy, approval, and tracing before sensitive actions run.
     desc: 'Sandboxes, guardrails, and observability still matter, but they solve different problems. ',
     items: [
@@ -385,8 +385,24 @@ const en = {
     },
     comparison: {
       label: '',
-      title: 'Isolation, runtime checks, and ArbiterOS: what each layer does',
-      desc: 'Some controls harden the runtime environment; others inspect events during execution. ArbiterOS operates at a different level: it parses model outputs and tool calls into structured instructions, enabling policy rules to evaluate the intent behind each action before sensitive steps proceed.',
+      title: 'Comparison with OpenClaw security solution',
+      desc: 'Unlike hardening the runtime environment or inspecting events during execution, ArbiterOS parses model outputs and tool calls into structured instructions, enabling policy rules to evaluate the intent behind each action before sensitive steps proceed.',
+      summary: {
+        drawbacksTitle: 'OpenClaw native security solution limitations',
+        drawbacks: [
+          'Isolation and runtime checks focus on environment/events, not the intent behind each action.',
+          'Cross-step context is limited, so risk signals are harder to carry through multi-step workflows.',
+          'Policy enforcement is often hook- or profile-driven, with weaker instruction-level traceability.',
+        ],
+        strengthsTitle: 'ArbiterOS strengths',
+        strengths: [
+          'Interprets model outputs and tool calls as structured instructions before sensitive actions execute.',
+          'Carries security labels across related steps to support context-aware policy decisions.',
+          'Provides configurable policy pipeline, confirmation flow, and per-trace audit evidence.',
+        ],
+      },
+      toggleShow: 'Expand detailed comparison',
+      toggleHide: 'Collapse detailed comparison',
       columns: [
         {
           name: 'OpenClaw Isolation',
@@ -411,11 +427,11 @@ const en = {
             'Tool actions and risky steps during a live session',
             'Per tool or per session',
             'Partial \u2014 certain runtime events can be inspected',
-            'Limited \u2014 context is mainly session-scoped',
+            'Limited \u2014 context is mainly turn-by-turn scoped',
             'Hook-based checks and approvals',
             'Session transcripts, command logs, and risk signals',
             'Supervising a live assistant session',
-            'Does not provide a full instruction-level view',
+            'Can not provide security checks and protection from a global perspective',
           ],
         },
         {
@@ -438,9 +454,9 @@ const en = {
     },
     addOnComparison: {
       label: '',
-      title: 'Compared with agent add-ons',
+      title: 'Compared with existing Agent security solutions',
       // desc: 'The community has built a range of OpenClaw security add-ons \u2014 including SecureClaw, OpenGuardrails, OpenClaw Shield, ClawAegis, GuardClaw, and ClawKeeper \u2014 along with broader adapter-style layers such as APort Agent Guardrails. Each project addresses different concerns, but they are generally attached to a particular runtime or plugin surface. ArbiterOS takes a different approach: as a LiteLLM-based governance kernel, it sits at the proxy layer and can serve any agent that routes LLM traffic through a custom OpenAI-compatible endpoint.',
-      desc: '',
+      desc: 'Each method focuses on different aspects, but is generally bound to a specific Agent. In contrast, ArbiterOS can serve any Agent that routes LLM traffic through a compatible OpenAI endpoint.',
       columns: [
         {
           name: 'Current Add-On Protections',
@@ -570,7 +586,7 @@ const zh: typeof en = {
   },
   positioning: {
     label: '',
-    title: '在执行前治理关键动作',
+    title: 'ArbiterOS 为 Agent 行为设立宪法',
     // ArbiterOS 会先拦截模型输出，将工具意图整理为结构化指令，在敏感动作真正执行前施加策略、审批和追踪控制。
     desc: '沙箱、Guardrails 和可观测性都很重要，但它们解决的是不同层面的问题。',
     items: [
@@ -889,8 +905,24 @@ const zh: typeof en = {
     },
     comparison: {
       label: '',
-      title: '隔离层、运行时检查与 ArbiterOS：各自解决什么问题',
-      desc: '相比于加固运行环境与在执行过程中检查事件。ArbiterOS 更着重将模型输出和工具调用解析为结构化指令，使策略规则能够在敏感步骤执行前评估每个动作背后的意图以及数据流的安全性。',
+      title: '与OpenClaw自身安全防护方案的对比',
+      desc: '相比于加固运行环境或者在运行过程中进行检查的方法，ArbiterOS 更着重将模型输出和工具调用解析为结构化指令，使策略规则能够在敏感步骤执行前评估每个动作背后的意图以及数据流的安全性。',
+      summary: {
+        drawbacksTitle: 'OpenClaw 原生防护的缺点',
+        drawbacks: [
+          '隔离层与运行时检查更偏向环境和事件，难以解释每个动作背后的意图。',
+          '跨步骤上下文保留能力有限，对多步风险链路的连续判断较弱。',
+          '规则执行多依赖钩子或档位配置，可追溯性不足。',
+        ],
+        strengthsTitle: 'ArbiterOS 的优点',
+        strengths: [
+          '在敏感动作执行前，将模型输出和工具调用解析为结构化指令并进行治理。',
+          '可在相关步骤间持续传递安全标签，支持上下文感知的策略决策。',
+          '提供可配置策略管线、确认流程和逐追踪审计证据。',
+        ],
+      },
+      toggleShow: '展开详细对比',
+      toggleHide: '收起详细对比',
       columns: [
         {
           name: 'OpenClaw 隔离层',
@@ -915,11 +947,11 @@ const zh: typeof en = {
             '实时会话中的工具动作和高风险步骤',
             '按工具或按会话',
             '部分 - 可检查特定运行时事件',
-            '有限 - 上下文主要局限于会话范围',
+            '有限 - 上下文主要局限于当前会话',
             '基于钩子的检查和审批',
             '会话记录、命令日志和风险信号',
             '监督正在运行的助手会话',
-            '无法提供完整的指令级视图',
+            '无法从全局角度提供安全检查与保护',
           ],
         },
         {
@@ -942,9 +974,9 @@ const zh: typeof en = {
     },
     addOnComparison: {
       label: '',
-      title: 'ArbiterOS 与现有智能体防护的差异',
+      title: '与现有Agent安全防护方案的对比',
       // desc: '社区已围绕 OpenClaw 生态构建了多种安全附加防护 \u2014 包括 SecureClaw、OpenGuardrails、OpenClaw Shield、ClawAegis、GuardClaw、ClawKeeper 等项目 \u2014 以及更偏适配器路线的 APort Agent Guardrails。各项目关注的方向不尽相同，但通常绑定在特定运行时或插件接入面上。ArbiterOS 采用不同方式：作为基于 LiteLLM 的治理内核，它工作在代理层，能够服务任何将 LLM 流量路由到自定义 OpenAI 兼容端点的智能体。',
-      desc: '',
+      desc: '各方法关注的方向不尽相同，但通常与特定Agent绑定。相反，ArbiterOS 通过转发与截流的方式，能够服务任何兼容 OpenAI 端点的 Agent。',
       columns: [
         {
           name: '当前附加防护',
@@ -1764,34 +1796,80 @@ function ComparisonCard({
   desc,
   columns,
   rows,
+  summary,
+  collapsible = false,
+  toggleShowLabel = '',
+  toggleHideLabel = '',
 }: {
   title: string;
   desc: string;
   columns: SiteCopy['overview']['comparison']['columns'];
   rows: string[];
+  summary?: SiteCopy['overview']['comparison']['summary'];
+  collapsible?: boolean;
+  toggleShowLabel?: string;
+  toggleHideLabel?: string;
 }) {
+  const [expanded, setExpanded] = useState(!collapsible);
+
+  useEffect(() => {
+    setExpanded(!collapsible);
+  }, [collapsible, title]);
+
   return (
     <div className="overview-card">
       <div className="overview-card-header">
         <h3>{title}</h3>
         {desc ? <p className="section-desc">{desc}</p> : null}
-      </div>
-      <div className="comparison-grid">
-        {columns.map((col, colIdx) => (
-          <div className={`comparison-col${colIdx === 2 ? ' comparison-col-highlight' : ''}`} key={col.name} style={{ gridRow: `span ${rows.length + 1}` }}>
-            <div className="comparison-head">
-              <h4>{col.name}</h4>
-              <span className="comparison-tag">{col.tag}</span>
+        {summary ? (
+          <div className="comparison-summary">
+            <div className="comparison-summary-box comparison-summary-box-danger">
+              <p className="comparison-summary-title">{summary.drawbacksTitle}</p>
+              <ul>
+                {summary.drawbacks.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
-            {col.items.map((value, rowIdx) => (
-              <div className="comparison-cell" key={rowIdx}>
-                <span className="comparison-cell-label">{rows[rowIdx]}</span>
-                <span className="comparison-cell-value">{value}</span>
-              </div>
-            ))}
+            <div className="comparison-summary-box comparison-summary-box-safe">
+              <p className="comparison-summary-title">{summary.strengthsTitle}</p>
+              <ul>
+                {summary.strengths.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
           </div>
-        ))}
+        ) : null}
+        {collapsible ? (
+          <button
+            type="button"
+            className="comparison-toggle"
+            onClick={() => { setExpanded((prev) => !prev); }}
+            aria-expanded={expanded}
+          >
+            {expanded ? toggleHideLabel : toggleShowLabel}
+          </button>
+        ) : null}
       </div>
+      {expanded ? (
+        <div className="comparison-grid">
+          {columns.map((col, colIdx) => (
+            <div className={`comparison-col${colIdx === 2 ? ' comparison-col-highlight' : ''}`} key={col.name} style={{ gridRow: `span ${rows.length + 1}` }}>
+              <div className="comparison-head">
+                <h4>{col.name}</h4>
+                <span className="comparison-tag">{col.tag}</span>
+              </div>
+              {col.items.map((value, rowIdx) => (
+                <div className="comparison-cell" key={rowIdx}>
+                  <span className="comparison-cell-label">{rows[rowIdx]}</span>
+                  <span className="comparison-cell-value">{value}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -1804,6 +1882,10 @@ function ProtectionComparisonSection({ t }: { t: SiteCopy }) {
         desc={t.overview.comparison.desc}
         columns={t.overview.comparison.columns}
         rows={t.overview.comparison.rows}
+        summary={t.overview.comparison.summary}
+        collapsible
+        toggleShowLabel={t.overview.comparison.toggleShow}
+        toggleHideLabel={t.overview.comparison.toggleHide}
       />
       <ComparisonCard
         title={t.overview.addOnComparison.title}
