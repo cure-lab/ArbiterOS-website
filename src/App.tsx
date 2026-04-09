@@ -250,11 +250,11 @@ const en = {
     benchmark: {
       label: '',
       title: 'ArbiterOS blocks more than 92% of dangerous attacks and flags risky workflows.',
-      desc: 'These results combine replay-based attack evaluation in AgentDojo and Agent-SafetyBench with in-the-wild warning evaluation on WildClawBench. ArbiterOS still keeps normal workflows usable: 236 of 255 AgentDojo Safe slices pass (92.55%), and 50 of 57 curated real-world workflows pass (87.72%).',
+      desc: 'ArbiterOS still keeps normal workflows usable: 236 of 255 AgentDojo Safe slices pass (92.55%), and 50 of 57 curated real-world workflows pass (87.72%).',
       comparisons: [
         {
           name: 'Agent-SafetyBench',
-          footnoteMark: '*',
+          footnoteMark: '2',
           caption: 'Claude Sonnet 4 \u00b7 574 verified successful attack traces',
           baselinePct: 100,
           primaryPct: 94.25,
@@ -267,7 +267,7 @@ const en = {
         },
         {
           name: 'AgentDojo',
-          footnoteMark: '*',
+          footnoteMark: '2',
           caption: 'GPT-4o \u00b7 297 verified successful attack traces',
           baselinePct: 100,
           primaryPct: 93.94,
@@ -280,7 +280,7 @@ const en = {
         },
         {
           name: 'WildClawBench',
-          footnoteMark: '**',
+          footnoteMark: '3',
           caption: 'GPT-5.2 \u00b7 in-the-wild risky workflow evaluation',
           baselinePct: 55,
           primaryPct: 100,
@@ -294,11 +294,15 @@ const en = {
       ],
       footnotes: [
         {
-          marker: '*',
+          marker: '1',
+          text: 'This section shows replay-based attack evaluation on AgentDojo and Agent-SafetyBench, plus warning-focused evaluation on real-world high-risk workflows in WildClawBench. ',
+        },
+        {
+          marker: '2',
           text: 'AgentDojo and Agent-SafetyBench only count attack traces that already completed a dangerous action before ArbiterOS was inserted; results come from replay evaluation, and the remaining misses cluster around lower-severity read and web-fetch steps rather than destructive side-effecting actions.',
         },
         {
-          marker: '**',
+          marker: '3',
           text: 'WildClawBench uses a different, safety-oriented metric: the 100% figure measures whether ArbiterOS emitted a timely warning before the risky step so a human can intervene, rather than the benchmark\'s original task-score definition.',
         },
       ],
@@ -549,7 +553,7 @@ const zh: typeof en = {
   positioning: {
     label: '',
     title: '在执行前治理关键动作',
-    desc: '沙箱、Guardrails 和可观测性都很重要，但它们解决的是不同层面的问题。ArbiterOS 会先拦截模型输出，将工具意图整理为结构化指令，再在敏感动作真正执行前施加策略、审批和追踪控制。',
+    desc: '沙箱、Guardrails 和可观测性都很重要，但它们解决的是不同层面的问题。ArbiterOS 会先拦截模型输出，将工具意图整理为结构化指令，在敏感动作真正执行前施加策略、审批和追踪控制。',
     items: [
       { title: '沙箱隔离', short: '限制代码能接触什么' },
       { title: '打补丁式 Guardrails', short: '在局部环节补检查' },
@@ -732,11 +736,11 @@ const zh: typeof en = {
     benchmark: {
       label: '',
       title: 'ArbiterOS 可拦截超过 92% 的危险攻击',
-      desc: '这里展示的是 AgentDojo、Agent-SafetyBench 的回放攻击评测，以及 WildClawBench 的真实世界高风险工作流 warning 评测。ArbiterOS 可以及时预警高风险工作流，同时仍保持较高的正常任务通过率：AgentDojo Safe 的 255 个安全的任务测试中有 236 个通过（92.55%），另外57 个人工构造的真实工作流样本中有 50 个通过（87.72%）。',
+      desc: 'ArbiterOS 可以及时预警高风险工作流，同时仍保持较高的正常任务通过率：AgentDojo 的安全的任务测试的通过率为: 236/255(92.55%)，另外人工构造的真实样本的通过率为：50/57(87.72%)。',
       comparisons: [
         {
           name: 'Agent-SafetyBench',
-          footnoteMark: '*',
+          footnoteMark: '2',
           caption: 'Claude Sonnet 4 \u00b7 574 条已验证成功的攻击轨迹',
           baselinePct: 100,
           primaryPct: 94.25,
@@ -749,7 +753,7 @@ const zh: typeof en = {
         },
         {
           name: 'AgentDojo',
-          footnoteMark: '*',
+          footnoteMark: '2',
           caption: 'GPT-4o \u00b7 297 条已验证成功的攻击轨迹',
           baselinePct: 100,
           primaryPct: 93.94,
@@ -762,7 +766,7 @@ const zh: typeof en = {
         },
         {
           name: 'WildClawBench',
-          footnoteMark: '**',
+          footnoteMark: '3',
           caption: 'GPT-5.2 \u00b7 真实世界高风险工作流评测',
           baselinePct: 55,
           primaryPct: 100,
@@ -776,17 +780,21 @@ const zh: typeof en = {
       ],
       footnotes: [
         {
-          marker: '*',
+          marker: '1',
+          text: '这里展示的是 AgentDojo、Agent-SafetyBench 的回放攻击评测，以及 WildClawBench 的真实世界高风险工作流 warning 评测。',
+        },
+        {
+          marker: '2',
           text: '在 AgentDojo 与 Agent-SafetyBench 中，我们只统计未接入 ArbiterOS 时已经成功完成危险动作的攻击轨迹。结果基于回放评测，剩余未拦截案例主要集中在低风险的读取和网页抓取步骤，而非高破坏性的副作用动作。',
         },
         {
-          marker: '**',
+          marker: '3',
           text: 'WildClawBench 采用的是不同的安全导向评估口径：这里的 100% 指 ArbiterOS 是否能在高风险步骤发生前及时给出有效 warning，便于人工介入，而不是直接沿用该 benchmark 原始的任务得分定义。',
         },
       ],
       failureAnalysis: {
         title: '测试中失败实例类型汇总',
-        desc: '经人工分析，失败样本并非均匀分布，而是集中在少数几个类型。其中的失败样本可以用于后续策略调优。',
+        desc: '经人工分析，失败样本并非均匀分布，而是集中在少数几个类型，并可以用于后续策略调优。',
         falsePositiveTitle: '误报（26/312 条）',
         falsePositiveToggleShow: '误报类型汇总',
         falsePositiveToggleHide: '收起误报类型汇总',
@@ -1603,7 +1611,10 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
       <div className="overview-card benchmark-home-card">
         <div className="overview-card-header">
           <span className="section-label">{t.overview.benchmark.label}</span>
-          <h3>{t.overview.benchmark.title}</h3>
+          <h3>
+            {t.overview.benchmark.title}
+            <sup className="bench-footnote-mark" aria-hidden="true">1</sup>
+          </h3>
           <p className="section-desc">{t.overview.benchmark.desc}</p>
         </div>
 
