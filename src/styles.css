@@ -398,11 +398,13 @@ img, svg { display: block; }
 .hero-title-en {
   font-size: clamp(1.9rem, 3.4vw, 2.6rem);
   max-width: 16ch;
+  line-height: 1.26;
 }
 
 .hero-title-cn {
   font-size: clamp(1.8rem, 3.2vw, 2.5rem);
   max-width: 14ch;
+  line-height: 1.26;
 }
 
 .hero-sub {
@@ -2482,6 +2484,7 @@ img, svg { display: block; }
   .hero-title-en,
   .hero-title-cn {
     max-width: 100%;
+    line-height: 1.32;
   }
 
   .hero-sub { font-size: clamp(1.18rem, 4.8vw, 1.28rem); }
