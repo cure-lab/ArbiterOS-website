@@ -69,7 +69,7 @@ const en = {
     label: '',
     title: 'ArbiterOS Provides the Constitution',
     // ArbiterOS intercepts model outputs, turns tool intent into structured instructions, and applies policy, approval, and tracing before sensitive actions run.
-    desc: 'Sandboxes, guardrails, and observability still matter, but they solve different problems. ',
+    desc: 'Rigid sandbox isolation hurts productivity, and semantic guardrails cannot stop data smuggling in complex workflows.The point of ArbiterOS as a digital constitution is to enforce machine-readable deterministic rules that adjudicate instruction intent and data flow before actions are executed.',
     items: [
       { title: 'Sandboxing', short: 'Constrain what code can touch' },
       { title: 'Patchwork Guardrails', short: 'Add checks at isolated steps' },
@@ -606,7 +606,8 @@ const zh: typeof en = {
     label: '',
     title: 'ArbiterOS 为 Agent 行为设立宪法',
     // ArbiterOS 会先拦截模型输出，将工具意图整理为结构化指令，在敏感动作真正执行前施加策略、审批和追踪控制。
-    desc: '沙箱、Guardrails 和可观测性都很重要，但它们解决的是不同层面的问题。',
+    // desc: '沙箱、Guardrails 和可观测性都很重要，但它们解决的是不同层面的问题。',
+    desc: '沙箱的刚性隔离限制了生产力，护栏的语义过滤防不住复杂工作流中的数据走私。ArbiterOS 设立数字宪法的意义在于：在动作真正落地前，用机器可读的确定性规则，对指令意图与数据流向进行强制裁决。',
     items: [
       { title: '沙箱隔离', short: '限制代码能接触什么' },
       { title: '打补丁式 Guardrails', short: '在局部环节补检查' },
