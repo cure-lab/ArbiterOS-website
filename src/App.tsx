@@ -331,11 +331,11 @@ const en = {
         desc: 'Based on manual analysis, failure samples are not uniformly distributed. They cluster into a few recurring types, which can be used for later policy tuning.',
         falsePositiveTitle: 'False positives (26/312)',
         falsePositiveToggleShow: 'Expand false-positive type summary',
-        falsePositiveToggleHide: 'Collapse false-positive type summary',
+        falsePositiveToggleHide: 'Hide false-positive type summary',
         falsePositiveIntro: 'ArbiterOS follows a conservative governance philosophy: it may block untrusted outbound actions and trust-mismatched operations, which increases the overall interception ratio.',
         missTitle: 'Misses (135/1914)',
         missToggleShow: 'Expand miss type summary',
-        missToggleHide: 'Collapse miss type summary',
+        missToggleHide: 'Hide miss type summary',
         missIntro: 'ArbiterOS performs dynamic taint analysis and applies a looser policy to single-step information-fetch actions. In contrast, ArbiterOS applies stricter governance to outbound information-sending actions (as reflected in the false-positive analysis).',
         falsePositiveClusters: [
           {
