@@ -183,7 +183,7 @@ const en = {
   cta: {
     label: '',
     title: 'Deploy ArbiterOS in\u00a0minutes',
-    desc: 'Clone the repository, configure your model provider, and run with Docker Compose or the install script. The full stack \u2014 Kernel, Langfuse, and infrastructure \u2014 starts with a single command.',
+    desc: 'For engineering and platform teams that want to stably connect agents to real business systems, ArbiterOS is the better choice. Clone the repository, configure your model provider, and launch quickly with Docker Compose or the install script.',
     primaryBtn: 'View on GitHub',
     secondaryBtn: 'Read the Paper',
     contactBtn: 'Contact Team',
@@ -719,7 +719,7 @@ const zh: typeof en = {
   cta: {
     label: '',
     title: '把智能体的"可用"升级为"可控"',
-    desc: 'ArbiterOS 适合希望将智能体稳定落地到真实业务系统的研发与平台团队。克隆仓库、配置模型提供方，并通过 Docker Compose 或安装脚本运行。',
+    desc: '对于希望将智能体稳定接入真实业务系统的研发和平台团队，ArbiterOS 是更合适的选择。克隆仓库、配置模型提供方后，即可通过 Docker Compose 或安装脚本快速启动。',
     primaryBtn: '查看 GitHub',
     secondaryBtn: '阅读论文',
     contactBtn: '联系团队',
