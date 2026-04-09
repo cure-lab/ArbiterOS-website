@@ -888,6 +888,138 @@ img, svg { display: block; }
   padding-top: 28px;
 }
 
+/* ── Taint Analysis ── */
+
+.section.taint-analysis-section {
+  padding-top: 28px;
+}
+
+.taint-analysis-card {
+  padding: 36px;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(ellipse at top right, rgba(57, 192, 183, 0.08), transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(15, 102, 255, 0.08), transparent 50%),
+    var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.taint-analysis-header {
+  max-width: 820px;
+}
+
+.taint-analysis-header h2 {
+  margin-top: 10px;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--heading);
+}
+
+.taint-analysis-flow {
+  margin-top: 28px;
+}
+
+.taint-analysis-flow h3,
+.taint-analysis-rules h3,
+.taint-analysis-outcomes h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--heading);
+}
+
+.taint-analysis-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.taint-analysis-flow-item {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.taint-analysis-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--blue-deep);
+  background: rgba(15, 102, 255, 0.08);
+}
+
+.taint-analysis-flow-item h4,
+.taint-analysis-outcome-item h4 {
+  margin-top: 10px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1.35;
+}
+
+.taint-analysis-flow-item p,
+.taint-analysis-outcome-item p {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.58;
+}
+
+.taint-analysis-lower {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.taint-analysis-rules,
+.taint-analysis-outcomes {
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.taint-analysis-rules ul {
+  margin: 12px 0 0;
+  padding-left: 1.05rem;
+  display: grid;
+  gap: 8px;
+}
+
+.taint-analysis-rules li {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.taint-analysis-outcomes-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.taint-analysis-outcome-item {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 102, 255, 0.1);
+  background: rgba(15, 102, 255, 0.03);
+}
+
 .quickstart-card {
   padding: 36px;
   border-radius: var(--radius-lg);
@@ -2476,6 +2608,9 @@ img, svg { display: block; }
 
   .advantages-grid { grid-template-columns: repeat(2, 1fr); }
   .advantages-card { padding: 28px; }
+  .taint-analysis-card { padding: 28px; }
+  .taint-analysis-flow-grid { grid-template-columns: repeat(2, 1fr); }
+  .taint-analysis-lower { grid-template-columns: 1fr; }
   .quickstart-card { padding: 28px; }
   .quickstart-steps { flex-wrap: wrap; gap: 16px; }
   .quickstart-step-group { flex: 0 0 100%; }
@@ -2529,6 +2664,9 @@ img, svg { display: block; }
   .advantage-card { padding: 22px 20px 18px; }
 
   .section.quickstart-section { padding-top: 20px; }
+  .section.taint-analysis-section { padding-top: 20px; }
+  .taint-analysis-card { padding: 22px 18px; }
+  .taint-analysis-flow-grid { grid-template-columns: 1fr; }
   .quickstart-card { padding: 22px 18px; }
   .quickstart-steps { flex-direction: column; gap: 0; }
   .quickstart-step-group { flex: none; }

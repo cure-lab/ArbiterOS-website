@@ -118,6 +118,49 @@ const en = {
       },
     ],
   },
+  taintAnalysis: {
+    label: '',
+    title: 'Cross-state taint analysis over data flow, not just single-step actions',
+    desc: 'During dynamic execution, ArbiterOS uses discrete instructions to naturally track data flow for taint analysis. Trustworthiness and confidentiality keep propagating across read, processing, write, and outbound paths. Policy decisions therefore consider both where data came from and where it is going.',
+    flowTitle: 'Flow-aware decision path',
+    flow: [
+      {
+        step: '01',
+        title: 'Label at source',
+        description: 'Classify files, tools, and external data sources for risk, trustworthiness, and confidentiality via the registry before downstream decisions.',
+      },
+      {
+        step: '02',
+        title: 'Propagate across dependencies',
+        description: 'Carry effective taint through instruction dependencies with worst-case resolution to avoid silent risk downgrade.',
+      },
+      {
+        step: '03',
+        title: 'Evaluate sink semantics',
+        description: 'Different sinks use different thresholds: local write, shared/export write, delegate, communication, and side-effecting exec are checked separately.',
+      },
+      {
+        step: '04',
+        title: 'Enforce and learn',
+        description: 'Return allow, deny, rewrite, or confirmation outcomes, and keep trace evidence for replay-driven policy tuning.',
+      },
+    ],
+    rulesTitle: 'Core propagation rules',
+    rules: [
+      'Trustworthiness uses worst-case merge (LOW wins).',
+      'Confidentiality uses highest-sensitivity merge (HIGH wins).',
+      'Users can explicitly elevate trust or sanitize tainted data they have verified.',
+      'This sanitization is valid only within the current data lifecycle to prevent privilege spread.',
+      'Newly written files inherit effective taint for future reads.',
+      'Outward sinks require stricter trust/confidentiality alignment.',
+    ],
+    outcomesTitle: 'What this prevents',
+    outcomes: [
+      { title: 'Low-trust content laundering', description: 'Stops untrusted web/tool data from being quietly rewritten and treated as trusted.' },
+      { title: 'Cross-step data contamination', description: 'Carries taint through multi-step chains so later high-impact actions still see upstream risk.' },
+      { title: 'Unsafe outward disclosure', description: 'Blocks outward paths like delegation and sending when source confidentiality exceeds sink trust.' },
+    ],
+  },
   quickStart: {
     label: '',
     title: 'Get started in three steps',
@@ -659,6 +702,49 @@ const zh: typeof en = {
         short: '保留每条受治理指令的证据和结果',
         detail: '逐条追踪的指令文件、决策日志和回放上下文，让你能事后看清每一步为什么被治理、怎么治理的、治理结果是什么。',
       },
+    ],
+  },
+  taintAnalysis: {
+    label: '',
+    title: '基于数据流的跨状态污点分析，而不是只看单步动作',
+    desc: 'ArbiterOS 在程序动态执行过程中，借助离散化指令对数据流的天然追踪能力进行污点分析。数据在读取、处理、写入和对外发送的整个过程中，其可信度和保密性会不断传递。基于这一点，系统在做策略判断时，不仅会看数据“从哪里来”，还会看它“要到哪里去”。',
+    flowTitle: '基于数据流的决策路径',
+    flow: [
+      {
+        step: '01',
+        title: '源头打标',
+        description: '先基于注册表对文件、工具和外部数据源进行风险/信任度/保密性分类，再进入后续决策。',
+      },
+      {
+        step: '02',
+        title: '跨依赖传播',
+        description: '沿指令依赖关系传播有效污点，并采用最坏情况合并，避免风险在链路中被静默降级。',
+      },
+      {
+        step: '03',
+        title: '按动作目的评估',
+        description: '本地写入、共享导出写入、跨会话委派、对外发送、执行副作用等出口分别使用不同阈值。',
+      },
+      {
+        step: '04',
+        title: '执行与回放优化',
+        description: '输出放行、拦截、改写或确认结果，并保留追踪证据用于回放与策略迭代。',
+      },
+    ],
+    rulesTitle: '关键传播规则',
+    rules: [
+      '信任度采用最坏合并（LOW 优先）。',
+      '保密性采用最高敏感度合并（HIGH 优先）。',
+      '用户可主动对其信赖的污点数据进行信任度提升或净化。',
+      '保证该净化操作仅在数据当前生命周期内有效，避免引发权限扩散。',
+      '新写入文件会继承有效污点，供后续读取使用。',
+      '对外出口会执行更严格的信任度/保密性对齐检查。',
+    ],
+    outcomesTitle: '主要防护收益',
+    outcomes: [
+      { title: '阻断低信任数据洗白', description: '防止不可信网页或工具数据经改写后被误当作高可信输入。' },
+      { title: '识别跨步骤数据污染', description: '在多步链路中持续携带污点，让后续高风险动作仍可感知上游风险。' },
+      { title: '抑制不安全外发', description: '当源数据保密性高于出口信任度时，拦截委派、发送等外发路径。' },
     ],
   },
   quickStart: {
@@ -1398,6 +1484,7 @@ export default function App() {
             <PositioningSection t={t} />
             <ProtectionComparisonSection t={t} />
             <AdvantagesSection t={t} onSelect={setActiveAdvantage} />
+            <TaintAnalysisSection t={t} />
             <QuickStartSection t={t} lang={lang} />
             <CtaSection t={t} />
           </>
@@ -1616,6 +1703,56 @@ function AdvantageModal({
         <p>{t.advantages.items[activeAdvantage].detail}</p>
       </div>
     </div>
+  );
+}
+
+function TaintAnalysisSection({ t }: { t: SiteCopy }) {
+  return (
+    <section className="container section taint-analysis-section">
+      <div className="taint-analysis-card">
+        <div className="taint-analysis-header">
+          <span className="section-label">{t.taintAnalysis.label}</span>
+          <h2>{t.taintAnalysis.title}</h2>
+          <p className="section-desc">{t.taintAnalysis.desc}</p>
+        </div>
+
+        <div className="taint-analysis-flow">
+          <h3>{t.taintAnalysis.flowTitle}</h3>
+          <div className="taint-analysis-flow-grid">
+            {t.taintAnalysis.flow.map((item) => (
+              <article className="taint-analysis-flow-item" key={item.step}>
+                <span className="taint-analysis-step">{item.step}</span>
+                <h4>{item.title}</h4>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="taint-analysis-lower">
+          <div className="taint-analysis-rules">
+            <h3>{t.taintAnalysis.rulesTitle}</h3>
+            <ul>
+              {t.taintAnalysis.rules.map((rule) => (
+                <li key={rule}>{rule}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="taint-analysis-outcomes">
+            <h3>{t.taintAnalysis.outcomesTitle}</h3>
+            <div className="taint-analysis-outcomes-list">
+              {t.taintAnalysis.outcomes.map((item) => (
+                <article className="taint-analysis-outcome-item" key={item.title}>
+                  <h4>{item.title}</h4>
+                  <p>{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
