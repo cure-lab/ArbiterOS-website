@@ -117,6 +117,7 @@ const en = {
   quickStart: {
     label: '',
     title: 'Get started in three steps',
+    desc: 'Zero Code Intrusion: Compatible with terminal apps like OpenClaw / NanoBot and lower-level frameworks like LangChain. Take over system-level governance in one click with proxy mode and no core code changes.',
     steps: [
       { step: '1', title: 'Install & Start Kernel', description: 'Run the install script or Docker Compose to start ArbiterOS Kernel (default port:4000).' },
       { step: '2', title: 'Configure Models & Policies', description: 'Configure models, API keys, optional skill trust scanning, and policy rules in litellm_config.yaml.' },
@@ -655,6 +656,7 @@ const zh: typeof en = {
   quickStart: {
     label: '',
     title: '三步接入 ArbiterOS',
+    desc: '零代码侵入（Zero Code Intrusion）：兼容 OpenClaw / NanoBot 等终端应用与 LangChain 等底层框架。零核心代码改动，以 Proxy 模式一键实现系统级接管。',
     steps: [
       { step: '1', title: '安装并启动内核', description: '一条命令安装或使用 Docker Compose，启动 ArbiterOS 内核 (默认端口：4000)' },
       { step: '2', title: '配置模型与策略', description: '在 ArbiterOS 的配置文件中配置模型、API、技能信任目录，以及策略规则' },
@@ -1652,6 +1654,7 @@ ${installComment}`;
         <div className="quickstart-header">
           <span className="section-label">{t.quickStart.label}</span>
           <h2>{t.quickStart.title}</h2>
+          <p className="section-desc section-desc--forced-break">{t.quickStart.desc}</p>
         </div>
         <div className="quickstart-steps">
           {t.quickStart.steps.map((step) => (
