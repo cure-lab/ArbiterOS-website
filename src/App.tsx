@@ -105,7 +105,7 @@ const en = {
       {
         title: 'Approval Is A Policy Outcome',
         short: 'Allow, deny, rewrite, or hold in one decision pipeline',
-        detail: 'Human confirmation is not bolted on later. It is one possible policy result when an instruction crosses a configured risk threshold.',
+        detail: 'Human approval is part of the unified decision flow: once an instruction crosses the threshold, policy automatically routes it for human handling.',
       },
       {
         title: 'Traceable, Replayable Decisions',
@@ -640,7 +640,7 @@ const zh: typeof en = {
       {
         title: '人工审批更灵活',
         short: '放行、拦截、改写或挂起都在同一决策流程中',
-        detail: '人工审批并非事后附加的能力，而是在某条指令越过配置阈值时，策略本身可能给出的一个结果。',
+        detail: '人工审批属于统一决策流程的一部分，指令一旦触发阈值，就会被策略自动提交人工处理。',
       },
       {
         title: '决策可追溯可回放',
