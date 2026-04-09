@@ -128,8 +128,9 @@ const en = {
     copiedLabel: 'Copied',
     demo: {
       title: 'See governed execution in a real trace',
-      description: 'Compare the same agent workflow through real governance traces and policy decisions once ArbiterOS is in the loop.',
-      openLabel: 'Open live demo',
+      // Compare the same agent workflow through real governance traces and policy decisions once ArbiterOS is in the loop.
+      description: '',
+      openLabel: 'Open live demo in new tab',
       iframeTitle: 'ArbiterOS selected cases demo',
     },
   },
@@ -664,7 +665,8 @@ const zh: typeof en = {
     copiedLabel: '已复制',
     demo: {
       title: '真实治理过程演示',
-      description: '通过真实的治理追踪和策略决策，看看对于不安全的动作，ArbiterOS 接入后会发生什么变化。',
+      // 通过真实的治理追踪和策略决策，看看对于不安全的动作，ArbiterOS 接入后会发生什么变化。
+      description: '',
       openLabel: '在新页面打开在线 Demo',
       iframeTitle: 'ArbiterOS 真实治理过程演示',
     },
