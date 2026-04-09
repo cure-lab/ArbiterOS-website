@@ -26,7 +26,11 @@ const en = {
     demoBtn: 'Demo',
     howItWorksBtn: 'Overview',
     githubBtn: 'GitHub',
-    meta: ['OpenAI-compatible API', 'OpenClaw + Nanobot ready', 'Local deploy'],
+    meta: [
+      '✓ Zero code intrusion, seamless takeover for full-scope agents like OpenClaw / Nanobot',
+      '✓ Physical-grade interception based on instruction-flow parsing and data taint tracking',
+      '✓ 100% support for local private deployment',
+    ],
     diagram: {
       ariaLabel: 'ArbiterOS governed execution flow',
       tracesTitle: 'Traces',
@@ -564,7 +568,11 @@ const zh: typeof en = {
     demoBtn: 'Demo',
     howItWorksBtn: '系统总览',
     githubBtn: 'GitHub',
-    meta: ['兼容 OpenAI API', '支持 OpenClaw / Nanobot 集成', '支持本地部署'],
+    meta: [
+      '✓ 零代码侵入，无缝接管 OpenClaw / Nanobot 等全域 Agent',
+      '✓ 基于指令流解析与数据污点追踪的物理级拦截',
+      '✓ 100% 支持本地私有化部署',
+    ],
     diagram: {
       ariaLabel: 'ArbiterOS 执行治理流程图',
       tracesTitle: '追踪',
@@ -1452,9 +1460,17 @@ function HeroSection({
           </a>
         </div>
         <div className="hero-meta">
-          {t.hero.meta.map((m) => (
-            <span key={m}>{m}</span>
-          ))}
+          {t.hero.meta.map((m) => {
+            const hasCheck = m.trimStart().startsWith('✓');
+            const text = hasCheck ? m.replace(/^\s*✓\s*/, '') : m;
+
+            return (
+              <span key={m}>
+                {hasCheck ? <i className="hero-meta-check" aria-hidden="true">✓</i> : null}
+                {text}
+              </span>
+            );
+          })}
         </div>
       </div>
       <div className="hero-panel">
