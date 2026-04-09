@@ -1011,6 +1011,10 @@ img, svg { display: block; }
   margin-top: 18px;
 }
 
+.quickstart-run-code-card {
+  margin-top: 12px;
+}
+
 .quickstart-code-head {
   display: flex;
   align-items: center;

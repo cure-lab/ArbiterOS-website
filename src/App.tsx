@@ -123,6 +123,7 @@ const en = {
       { step: '3', title: 'Connect OpenClaw / Nanobot / Your Agent', description: 'Point your model provider to http://127.0.0.1:4000/v1 for instant governance, audit, and observability.' },
     ],
     commandsLabel: 'Install commands',
+    runCommandsLabel: 'Run command',
     copyLabel: 'Copy',
     copiedLabel: 'Copied',
     demo: {
@@ -658,6 +659,7 @@ const zh: typeof en = {
       { step: '3', title: '连接 OpenClaw、Nanobot 或其他智能体', description: '将模型提供方指向 http://127.0.0.1:4000/v1，即可获得治理、审计与可观测能力。' },
     ],
     commandsLabel: '安装命令',
+    runCommandsLabel: '启动命令',
     copyLabel: '复制',
     copiedLabel: '已复制',
     demo: {
@@ -1598,15 +1600,25 @@ function AdvantageModal({
 
 function QuickStartSection({ t, lang }: { t: SiteCopy; lang: Lang }) {
   const [copiedCommands, setCopiedCommands] = useState(false);
+  const [copiedRunCommands, setCopiedRunCommands] = useState(false);
   const demoHref =
     lang === 'en'
       ? withBasePath('/demo/selected-cases/index.html?demoLang=en')
       : withBasePath('/demo/selected-cases/index.html');
+  const installComment =
+    lang === 'zh'
+      ? '# 随后，会自动生成kernel执行脚本：run-kernel.sh'
+      : '# Then, the kernel run script will be generated automatically: run-kernel.sh';
+  const runComment =
+    lang === 'zh'
+      ? '# 启动ArbiterOS：'
+      : '# Start ArbiterOS:';
   const installCommands = `git clone https://github.com/cure-lab/ArbiterOS.git
 cd ArbiterOS
 chmod +x install.sh
 ./install.sh
-
+${installComment}`;
+  const runCommands = `${runComment}
 ./run-kernel.sh`;
 
   async function handleCopyCommands() {
@@ -1618,6 +1630,17 @@ chmod +x install.sh
 
     setCopiedCommands(true);
     window.setTimeout(() => setCopiedCommands(false), 1800);
+  }
+
+  async function handleCopyRunCommands() {
+    const didCopy = await copyTextToClipboard(runCommands);
+
+    if (!didCopy) {
+      return;
+    }
+
+    setCopiedRunCommands(true);
+    window.setTimeout(() => setCopiedRunCommands(false), 1800);
   }
 
   return (
@@ -1651,6 +1674,21 @@ chmod +x install.sh
           </div>
           <pre>
             <code>{installCommands}</code>
+          </pre>
+        </div>
+        <div className="code-card quickstart-code-card quickstart-run-code-card">
+          <div className="quickstart-code-head">
+            <p className="code-title">{t.quickStart.runCommandsLabel}</p>
+            <button
+              type="button"
+              className={`code-copy-btn${copiedRunCommands ? ' is-copied' : ''}`}
+              onClick={() => { void handleCopyRunCommands(); }}
+            >
+              {copiedRunCommands ? t.quickStart.copiedLabel : t.quickStart.copyLabel}
+            </button>
+          </div>
+          <pre>
+            <code>{runCommands}</code>
           </pre>
         </div>
         <div className="quickstart-demo" id="quickstart-demo">
