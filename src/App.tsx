@@ -457,31 +457,47 @@ const en = {
       title: 'Compared with existing Agent security solutions',
       // desc: 'The community has built a range of OpenClaw security add-ons \u2014 including SecureClaw, OpenGuardrails, OpenClaw Shield, ClawAegis, GuardClaw, and ClawKeeper \u2014 along with broader adapter-style layers such as APort Agent Guardrails. Each project addresses different concerns, but they are generally attached to a particular runtime or plugin surface. ArbiterOS takes a different approach: as a LiteLLM-based governance kernel, it sits at the proxy layer and can serve any agent that routes LLM traffic through a custom OpenAI-compatible endpoint.',
       desc: 'Each method focuses on different aspects, but is generally bound to a specific Agent. In contrast, ArbiterOS can serve any Agent that routes LLM traffic through a compatible OpenAI endpoint.',
+      summary: {
+        drawbacksTitle: 'Current protection characteristics',
+        drawbacks: [
+          'Mostly tied to specific plugin, skill, or runtime integration surfaces.',
+          'Checks are often per-call or per-layer, with weaker shared workflow state.',
+          'Policy and enforcement entry points are fragmented across separate projects.',
+        ],
+        strengthsTitle: 'ArbiterOS strengths',
+        strengths: [
+          'Reusable proxy-layer governance that can serve multiple compatible agents.',
+          'Instruction-level semantics with provenance and taint-aware policy decisions.',
+          'Centralized policy config with observe-only rollout and human confirmation flow.',
+        ],
+      },
+      toggleShow: 'Expand detailed comparison',
+      toggleHide: 'Collapse detailed comparison',
       columns: [
         {
           name: 'Current Add-On Protections',
           tag: 'Plugins / skills / watcher layers',
           items: [
-            'Primarily designed for OpenClaw \u2014 SecureClaw, ClawAegis, OpenGuardrails, OpenClaw Shield, GuardClaw, and ClawKeeper are each built around the OpenClaw plugin or skill surface, while APort Agent Guardrails operates as a broader adapter-style authorization layer',
-            'Each project emphasizes a different surface \u2014 SecureClaw focuses on audit, hardening, and runtime behavior rules; OpenGuardrails combines static scanning, runtime interception, and data masking; OpenClaw Shield structures defense into layered gating with output redaction',
-            'Typically per-call or per-layer checks \u2014 SecureClaw, OpenGuardrails, OpenClaw Shield, and ClawAegis provide runtime checks and approvals at their respective layers, but none maintains a stateful plan-to-act workflow model across a shared instruction trace',
-            'Scanning and masking are common approaches \u2014 SecureClaw and OpenGuardrails emphasize file and skill scanning, while OpenClaw Shield and ClawAegis add runtime inspection or output redaction, though none propagates trust or confidentiality labels across instructions in the way a taint-tracking system does',
-            'Each project defines its own policy surface \u2014 ClawKeeper spans skill, plugin, and watcher layers; SecureClaw and ClawAegis bundle controls within their own configuration formats and frameworks',
-            'Enforcement is typically all-or-nothing \u2014 OpenClaw Shield, APort Agent Guardrails, and GuardClaw emphasize deterministic allow/deny or approval outcomes, and tightening rules too quickly can disrupt existing workflows',
-            'Pre-execution gate or approval flows \u2014 OpenClaw Shield and APort Agent Guardrails emphasize decisions before tool execution, and within OpenClaw itself a plugin can block or pause a call for approval without restarting the entire session',
+            'SecureClaw, ClawAegis, OpenGuardrails, OpenClaw Shield, GuardClaw, and ClawKeeper are built around OpenClaw plugin or skill interfaces, while APort Agent Guardrails is positioned as a broader adapter-style authorization layer',
+            'SecureClaw emphasizes audit, hardening, and runtime behavior rules; OpenGuardrails combines static scanning, runtime interception, and data masking; OpenClaw Shield focuses on layered gating and output redaction',
+            'SecureClaw, OpenGuardrails, OpenClaw Shield, and ClawAegis each provide runtime checks and approvals at their own layers, but none maintains a global runtime state',
+            'SecureClaw and OpenGuardrails emphasize file and skill scanning; OpenClaw Shield and ClawAegis add runtime checks or output redaction, but none propagates trust and confidentiality labels across agent runtime states like taint tracking',
+            'ClawKeeper spans skill, plugin, and watcher layers; SecureClaw and ClawAegis encapsulate control logic in their own config formats and frameworks',
+            'OpenClaw Shield, APort Agent Guardrails, and GuardClaw emphasize deterministic allow/deny or approval outcomes; tightening rules too quickly can disrupt existing workflows',
+            'OpenClaw Shield and APort Agent Guardrails emphasize making decisions before tool execution; in OpenClaw itself, plugins can also block or pause calls for approval without restarting the whole session',
           ],
         },
         {
           name: 'ArbiterOS Kernel Defense',
           tag: 'Instruction-level governance kernel',
           items: [
-            'Any agent that can route through the ArbiterOS proxy \u2014 operates at the LiteLLM proxy layer, serving agents that support a custom OpenAI-compatible base URL and API key',
-            'Instructionization \u2014 structured outputs and tool calls are parsed into a unified instruction stream with security metadata',
-            'Stateful workflow gating (EFSM) \u2014 configurable plan or state rules can require that sensitive actions align with a recently declared plan',
+            'ArbiterOS operates at the LiteLLM proxy layer and can serve any Agent that supports a custom OpenAI-compatible base URL and API key',
+            'Parses structured outputs and tool calls into a unified instruction stream with security metadata',
+            'Uses stateful workflow governance (EFSM), where configurable plan or state rules require sensitive actions to align with recently declared plans',
             'Taint propagation carries trust and confidentiality labels across instructions and tool results, enabling provenance-aware policy decisions',
-            'Centralized policy configuration (policy.json + policy_registry.json) supporting budgets, rate limits, taint tracking, EFSM gating, and composable rule types',
-            'Observe-only mode \u2014 policies with enforcement disabled still run and record would-be violations, so teams can review impact before turning on blocking',
-            'Policy confirmation flow \u2014 when a policy modifies or blocks a response, the kernel returns a protected version and asks for a Yes/No decision without making a new LLM call',
+            'Centralized policy configuration supports budgets, rate limits, taint tracking, EFSM governance, and composable rule types',
+            'Even with enforcement disabled, policies still run and record potential violations so teams can evaluate impact before enabling blocking',
+            'When a policy modifies or blocks a response, the kernel returns a protected version and waits for a Yes/No decision without making a new LLM call',
           ],
         },
         {
@@ -977,31 +993,47 @@ const zh: typeof en = {
       title: '与现有Agent安全防护方案的对比',
       // desc: '社区已围绕 OpenClaw 生态构建了多种安全附加防护 \u2014 包括 SecureClaw、OpenGuardrails、OpenClaw Shield、ClawAegis、GuardClaw、ClawKeeper 等项目 \u2014 以及更偏适配器路线的 APort Agent Guardrails。各项目关注的方向不尽相同，但通常绑定在特定运行时或插件接入面上。ArbiterOS 采用不同方式：作为基于 LiteLLM 的治理内核，它工作在代理层，能够服务任何将 LLM 流量路由到自定义 OpenAI 兼容端点的智能体。',
       desc: '各方法关注的方向不尽相同，但通常与特定Agent绑定。相反，ArbiterOS 通过转发与截流的方式，能够服务任何兼容 OpenAI 端点的 Agent。',
+      summary: {
+        drawbacksTitle: '当前防护方案的特点',
+        drawbacks: [
+          '多数方案绑定在插件、技能或运行时接口上，复用范围受限。',
+          '检查常按单次调用或分层执行，跨会话状态能力偏弱。',
+          '策略配置与执行入口分散，统一治理与维护成本较高。',
+        ],
+        strengthsTitle: 'ArbiterOS 的优势',
+        strengths: [
+          '以代理层治理内核复用，可服务兼容 OpenAI 端点的多类 Agent。',
+          '基于指令级语义并结合来源/污点追踪，策略更贴近真实风险链路。',
+          '集中策略配置 + 观察模式 + 人机确认流程，便于安全上线调优。',
+        ],
+      },
+      toggleShow: '展开详细对比',
+      toggleHide: '收起详细对比',
       columns: [
         {
           name: '当前附加防护',
           tag: '插件 / 技能 / 监管层',
           items: [
-            '主要面向 OpenClaw 生态 \u2014 SecureClaw、ClawAegis、OpenGuardrails、OpenClaw Shield、GuardClaw、ClawKeeper 均围绕 OpenClaw 的插件或技能接入面构建，APort Agent Guardrails 则以更通用的适配器式授权层定位',
-            '各项目关注的层面有所不同 \u2014 SecureClaw 侧重审计、加固和运行时行为规则；OpenGuardrails 整合静态扫描、运行时拦截和数据脱敏；OpenClaw Shield 以分层闸门和输出脱敏为核心',
-            '通常按单次调用或分层检查执行 \u2014 SecureClaw、OpenGuardrails、OpenClaw Shield、ClawAegis 各自在所属层面提供运行时检查和审批，但均未维护跨共享指令轨迹的有状态计划-执行工作流模型',
-            '扫描与脱敏是更常见的手段 \u2014 SecureClaw、OpenGuardrails 侧重文件和技能扫描，OpenClaw Shield 和 ClawAegis 增加运行时检查或输出脱敏，但均不像污点追踪系统那样在指令之间传播信任度和机密性标签',
-            '各项目定义各自的策略接入面 \u2014 ClawKeeper 横跨技能、插件和监管三层；SecureClaw 和 ClawAegis 将控制逻辑封装在各自的配置格式与框架中',
-            '执行决策通常为全有或全无 \u2014 OpenClaw Shield、APort Agent Guardrails、GuardClaw 强调确定性的 allow/deny 或审批结果，如果规则收紧过快，可能影响现有工作流',
-            '执行前闸门或审批流程 \u2014 OpenClaw Shield、APort Agent Guardrails 强调工具执行前做出决策，在 OpenClaw 自身中，插件也可以阻断或暂停调用以等待审批，而无需重启整个会话',
+            'SecureClaw、ClawAegis、OpenGuardrails、OpenClaw Shield、GuardClaw、ClawKeeper 均围绕 OpenClaw 的插件或技能接口构建，APort Agent Guardrails 则以更通用的适配器式授权层定位',
+            'SecureClaw 侧重审计、加固和运行时行为规则；OpenGuardrails 整合静态扫描、运行时拦截和数据脱敏；OpenClaw Shield 以分层闸门和输出脱敏为核心',
+            'SecureClaw、OpenGuardrails、OpenClaw Shield、ClawAegis 各自在所属层面提供运行时检查和审批，但均未维护全局的运行状态',
+            'SecureClaw、OpenGuardrails 侧重文件和技能扫描，OpenClaw Shield 和 ClawAegis 增加运行时检查或输出脱敏，但均不像污点追踪系统那样在Agent运行状态之间传播信任度和机密性标签',
+            'ClawKeeper 横跨技能、插件和监管三层；SecureClaw 和 ClawAegis 将控制逻辑封装在各自的配置格式与框架中',
+            'OpenClaw Shield、APort Agent Guardrails、GuardClaw 强调确定性的 allow/deny 或审批结果，如果规则收紧过快，可能影响现有工作流',
+            'OpenClaw Shield、APort Agent Guardrails 强调工具执行前做出决策，在 OpenClaw 自身中，插件也可以阻断或暂停调用以等待审批，而无需重启整个会话',
           ],
         },
         {
           name: 'ArbiterOS 内核防御',
           tag: '指令级治理内核',
           items: [
-            '任何可接入 ArbiterOS 代理的智能体 \u2014 工作在 LiteLLM 代理层，服务支持自定义 OpenAI 兼容 base URL 和 API key 的智能体',
-            '指令化 \u2014 把结构化输出和工具调用解析为统一的指令流，并附带安全元数据',
-            '有状态的工作流治理（EFSM）\u2014 可配置的计划或状态规则要求敏感动作必须与近期声明的计划对齐',
-            '污点传播在指令与工具结果之间延续信任度和机密性标签，支持基于来源感知的策略决策',
-            '集中式策略配置（policy.json + policy_registry.json）\u2014 支持预算、速率限制、污点追踪、EFSM 治理和可组合的规则类型',
-            '观察模式 \u2014 即使关闭执行，策略仍会运行并记录潜在违规，方便团队在开启拦截前评估影响',
-            '策略确认流程 \u2014 当策略修改或阻断响应时，内核返回受保护版本并等待用户 Yes/No 决策，无需发起新的 LLM 调用',
+            'ArbiterOS 工作在 LiteLLM 代理层，能够服务任何支持自定义 OpenAI 兼容 base URL 和 API key 的 Agent',
+            '把结构化输出和工具调用解析为统一的指令流，并附带安全元数据',
+            '利用有状态的工作流治理（EFSM），可配置的计划或状态规则要求敏感动作必须与近期声明的计划对齐',
+            '污点传播在指令与工具结果之间传播信任度和机密性标签，支持基于来源感知的策略决策',
+            '集中式策略配置支持预算、速率限制、污点追踪、EFSM 治理和可组合的规则类型',
+            '即使关闭执行，策略仍会运行并记录潜在违规，方便团队在开启拦截前评估影响',
+            '当策略修改或阻断响应时，内核返回受保护版本并等待用户 Yes/No 决策，无需发起新的 LLM 调用',
           ],
         },
         {
@@ -1010,11 +1042,11 @@ const zh: typeof en = {
           items: [
             '更广的复用范围 \u2014 一套治理层即可服务任何将 LLM 流量路由到 ArbiterOS 代理的智能体，不受具体框架限制',
             '更深的语义锚点 \u2014 规则直接作用于解析后的指令及其元数据，而非仅依赖原始文本模式或表面信号',
-            '可配置的工作流控制 \u2014 敏感动作可通过 EFSM 规则、污点策略或用户确认进行治理',
-            '来源感知的泄漏防护 \u2014 启用污点策略后，不可信数据可在到达消息发送或文件写入等高风险出口前被拦截',
-            '运维灵活性 \u2014 可通过配置文件调整策略行为，而非将检查逻辑硬编码进每个智能体',
+            '可配置的工作流控制 \u2014 敏感动作可通过 EFSM 规则、污点分析策略或用户确认进行治理',
+            '来源感知的泄漏防护 \u2014 启用污点分析策略后，不可信数据可在到达消息发送或文件写入等高风险出口前被拦截',
+            '运维灵活性 \u2014 可通过配置文件调整策略行为，而非将检查逻辑硬编码进每个 Agent',
             '更安全的上线调优 \u2014 先用观察模式查看潜在违规，再启用正式拦截',
-            '更低打扰的监督 \u2014 Yes/No 确认流程可延续会话进程，无需强制重启或发起新的 LLM 调用',
+            '更无感的监督 \u2014 Yes/No 确认流程可延续会话进程，无需强制重启或发起新的 LLM 调用',
           ],
         },
       ],
@@ -1892,6 +1924,10 @@ function ProtectionComparisonSection({ t }: { t: SiteCopy }) {
         desc={t.overview.addOnComparison.desc}
         columns={t.overview.addOnComparison.columns}
         rows={t.overview.addOnComparison.rows}
+        summary={t.overview.addOnComparison.summary}
+        collapsible
+        toggleShowLabel={t.overview.addOnComparison.toggleShow}
+        toggleHideLabel={t.overview.addOnComparison.toggleHide}
       />
     </section>
   );
