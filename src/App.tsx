@@ -73,7 +73,7 @@ const en = {
     label: '',
     title: 'ArbiterOS Provides the Constitution',
     // ArbiterOS intercepts model outputs, turns tool intent into structured instructions, and applies policy, approval, and tracing before sensitive actions run.
-    desc: 'Rigid sandbox isolation hurts productivity, and semantic guardrails cannot stop data smuggling in complex workflows.The point of ArbiterOS as a digital constitution is to enforce machine-readable deterministic rules that adjudicate instruction intent and data flow before actions are executed.',
+    desc: 'Rigid sandbox isolation hurts productivity, and semantic guardrails cannot stop data smuggling in complex workflows.\nThe point of ArbiterOS as a digital constitution is to enforce machine-readable deterministic rules that adjudicate instruction intent and data flow before actions are executed.',
     items: [
       { title: 'Sandboxing', short: 'Constrain what code can touch' },
       { title: 'Patchwork Guardrails', short: 'Add checks at isolated steps' },
@@ -121,7 +121,7 @@ const en = {
   taintAnalysis: {
     label: '',
     title: 'Cross-state taint analysis over data flow, not just single-step actions',
-    desc: 'During dynamic execution, ArbiterOS uses discrete instructions to naturally track data flow for taint analysis. Trustworthiness and confidentiality keep propagating across read, processing, write, and outbound paths. Policy decisions therefore consider both where data came from and where it is going.',
+    desc: 'During dynamic execution, ArbiterOS uses discrete instructions to naturally track data flow for taint analysis. \nTrustworthiness and confidentiality keep propagating across read, processing, write, and outbound paths. \nPolicy decisions therefore consider both where data came from and where it is going.',
     flowTitle: 'Flow-aware decision path',
     flow: [
       {
@@ -164,7 +164,7 @@ const en = {
   quickStart: {
     label: '',
     title: 'Get started in three steps',
-    desc: 'Zero Code Intrusion: Compatible with terminal apps like OpenClaw / NanoBot and lower-level frameworks like LangChain. Take over system-level governance in one click with proxy mode and no core code changes.',
+    desc: 'Zero Code Intrusion: Compatible with terminal apps like OpenClaw / NanoBot and lower-level frameworks like LangChain. \nTake over system-level governance in one click with proxy mode and no core code changes.',
     steps: [
       { step: '1', title: 'Install & Start Kernel', description: 'Run the install script or Docker Compose to start ArbiterOS Kernel (default port:4000).' },
       { step: '2', title: 'Configure Models & Policies', description: 'Configure models, API keys, optional skill trust scanning, and policy rules in litellm_config.yaml.' },
@@ -384,7 +384,7 @@ const en = {
         missTitle: 'Misses (135/1914)',
         missToggleShow: 'Expand miss type summary',
         missToggleHide: 'Hide miss type summary',
-        missIntro: 'ArbiterOS performs dynamic taint analysis and applies a looser policy to single-step information-fetch actions. In contrast, ArbiterOS applies stricter governance to outbound information-sending actions (as reflected in the false-positive analysis).',
+        missIntro: 'ArbiterOS performs dynamic taint analysis and applies a looser policy to single-step information-fetch actions. \n In contrast, ArbiterOS applies stricter governance to outbound information-sending actions (as reflected in the false-positive analysis).',
         falsePositiveClusters: [
           {
             category: 'Action side-effect type',
@@ -506,7 +506,7 @@ const en = {
       label: '',
       title: 'Compared with existing Agent security solutions',
       // desc: 'The community has built a range of OpenClaw security add-ons \u2014 including SecureClaw, OpenGuardrails, OpenClaw Shield, ClawAegis, GuardClaw, and ClawKeeper \u2014 along with broader adapter-style layers such as APort Agent Guardrails. Each project addresses different concerns, but they are generally attached to a particular runtime or plugin surface. ArbiterOS takes a different approach: as a LiteLLM-based governance kernel, it sits at the proxy layer and can serve any agent that routes LLM traffic through a custom OpenAI-compatible endpoint.',
-      desc: 'Each method focuses on different aspects, but is generally bound to a specific Agent. In contrast, ArbiterOS can serve any Agent that routes LLM traffic through a compatible OpenAI endpoint.',
+      desc: 'Each method focuses on different aspects, but is generally bound to a specific Agent. \nIn contrast, ArbiterOS can serve any Agent that routes LLM traffic through a compatible OpenAI endpoint.',
       summary: {
         drawbacksTitle: 'Current protection characteristics',
         drawbacks: [
@@ -659,7 +659,7 @@ const zh: typeof en = {
     title: 'ArbiterOS 为 Agent 行为设立宪法',
     // ArbiterOS 会先拦截模型输出，将工具意图整理为结构化指令，在敏感动作真正执行前施加策略、审批和追踪控制。
     // desc: '沙箱、Guardrails 和可观测性都很重要，但它们解决的是不同层面的问题。',
-    desc: '沙箱的刚性隔离限制了生产力，护栏的语义过滤防不住复杂工作流中的数据走私。ArbiterOS 设立数字宪法的意义在于：在动作真正落地前，用机器可读的确定性规则，对指令意图与数据流向进行强制裁决。',
+    desc: '沙箱的刚性隔离限制了生产力，护栏的语义过滤防不住复杂工作流中的数据走私。\nArbiterOS 设立数字宪法的意义在于：在动作真正落地前，用机器可读的确定性规则，对指令意图与数据流向进行强制裁决。',
     items: [
       { title: '沙箱隔离', short: '限制代码能接触什么' },
       { title: '打补丁式 Guardrails', short: '在局部环节补检查' },
@@ -707,7 +707,7 @@ const zh: typeof en = {
   taintAnalysis: {
     label: '',
     title: '基于数据流的跨状态污点分析，而不是只看单步动作',
-    desc: 'ArbiterOS 在程序动态执行过程中，借助离散化指令对数据流的天然追踪能力进行污点分析。数据在读取、处理、写入和对外发送的整个过程中，其可信度和保密性会不断传递。基于这一点，系统在做策略判断时，不仅会看数据“从哪里来”，还会看它“要到哪里去”。',
+    desc: 'ArbiterOS 在程序动态执行过程中，借助离散化指令对数据流的天然追踪能力进行污点分析。\n数据在读取、处理、写入和对外发送的整个过程中，其可信度和保密性会不断传递。\n基于这一点，系统在做策略判断时，不仅会看数据“从哪里来”，还会看它“要到哪里去”。',
     flowTitle: '基于数据流的决策路径',
     flow: [
       {
@@ -750,7 +750,7 @@ const zh: typeof en = {
   quickStart: {
     label: '',
     title: '三步接入 ArbiterOS',
-    desc: '零代码侵入（Zero Code Intrusion）：兼容 OpenClaw / NanoBot 等终端应用与 LangChain 等底层框架。零核心代码改动，以 Proxy 模式一键实现系统级接管。',
+    desc: '零代码侵入（Zero Code Intrusion）：兼容 OpenClaw / NanoBot 等终端应用与 LangChain 等底层框架。\n零核心代码改动，以 Proxy 模式一键实现系统级接管。',
     steps: [
       { step: '1', title: '安装并启动内核', description: '一条命令安装或使用 Docker Compose，启动 ArbiterOS 内核 (默认端口：4000)' },
       { step: '2', title: '配置模型与策略', description: '在 ArbiterOS 的配置文件中配置模型、API、技能信任目录，以及策略规则' },
@@ -1093,7 +1093,7 @@ const zh: typeof en = {
       label: '',
       title: '与现有Agent安全防护方案的对比',
       // desc: '社区已围绕 OpenClaw 生态构建了多种安全附加防护 \u2014 包括 SecureClaw、OpenGuardrails、OpenClaw Shield、ClawAegis、GuardClaw、ClawKeeper 等项目 \u2014 以及更偏适配器路线的 APort Agent Guardrails。各项目关注的方向不尽相同，但通常绑定在特定运行时或插件接入面上。ArbiterOS 采用不同方式：作为基于 LiteLLM 的治理内核，它工作在代理层，能够服务任何将 LLM 流量路由到自定义 OpenAI 兼容端点的智能体。',
-      desc: '各方法关注的方向不尽相同，但通常与特定Agent绑定。相反，ArbiterOS 通过转发与截流的方式，能够服务任何兼容 OpenAI 端点的 Agent。',
+      desc: '各方法关注的方向不尽相同，但通常与特定Agent绑定。\n相反，ArbiterOS 通过转发与截流的方式，能够服务任何兼容 OpenAI 端点的 Agent。',
       summary: {
         drawbacksTitle: '当前防护方案的特点',
         drawbacks: [
@@ -1576,7 +1576,7 @@ function PositioningSection({ t }: { t: SiteCopy }) {
         <div className="positioning-header">
           <span className="section-label">{t.positioning.label}</span>
           <h2>{t.positioning.title}</h2>
-          <p className="section-desc">{t.positioning.desc}</p>
+          <p className="section-desc section-desc--forced-break">{t.positioning.desc}</p>
         </div>
         <div className="positioning-grid">
           {t.positioning.items.map((item, index) => (
@@ -1712,8 +1712,8 @@ function TaintAnalysisSection({ t }: { t: SiteCopy }) {
       <div className="taint-analysis-card">
         <div className="taint-analysis-header">
           <span className="section-label">{t.taintAnalysis.label}</span>
-          <h2>{t.taintAnalysis.title}</h2>
-          <p className="section-desc">{t.taintAnalysis.desc}</p>
+          <h2 className="section-desc--forced-break">{t.taintAnalysis.title}</h2>
+          <p className="section-desc section-desc--forced-break">{t.taintAnalysis.desc}</p>
         </div>
 
         <div className="taint-analysis-flow">
@@ -2029,6 +2029,7 @@ function ComparisonCard({
   collapsible = false,
   toggleShowLabel = '',
   toggleHideLabel = '',
+  preserveLineBreaks = false,
 }: {
   title: string;
   desc: string;
@@ -2038,18 +2039,25 @@ function ComparisonCard({
   collapsible?: boolean;
   toggleShowLabel?: string;
   toggleHideLabel?: string;
+  preserveLineBreaks?: boolean;
 }) {
   const [expanded, setExpanded] = useState(!collapsible);
+  const renderMultiline = (text: string) => text.split(/\\n|\n/).map((line, idx, arr) => (
+    <span key={`line-${idx}`}>
+      {line}
+      {idx < arr.length - 1 ? <br /> : null}
+    </span>
+  ));
 
   useEffect(() => {
     setExpanded(!collapsible);
   }, [collapsible, title]);
 
   return (
-    <div className="overview-card">
+    <div className={`overview-card${preserveLineBreaks ? ' comparison-card--preserve-breaks' : ''}`}>
       <div className="overview-card-header">
-        <h3>{title}</h3>
-        {desc ? <p className="section-desc">{desc}</p> : null}
+        <h3>{preserveLineBreaks ? renderMultiline(title) : title}</h3>
+        {desc ? <p className={`section-desc${preserveLineBreaks ? ' section-desc--forced-break' : ''}`}>{preserveLineBreaks ? renderMultiline(desc) : desc}</p> : null}
         {summary ? (
           <div className="comparison-summary">
             <div className="comparison-summary-box comparison-summary-box-danger">
@@ -2086,13 +2094,13 @@ function ComparisonCard({
           {columns.map((col, colIdx) => (
             <div className={`comparison-col${colIdx === 2 ? ' comparison-col-highlight' : ''}`} key={col.name} style={{ gridRow: `span ${rows.length + 1}` }}>
               <div className="comparison-head">
-                <h4>{col.name}</h4>
-                <span className="comparison-tag">{col.tag}</span>
+                <h4>{preserveLineBreaks ? renderMultiline(col.name) : col.name}</h4>
+                <span className="comparison-tag">{preserveLineBreaks ? renderMultiline(col.tag) : col.tag}</span>
               </div>
               {col.items.map((value, rowIdx) => (
                 <div className="comparison-cell" key={rowIdx}>
-                  <span className="comparison-cell-label">{rows[rowIdx]}</span>
-                  <span className="comparison-cell-value">{value}</span>
+                  <span className="comparison-cell-label">{preserveLineBreaks ? renderMultiline(rows[rowIdx]) : rows[rowIdx]}</span>
+                  <span className="comparison-cell-value">{preserveLineBreaks ? renderMultiline(value) : value}</span>
                 </div>
               ))}
             </div>
@@ -2125,6 +2133,7 @@ function ProtectionComparisonSection({ t }: { t: SiteCopy }) {
         collapsible
         toggleShowLabel={t.overview.addOnComparison.toggleShow}
         toggleHideLabel={t.overview.addOnComparison.toggleHide}
+        preserveLineBreaks
       />
     </section>
   );

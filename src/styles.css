@@ -674,7 +674,7 @@ img, svg { display: block; }
 }
 
 .advantages-header {
-  max-width: 760px;
+  max-width: None;
 }
 
 .advantages-header h2 {
@@ -906,7 +906,7 @@ img, svg { display: block; }
 }
 
 .taint-analysis-header {
-  max-width: 820px;
+  max-width: none;
 }
 
 .taint-analysis-header h2 {
@@ -1032,7 +1032,7 @@ img, svg { display: block; }
 }
 
 .quickstart-header {
-  max-width: 700px;
+  max-width: none;
 }
 
 .quickstart-header h2 {
@@ -1194,7 +1194,7 @@ img, svg { display: block; }
 }
 
 .section-header-wide {
-  max-width: 760px;
+  max-width: none;
 }
 
 .section-label {
@@ -1306,7 +1306,7 @@ img, svg { display: block; }
 }
 
 .how-home-header {
-  max-width: 760px;
+  max-width: none;
 }
 
 .how-home-header h2 {
@@ -1756,7 +1756,7 @@ img, svg { display: block; }
 }
 
 .positioning-header {
-  max-width: 760px;
+  max-width: 920px;
 }
 
 .positioning-header h2 {
@@ -1885,7 +1885,7 @@ img, svg { display: block; }
 }
 
 .overview-card-header {
-  max-width: 760px;
+  max-width: None;
 }
 
 .overview-card-header h3 {
@@ -1961,7 +1961,7 @@ img, svg { display: block; }
 
 .eco-svg {
   width: 100%;
-  max-width: 760px;
+  max-width: None;
   height: auto;
   margin: 24px auto 0;
   border-radius: var(--radius-sm);
@@ -2118,6 +2118,13 @@ img, svg { display: block; }
 .comparison-col-highlight .comparison-cell-value {
   color: var(--heading);
   font-weight: 500;
+}
+
+.comparison-card--preserve-breaks .comparison-head h4,
+.comparison-card--preserve-breaks .comparison-tag,
+.comparison-card--preserve-breaks .comparison-cell-label,
+.comparison-card--preserve-breaks .comparison-cell-value {
+  white-space: pre-line;
 }
 
 /* ── Benchmark Section ── */
