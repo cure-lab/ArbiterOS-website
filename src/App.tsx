@@ -68,7 +68,8 @@ const en = {
   positioning: {
     label: '',
     title: 'Govern actions before they run',
-    desc: 'Sandboxes, guardrails, and observability still matter, but they solve different problems. ArbiterOS intercepts model outputs, turns tool intent into structured instructions, and applies policy, approval, and tracing before sensitive actions run.',
+    // ArbiterOS intercepts model outputs, turns tool intent into structured instructions, and applies policy, approval, and tracing before sensitive actions run.
+    desc: 'Sandboxes, guardrails, and observability still matter, but they solve different problems. ',
     items: [
       { title: 'Sandboxing', short: 'Constrain what code can touch' },
       { title: 'Patchwork Guardrails', short: 'Add checks at isolated steps' },
@@ -553,7 +554,8 @@ const zh: typeof en = {
   positioning: {
     label: '',
     title: '在执行前治理关键动作',
-    desc: '沙箱、Guardrails 和可观测性都很重要，但它们解决的是不同层面的问题。ArbiterOS 会先拦截模型输出，将工具意图整理为结构化指令，在敏感动作真正执行前施加策略、审批和追踪控制。',
+    // ArbiterOS 会先拦截模型输出，将工具意图整理为结构化指令，在敏感动作真正执行前施加策略、审批和追踪控制。
+    desc: '沙箱、Guardrails 和可观测性都很重要，但它们解决的是不同层面的问题。',
     items: [
       { title: '沙箱隔离', short: '限制代码能接触什么' },
       { title: '打补丁式 Guardrails', short: '在局部环节补检查' },
