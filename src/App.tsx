@@ -899,9 +899,9 @@ const zh: typeof en = {
           residualPct: 5.75,
           delta: '',
           withoutLabel: '未接入 ArbiterOS',
-          withoutValue: '平均拦截率 0%',
+          withoutValue: '0%',
           withLabel: '接入 ArbiterOS 后',
-          withValue: '平均拦截率 94.25%',
+          withValue: '94.25%',
         },
         {
           name: 'AgentDojo',
@@ -912,9 +912,9 @@ const zh: typeof en = {
           residualPct: 6.06,
           delta: '',
           withoutLabel: '未接入 ArbiterOS',
-          withoutValue: '平均拦截率 0%',
+          withoutValue: '0%',
           withLabel: '接入 ArbiterOS 后',
-          withValue: '平均拦截率 93.94%',
+          withValue: '93.94%',
         },
         {
           name: 'WildClawBench',
@@ -1925,7 +1925,7 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
                     <span className="bench-footnote-mark" aria-hidden="true">{c.footnoteMark}</span>
                   </p>
                 </div>
-                <span className="bench-delta">{c.delta}</span>
+                {c.delta ? <span className="bench-delta">{c.delta}</span> : null}
                 <p className="bench-caption">{c.caption}</p>
               </div>
               <div className="bench-bars">
