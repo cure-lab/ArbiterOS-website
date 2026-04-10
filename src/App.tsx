@@ -21,7 +21,7 @@ const en = {
   nav: { introHome: 'Home', home: 'Home', overview: 'Overview', howItWorks: 'How It Works', extension: 'Observability' },
   hero: {
     eyebrow: '',
-    title: 'LLMs think.\nArbiterOS enforces.',
+    title: 'Autonomy under control:\nLLMs reason,\nArbiterOS enforces.',
     sub: 'Deterministic rules for probabilistic AI.',
     demoBtn: 'Demo',
     howItWorksBtn: 'Overview',
@@ -300,12 +300,27 @@ const en = {
     },
     benchmark: {
       label: '',
-      title: 'ArbiterOS blocks more than 92% of dangerous attacks and flags risky workflows.',
-      desc: 'ArbiterOS still keeps normal workflows usable: 236 of 255 AgentDojo Safe slices pass (92.55%), and 50 of 57 curated real-world workflows pass (87.72%).',
+      title: 'Inject a production-grade security foundation into your agent',
+      desc: 'No matter which model you use, ArbiterOS raises the security pass rate of native frameworks from the single digits to above 90%, while keeping false positives extremely low.',
+      missNote: 'Manual analysis shows that all misses are low-risk cases that caused no real-world consequence.',
       comparisons: [
         {
-          name: 'Agent-SafetyBench',
+          name: 'Native OpenClaw',
           footnoteMark: '2',
+          caption: 'GPT + Claude\nCompared against native OpenClaw safety rules without ArbiterOS',
+          baselinePct: 6.17,
+          primaryPct: 92.95,
+          residualPct: 0,
+          delta: '',
+          withoutLabel: 'Without ArbiterOS',
+          withoutValue: '6.17%',
+          withLabel: 'With ArbiterOS',
+          withValue: '92.95%',
+          featured: true,
+        },
+        {
+          name: 'Agent-SafetyBench',
+          footnoteMark: '3',
           caption: 'Claude Sonnet 4 \u00b7 574 verified successful attack traces',
           baselinePct: 0,
           primaryPct: 94.25,
@@ -318,7 +333,7 @@ const en = {
         },
         {
           name: 'AgentDojo',
-          footnoteMark: '2',
+          footnoteMark: '3',
           caption: 'GPT-4o \u00b7 297 verified successful attack traces',
           baselinePct: 0,
           primaryPct: 93.94,
@@ -331,7 +346,7 @@ const en = {
         },
         {
           name: 'WildClawBench',
-          footnoteMark: '3',
+          footnoteMark: '4',
           caption: 'GPT-5.2 \u00b7 in-the-wild risky workflow evaluation',
           baselinePct: 55,
           primaryPct: 100,
@@ -342,36 +357,23 @@ const en = {
           withLabel: 'With ArbiterOS',
           withValue: '100%',
         },
-        {
-          name: 'Raw OpenClaw',
-          footnoteMark: '4',
-          caption: 'GPT + Claude \u00b7 compared against native OpenClaw safety rules (without ArbiterOS)',
-          baselinePct: 6.17,
-          primaryPct: 92.95,
-          residualPct: 0,
-          delta: '',
-          withoutLabel: 'Without ArbiterOS',
-          withoutValue: '6.17%',
-          withLabel: 'With ArbiterOS',
-          withValue: '92.95%',
-        },
       ],
       footnotes: [
         {
           marker: '1',
-          text: 'This section shows replay-based attack evaluation (block rate) on AgentDojo and Agent-SafetyBench, plus warning-focused evaluation on real-world high-risk workflows in WildClawBench. ',
+          text: 'This section shows replay-based attack evaluation (block rate) on AgentDojo and Agent-SafetyBench, plus warning-focused evaluation on real-world high-risk workflows in WildClawBench.',
         },
         {
           marker: '2',
-          text: 'AgentDojo and Agent-SafetyBench only count attack traces that already completed a dangerous action before ArbiterOS was inserted; results come from replay evaluation, and the remaining misses cluster around lower-severity read and web-fetch steps rather than destructive side-effecting actions.',
+          text: 'On successful unsafe replays, we measure how much ArbiterOS improves OpenClaw\u2019s interception rate after integration. An unsafe replay re-runs originally successful attack traces to see whether ArbiterOS now blocks the dangerous steps.',
         },
         {
           marker: '3',
-          text: 'WildClawBench uses a different, safety-oriented metric: the 100% figure measures whether ArbiterOS emitted a timely warning before the risky step so a human can intervene, rather than the benchmark\'s original task-score definition.',
+          text: 'AgentDojo and Agent-SafetyBench only count attack traces that already completed a dangerous action before ArbiterOS was inserted; results come from replay evaluation, and the remaining misses cluster around lower-severity read and web-fetch steps rather than destructive side-effecting actions.',
         },
         {
           marker: '4',
-          text: 'On successful unsafe replays, we measure how much ArbiterOS improves OpenClaw\u2019s interception rate after integration. An unsafe replay re-runs originally successful attack traces to see whether ArbiterOS now blocks the dangerous steps.',
+          text: 'WildClawBench uses a different, safety-oriented metric: the 100% figure measures whether ArbiterOS emitted a timely warning before the risky step so a human can intervene, rather than the benchmark\'s original task-score definition.',
         },
       ],
       failureAnalysis: {
@@ -606,7 +608,7 @@ const zh: typeof en = {
   nav: { introHome: '介绍首页', home: '首页', overview: '系统总览', howItWorks: '工作原理', extension: '可观测性' },
   hero: {
     eyebrow: '',
-    title: '大模型负责思考，\nArbiterOS 治理执行。',
+    title: '自主的智能体，必须做到如臂使指：\n大模型负责思考，\nArbiterOS 管控手脚。',
     sub: '用确定性的规则，约束不确定的硅基智能。',
     demoBtn: 'Demo',
     howItWorksBtn: '系统总览',
@@ -887,12 +889,27 @@ const zh: typeof en = {
     },
     benchmark: {
       label: '',
-      title: 'ArbiterOS 可拦截超过 92% 的危险攻击',
-      desc: 'ArbiterOS 可以及时预警高风险工作流，同时保持较高的正常任务通过率：AgentDojo 中安全任务测试通过率为: 236/255(92.55%)，另外人工构造的真实样本的通过率为：50/57(87.72%)。',
+      title: '为 Agent 注入生产级安全底座',
+      desc: '无论使用哪种模型，ArbiterOS 均能在极低误报率下，将原生框架的安全通过率从个位数拉升至 90% 以上。',
+      missNote: '经人工分析，漏检情况均为未造成实际后果的低风险情况。',
       comparisons: [
         {
-          name: 'Agent-SafetyBench',
+          name: '原生 OpenClaw',
           footnoteMark: '2',
+          caption: 'GPT+Claude\n与未接入 ArbiterOS 的原生 OpenClaw 安全规则对比',
+          baselinePct: 6.17,
+          primaryPct: 92.95,
+          residualPct: 0,
+          delta: '',
+          withoutLabel: '未接入 ArbiterOS',
+          withoutValue: '6.17%',
+          withLabel: '接入 ArbiterOS 后',
+          withValue: '92.95%',
+          featured: true,
+        },
+        {
+          name: 'Agent-SafetyBench',
+          footnoteMark: '3',
           caption: 'Claude Sonnet 4 \u00b7 574 条已验证成功的攻击轨迹',
           baselinePct: 0,
           primaryPct: 94.25,
@@ -905,7 +922,7 @@ const zh: typeof en = {
         },
         {
           name: 'AgentDojo',
-          footnoteMark: '2',
+          footnoteMark: '3',
           caption: 'GPT-4o \u00b7 297 条已验证成功的攻击轨迹',
           baselinePct: 0,
           primaryPct: 93.94,
@@ -918,7 +935,7 @@ const zh: typeof en = {
         },
         {
           name: 'WildClawBench',
-          footnoteMark: '3',
+          footnoteMark: '4',
           caption: 'GPT-5.2 \u00b7 真实世界高风险工作流评测',
           baselinePct: 55,
           primaryPct: 100,
@@ -929,19 +946,6 @@ const zh: typeof en = {
           withLabel: '接入 ArbiterOS 后',
           withValue: '100%',
         },
-        {
-          name: '原生OpenClaw对比',
-          footnoteMark: '4',
-          caption: 'GPT+Claude \u00b7 与未加ArbiterOS的原生OpenClaw的安全规则进行对比',
-          baselinePct: 6.17,
-          primaryPct: 92.95,
-          residualPct: 0,
-          delta: '',
-          withoutLabel: '未接入ArbiterOS',
-          withoutValue: '6.17%',
-          withLabel: '接入 ArbiterOS 后',
-          withValue: '92.95%',
-        },
       ],
       footnotes: [
         {
@@ -950,15 +954,15 @@ const zh: typeof en = {
         },
         {
           marker: '2',
-          text: '在 AgentDojo 与 Agent-SafetyBench 中，我们只统计未接入 ArbiterOS 时已经成功完成危险动作的攻击轨迹。结果基于回放评测，剩余未拦截案例主要集中在低风险的读取和网页抓取步骤，而非高破坏性的副作用动作。',
+          text: '在已经攻击成功的 unsafe replay 上，给 OpenClaw 接入 ArbiterOS 之后，拦截能力提升了多少。unsafe replay 表示对原本已经攻击成功的轨迹回放其运行轨迹，观察当前危险步骤是否被拦截。',
         },
         {
           marker: '3',
-          text: 'WildClawBench 采用的是不同的安全导向评估口径：这里的 100% 指 ArbiterOS 是否能在高风险步骤发生前及时给出有效 warning，便于人工介入，而不是直接沿用该 benchmark 原始的任务得分定义。',
+          text: '在 AgentDojo 与 Agent-SafetyBench 中，我们只统计未接入 ArbiterOS 时已经成功完成危险动作的攻击轨迹。结果基于回放评测，剩余未拦截案例主要集中在低风险的读取和网页抓取步骤，而非高破坏性的副作用动作。',
         },
         {
           marker: '4',
-          text: '在已经攻击成功的 unsafe replay 上，给 OpenClaw 接入 ArbiterOS 之后，拦截能力提升了多少。unsafe replay 表示对原本已经攻击成功的轨迹回放其运行轨迹，观察当前危险步骤是否被拦截。'
+          text: 'WildClawBench 采用的是不同的安全导向评估口径：这里的 100% 指 ArbiterOS 是否能在高风险步骤发生前及时给出有效 warning，便于人工介入，而不是直接沿用该 benchmark 原始的任务得分定义。'
         }
       ],
       failureAnalysis: {
@@ -1520,11 +1524,19 @@ function HeroSection({
   lang: Lang;
   onOverviewClick: (event: MouseEvent<HTMLAnchorElement>) => void;
 }) {
+  const heroTitleLines = t.hero.title.split('\n');
+
   return (
     <section className="hero container">
       <div className="hero-content">
         {t.hero.eyebrow ? <span className={`eyebrow ${lang === 'zh' ? 'eyebrow-cn' : ''}`}>{t.hero.eyebrow}</span> : null}
-        <h1 className={lang === 'zh' ? 'hero-title-cn' : 'hero-title-en'}>{t.hero.title}</h1>
+        <h1 className={lang === 'zh' ? 'hero-title-cn' : 'hero-title-en'}>
+          {heroTitleLines.map((line, index) => (
+            <span key={`${index}-${line}`} className="hero-title-line">
+              {line}
+            </span>
+          ))}
+        </h1>
         <p className={`hero-sub ${lang === 'zh' ? 'hero-sub-cn' : 'hero-sub-en'}`}>{t.hero.sub}</p>
         <div className="hero-actions">
           <a className="btn btn-primary" href="#quickstart-demo">
@@ -1879,30 +1891,6 @@ ${installComment}`;
 }
 
 function BenchmarkSection({ t }: { t: SiteCopy }) {
-  const [showFalsePositiveClusters, setShowFalsePositiveClusters] = useState(false);
-  const [showMissClusters, setShowMissClusters] = useState(false);
-  const renderFailurePattern = (text: string) => text.split('\n').map((line, idx) => {
-    const colonIdx = line.indexOf('：');
-    if (colonIdx > 0) {
-      const label = line.slice(0, colonIdx + 1);
-      const content = line.slice(colonIdx + 1);
-      return (
-        <span key={`${label}-${idx}`}>
-          <strong>{label}</strong>
-          {content}
-          {idx < text.split('\n').length - 1 ? <br /> : null}
-        </span>
-      );
-    }
-
-    return (
-      <span key={`line-${idx}`}>
-        {line}
-        {idx < text.split('\n').length - 1 ? <br /> : null}
-      </span>
-    );
-  });
-
   return (
     <section className="container section benchmark-section" id="benchmark">
       <div className="overview-card benchmark-home-card">
@@ -1913,11 +1901,12 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
             <sup className="bench-footnote-mark" aria-hidden="true">1</sup>
           </h3>
           <p className="section-desc">{t.overview.benchmark.desc}</p>
+          <p className="bench-summary-note">{t.overview.benchmark.missNote}</p>
         </div>
 
         <div className="bench-compare-grid">
           {t.overview.benchmark.comparisons.map((c) => (
-            <div className="bench-compare-item" key={c.name}>
+            <div className={`bench-compare-item${c.featured ? ' bench-compare-item-featured' : ''}`} key={c.name}>
               <div className="bench-compare-top">
                 <div className="bench-compare-heading">
                   <p className="bench-name">
@@ -1961,7 +1950,7 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
           ))}
         </div>
 
-        <div className="bench-failure-analysis">
+        {/* <div className="bench-failure-analysis">
           <div className="bench-failure-head">
             <h4>{t.overview.benchmark.failureAnalysis.title}</h4>
             <p>{t.overview.benchmark.failureAnalysis.desc}</p>
@@ -2014,7 +2003,7 @@ function BenchmarkSection({ t }: { t: SiteCopy }) {
                 : null}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
