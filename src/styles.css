@@ -351,17 +351,20 @@ img, svg { display: block; }
 
 .hero {
   display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
-  gap: 40px;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 32px;
   align-items: stretch;
   padding: 80px 0 40px;
 }
 
 .hero-content {
   min-width: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .eyebrow {
@@ -386,6 +389,9 @@ img, svg { display: block; }
 
 .hero h1 {
   margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-family: 'Manrope', sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
@@ -399,38 +405,61 @@ img, svg { display: block; }
 }
 
 .hero-title-en {
-  font-size: clamp(1.8rem, 2.9vw, 2.35rem);
+  --hero-title-lead-size: clamp(1.12rem, 2vw, 1.5rem);
+  --hero-title-main-size: clamp(2.15rem, 3.6vw, 2.95rem);
   line-height: 1.22;
 }
 
 .hero-title-cn {
-  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
+  --hero-title-lead-size: clamp(1.12rem, 2vw, 1.56rem);
+  --hero-title-main-size: clamp(2.05rem, 3.4vw, 2.75rem);
   line-height: 1.22;
 }
 
+.hero-title-line:first-child {
+  font-size: var(--hero-title-lead-size);
+  font-weight: 700;
+  line-height: 1.45;
+  margin-bottom: 0.5rem;
+}
+
+.hero-title-line:not(:first-child) {
+  font-size: var(--hero-title-main-size);
+  line-height: 1.08;
+}
+
 .hero-sub {
-  margin-top: 36px;
+  margin-top: 24px;
   max-width: 50ch;
+  margin-inline: auto;
   color: var(--muted);
   font-size: 1.42rem;
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 .hero-sub-en {
-  font-size: 1.5rem;
-  line-height: 1.62;
+  font-size: clamp(1.12rem, 2vw, 1.5rem);
+  line-height: 1.5;
 }
 
 .hero-sub-cn {
-  font-size: 1.56rem;
-  line-height: 1.6;
+  font-size: clamp(1.12rem, 2vw, 1.56rem);
+  line-height: 1.48;
+}
+
+.hero h1,
+.hero-sub,
+.hero-actions,
+.hero-meta {
+  width: 100%;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
-  margin-top: 50px;
+  margin-top: 34px;
 }
 
 .hero-visual {
@@ -1715,7 +1744,7 @@ img, svg { display: block; }
 .hero-meta {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   margin-top: 40px;
   padding-top: 0;
@@ -1724,10 +1753,12 @@ img, svg { display: block; }
 .hero-meta span {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   font-size: 0.82rem;
   color: var(--muted);
   font-weight: 500;
+  text-align: center;
 }
 
 .hero-meta-check {
@@ -2584,6 +2615,39 @@ img, svg { display: block; }
   .bench-compare-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+@media (min-width: 861px) {
+  .hero {
+    grid-template-columns: 1.62fr 0.88fr;
+    gap: 18px;
+  }
+
+  .hero-title-en {
+    --hero-title-lead-size: clamp(1.28rem, 2vw, 1.8rem);
+    --hero-title-main-size: clamp(2.72rem, 4.6vw, 3.78rem);
+  }
+
+  .hero-title-cn {
+    --hero-title-lead-size: clamp(1.26rem, 1.95vw, 1.76rem);
+    --hero-title-main-size: clamp(2.58rem, 4.35vw, 3.6rem);
+  }
+
+  .hero-sub-en {
+    font-size: clamp(1.24rem, 2.2vw, 1.82rem);
+  }
+
+  .hero-sub-cn {
+    font-size: clamp(1.24rem, 2.2vw, 1.86rem);
+  }
+
+  .hero-actions {
+    margin-top: 28px;
+  }
+
+  .hero-meta span {
+    font-size: 0.88rem;
+  }
+}
+
 @media (max-width: 860px) {
   .nav { display: none; }
   .mobile-nav-toggle { display: inline-flex; }
@@ -2724,17 +2788,28 @@ img, svg { display: block; }
   .dataflow-arrow { justify-content: center; padding: 4px 0; transform: rotate(90deg); }
 
   .hero h1 {
-    font-size: clamp(1.18rem, 5vw, 1.7rem);
+    margin-top: 28px;
     max-width: 100%;
     line-height: 1.18;
   }
 
-  .hero-title-en { font-size: clamp(1rem, 4.7vw, 1.42rem); }
-  .hero-title-cn { font-size: clamp(0.94rem, 4.5vw, 1.3rem); }
+  .hero-title-en {
+    --hero-title-lead-size: clamp(0.9rem, 4vw, 1rem);
+    --hero-title-main-size: clamp(1.35rem, 6vw, 1.75rem);
+  }
 
-  .hero-sub { font-size: clamp(0.92rem, 3.9vw, 1.04rem); }
+  .hero-title-cn {
+    --hero-title-lead-size: clamp(0.92rem, 4vw, 1.04rem);
+    --hero-title-main-size: clamp(1.32rem, 5.8vw, 1.7rem);
+  }
+
+  .hero-title-line:first-child { margin-bottom: 0.34rem; }
+
+  .hero-sub { margin-top: 18px; }
   .hero-sub-en { font-size: clamp(0.9rem, 3.8vw, 1rem); }
   .hero-sub-cn { font-size: clamp(0.92rem, 3.9vw, 1.04rem); }
+
+  .hero-actions { margin-top: 24px; }
 
   .btn { width: 100%; }
 
