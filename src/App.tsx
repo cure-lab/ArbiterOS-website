@@ -27,7 +27,7 @@ const en = {
     howItWorksBtn: 'Overview',
     githubBtn: 'GitHub',
     meta: [
-      '✓ Zero code intrusion, seamless takeover for full-scope agents like OpenClaw / Nanobot',
+      '✓ Zero code intrusion, seamless takeover for full-scope agents like OpenClaw / NanoBot / Hermes Agent',
       '✓ Physical-grade interception based on instruction-flow parsing and data taint tracking',
       '✓ 100% support for local private deployment',
     ],
@@ -164,11 +164,11 @@ const en = {
   quickStart: {
     label: '',
     title: 'Get started in three steps',
-    desc: 'Zero Code Intrusion: Compatible with terminal apps like OpenClaw / NanoBot and lower-level frameworks like LangChain. \nTake over system-level governance in one click with proxy mode and no core code changes.',
+    desc: 'Zero Code Intrusion: Compatible with terminal apps like OpenClaw / NanoBot / Hermes Agent and lower-level frameworks like LangChain. \nTake over system-level governance in one click with proxy mode and no core code changes.',
     steps: [
       { step: '1', title: 'Install & Start Kernel', description: 'Run the install script or Docker Compose to start ArbiterOS Kernel (default port:4000).' },
       { step: '2', title: 'Configure Models & Policies', description: 'Configure models, API keys, optional skill trust scanning, and policy rules in litellm_config.yaml.' },
-      { step: '3', title: 'Connect OpenClaw / Nanobot / Your Agent', description: 'Point your model provider to http://127.0.0.1:4000/v1 for instant governance, audit, and observability.' },
+      { step: '3', title: 'Connect OpenClaw / NanoBot / Hermes Agent / Your Agent', description: 'Point your model provider to http://127.0.0.1:4000/v1 for instant governance, audit, and observability.' },
     ],
     commandsLabel: 'Install commands',
     runCommandsLabel: 'Run command',
@@ -614,7 +614,7 @@ const zh: typeof en = {
     howItWorksBtn: '系统总览',
     githubBtn: 'GitHub',
     meta: [
-      '✓ 零代码侵入，无缝接管 OpenClaw / Nanobot 等全域 Agent',
+      '✓ 零代码侵入，无缝接管 OpenClaw / NanoBot / Hermes Agent 等全域 Agent',
       '✓ 基于指令流解析与数据污点追踪的物理级拦截',
       '✓ 100% 支持本地私有化部署',
     ],
@@ -752,11 +752,11 @@ const zh: typeof en = {
   quickStart: {
     label: '',
     title: '三步接入 ArbiterOS',
-    desc: '零代码侵入（Zero Code Intrusion）：兼容 OpenClaw / NanoBot 等终端应用与 LangChain 等底层框架。\n零核心代码改动，以 Proxy 模式一键实现系统级接管。',
+    desc: '零代码侵入（Zero Code Intrusion）：兼容 OpenClaw / NanoBot / Hermes Agent 等终端应用与 LangChain 等底层框架。\n零核心代码改动，以 Proxy 模式一键实现系统级接管。',
     steps: [
       { step: '1', title: '安装并启动内核', description: '一条命令安装或使用 Docker Compose，启动 ArbiterOS 内核 (默认端口：4000)' },
       { step: '2', title: '配置模型与策略', description: '在 ArbiterOS 的配置文件中配置模型、API、技能信任目录，以及策略规则' },
-      { step: '3', title: '连接 OpenClaw、Nanobot 或其他智能体', description: '将模型提供方指向 http://127.0.0.1:4000/v1，即可获得治理、审计与可观测能力。' },
+      { step: '3', title: '连接 OpenClaw、NanoBot、Hermes Agent 或其他智能体', description: '将模型提供方指向 http://127.0.0.1:4000/v1，即可获得治理、审计与可观测能力。' },
     ],
     commandsLabel: '安装命令',
     runCommandsLabel: '启动命令',
