@@ -240,7 +240,7 @@ const en = {
     resources: [
       { label: 'GitHub Repository', description: 'Source code, docs, and setup.', href: 'https://github.com/cure-lab/ArbiterOS' },
       { label: 'Visualization Extension', description: 'Governance visualization workspace.', href: 'https://github.com/cure-lab/ArbiterOS/tree/main/langfuse' },
-      { label: 'Research Paper', description: 'Technical details on arXiv.', href: 'https://arxiv.org/abs/2510.13857' },
+      { label: 'Research Paper', description: 'Technical details on arXiv.', href: 'https://arxiv.org/abs/2604.18652' },
     ],
   },
   overview: {
@@ -829,7 +829,7 @@ const zh: typeof en = {
     resources: [
       { label: 'GitHub 仓库', description: '源码、文档与部署指南。', href: 'https://github.com/cure-lab/ArbiterOS' },
       { label: '可视化扩展', description: '治理可视化工作空间。', href: 'https://github.com/cure-lab/ArbiterOS/tree/main/langfuse' },
-      { label: '研究论文', description: 'arXiv 上的技术细节。', href: 'https://arxiv.org/abs/2510.13857' },
+      { label: '研究论文', description: 'arXiv 上的技术细节。', href: 'https://arxiv.org/abs/2604.18652' },
     ],
   },
   overview: {
@@ -1625,13 +1625,13 @@ function CtaSection({ t }: { t: SiteCopy }) {
             </a>
             <a
               className="btn btn-secondary"
-              href="https://arxiv.org/abs/2510.13857"
+              href="https://arxiv.org/abs/2604.18652"
               target="_blank"
               rel="noreferrer"
             >
               {t.cta.secondaryBtn}
             </a>
-            <a className="btn btn-outline" href="mailto:contact@arbiteros.ai">
+            <a className="btn btn-outline" href="mailto:curelab.cuhk@gmail.com">
               {t.cta.contactBtn}
             </a>
           </div>
